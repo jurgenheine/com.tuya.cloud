@@ -1,0 +1,15 @@
+{
+  "name": "com.tuya.cloud",
+  "version": "0.0.1",
+  "description": "This app allows you to connect Homey to the Tuya cloud",
+  "main": "app.js",
+  "dependencies": {
+    "request": "^2.88.0"
+  },
+  "scripts": {
+    "run": "homeyConfig compose && athom project --run",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "MIT"
+}

@@ -1,0 +1,79 @@
+{
+  "id": "com.tuya.cloud",
+  "sdk": 2,
+  "name": {
+    "en": "Tuya cloud"
+  },
+  "description": {
+    "en": "This app allows you to connect Homey to the Tuya cloud"
+  },
+  "category": "lights",
+  "version": "0.0.1",
+  "compatibility": ">=1.5.3",
+  "author": {
+    "name": "Jurgen Heine",
+    "email": "private"
+  },
+  "contributors": {
+    "developers": []
+  },
+  "permissions": [],
+  "images": {
+    "large": "/assets/images/large.png",
+    "small": "/assets/images/small.png"
+  },
+  "drivers": [
+    {
+      "id": "light",
+      "name": {
+        "en": "Light"
+      },
+      "class": "light",
+      "capabilities": [
+        "onoff",
+        "dim",
+        "light_temperature",
+        "light_hue",
+        "light_saturation"
+      ],
+      "pair": [
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ],
+      "images": {
+        "large": "/drivers/light/assets/images/large.png",
+        "small": "/drivers/light/assets/images/small.png"
+      }
+    }
+  ]//,
+  //"flow": {
+  //  "actions": [
+  //    {
+  //      "id": "setScene",
+  //      "title": {
+  //        "en": "Set a mood"
+  //      },
+  //      "args": [
+  //        {
+  //          "name": "group",
+  //          "type": "device",
+  //          "filter": "driver_id=group"
+  //        },
+  //        {
+  //          "name": "scene",
+  //          "type": "autocomplete"
+  //        }
+  //      ]
+  //    }
+  //  ]
+  //}
+}
