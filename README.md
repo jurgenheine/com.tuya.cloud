@@ -1,31 +1,18 @@
-# IKEA Tradfri Gateway
+# Tuya cloud
 
-Homey App for the IKEA Tradfri Gateway
+Homey App for the Tuya cloud
 
-First setup the gateway in the App settings page.
-
-To build the native packages for ARM Linux run (on a clean install):
-npm i --target_arch=arm --target_platform=linux
-
-Thanks to AlCalzone for creating node-tradfri-client 
-https://github.com/AlCalzone/node-tradfri-client
-
-Thanks to Robert Klep for answering my questions on slack and making homey-app-upload
-https://github.com/robertklep/homey-app-upload
-
-Thanks to Espen Ljosland for adding group support
-
-Thanks to Sven ten Raa for adding wall socket support
+First setup the cloud connection in the App settings page.
 
 ## TODO 
-- Fix issue where lights cannot be turned off anymore via Homey
-- Support renaming of devices (so Tradfri Gateway device names and Homey device names stay in sync)
+- Add other device types
+- Support renaming of devices (so Tuya device names and Homey device names stay in sync)
 - Translation of texts (at least EN and NL)
 
 ## License
 The MIT License (MIT)
 
-Copyright 2018 Rogier Hofboer
+Copyright 2019 Jurgen Heine
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
