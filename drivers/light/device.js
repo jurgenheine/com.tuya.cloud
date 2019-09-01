@@ -64,7 +64,7 @@ class LightDevice extends BaseDevice {
             }
         }
         if (valueObj.light_temperature != null) {
-            await this.set_color_temp(valueObj.light_temperature);
+            await this.set_color_temp(1-valueObj.light_temperature);
         }
         if (valueObj.light_hue != null && valueObj.light_saturation) {
             await this.set_color(valueObj.light_hue, valueObj.light_saturation);
@@ -73,7 +73,6 @@ class LightDevice extends BaseDevice {
         } else if (valueObj.light_saturation) {
             await this.set_color(null, valueObj.light_saturation);
         }
-        await this.update();
     }
 
     support_color() {
@@ -139,7 +138,8 @@ class LightDevice extends BaseDevice {
 
     async set_brightness(brightness) {
         // brigthness 0-100 for color else 0-255, 10 and below is off
-        const value = 10 + (this.data.color_mode === 'colour' ? brightness * 90 : brightness * 254);
+        const value = Math.round(10 + (this.data.color_mode === 'colour' ? brightness * 90 : brightness * 254));
+        this.data.brightness = value;
         await Homey.app.operateDevice(this.id, 'brightnessSet', { value: value });
     }
 
@@ -147,20 +147,27 @@ class LightDevice extends BaseDevice {
         //Set the color of light.
         const hsv_color = {};
         // hue 0 -360
-        hsv_color.hue = hue != null ? hue * 360 : this._get_hue();
+        hsv_color.hue = hue != null ? Math.round(hue * 360) : this._get_hue();
         // saturation 0-1( but status 0-100)
         hsv_color.saturation = saturation != null ? saturation : this.get_saturation();
 
-        hsv_color.brightness = this.getBrightness() * 100;
+        hsv_color.brightness = Math.round(this.getBrightness() * 100);
         // color white
         if (hsv_color.saturation === 0)
             hsv_color.hue = 0;
+        this.data.hue = hsv_color.hue;
+        this.data.saturation = hsv_color.saturation * 100;
+        this.data.brightness = hsv_color.brightness;
+        this.data.color_mode = "colour";
         await Homey.app.operateDevice(this.id, 'colorSet', { color: hsv_color });
     }
 
     async set_color_temp(color_temp) {
         // min 1000, max 10000, range is 9000 => 1000 + color_temp * 9000
-        await Homey.app.operateDevice(this.id, 'colorTemperatureSet', { value: 1000 + color_temp * 9000 });
+        const value = Math.round(1000 + color_temp * 9000);
+        this.data.color_temp = value;
+        this.data.color_mode = "white";
+        await Homey.app.operateDevice(this.id, 'colorTemperatureSet', { value: value});
     }
 
     _get_hue() {
