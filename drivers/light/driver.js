@@ -13,7 +13,7 @@ class LightDriver extends Homey.Driver {
         let homeyDevice = this.getDevice({id: tuyaDevice.id});
         if (homeyDevice instanceof Error) return;
         console.log("Device found");
-        homeyDevice.updateData(tuyaDevice);
+        homeyDevice.updateData(tuyaDevice.data);
         homeyDevice.updateCapabilities();
     }
 

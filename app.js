@@ -87,8 +87,6 @@ class TuyaCloudApp extends Homey.App {
     }
 
     get_device_by_id(id) {
-
-
         this._log("sessionData: " + JSON.stringify(client.session));
         return this.client.get_device_by_id(id);
     }
@@ -130,7 +128,6 @@ class TuyaCloudApp extends Homey.App {
     }
 
     _deviceUpdated(acc) {
-        
         switch (acc.dev_type) {
             //case climateType:
             //    break;

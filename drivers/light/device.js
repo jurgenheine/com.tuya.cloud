@@ -15,7 +15,7 @@ class LightDevice extends BaseDevice {
     }
 
     updateCapabilities() {
-        if (this.alive) {
+        if (this.data != null && this.data.online) {
             this.setAvailable()
                 .catch(this.error);
         }
@@ -51,7 +51,8 @@ class LightDevice extends BaseDevice {
     }
 
     async _onMultipleCapabilityListener(valueObj, optsObj) {
-        Object.entries(valueObj);
+        console.log("set capabilities: " + JSON.stringify(valueObj));
+
         if (valueObj.dim != null) {
             await this.set_brightness(valueObj.dim);
         }
@@ -69,8 +70,7 @@ class LightDevice extends BaseDevice {
             await this.set_color(valueObj.light_hue, valueObj.light_saturation);
         } else if (valueObj.light_hue) {
             await this.set_color(valueObj.light_hue, null);
-        }
-        else {
+        } else if (valueObj.light_saturation) {
             await this.set_color(null, valueObj.light_saturation);
         }
         await this.update();
@@ -98,11 +98,7 @@ class LightDevice extends BaseDevice {
     }
 
     getCurrentState() {
-        return this.state;
-    }
-
-    getState() {
-        return this.alive;
+        return this.data != null ? this.data.state === 'true' : false;
     }
 
     getBrightness() {
