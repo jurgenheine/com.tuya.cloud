@@ -5,43 +5,46 @@ const Homey = require('homey');
 class LightDriver extends Homey.Driver {
 
     onInit() {
-        this.log('Tradfri Light Driver has been initialized');
+        this.log('Tuya Light Driver has been initialized');
     }
 
     updateCapabilities(tuyaDevice) {
-        let homeyDevice = this.getDevice({ id: tuyaDevice.obj_id });
+        console.log("Get device for: " + tuyaDevice.id);
+        let homeyDevice = this.getDevice({id: tuyaDevice.id});
         if (homeyDevice instanceof Error) return;
-        homeyDevice.updateCapabilities(tuyaDevice);
+        console.log("Device found");
+        homeyDevice.updateData(tuyaDevice);
+        homeyDevice.updateCapabilities();
     }
 
     onPairListDevices(data, callback) {
         let devices = [];
-        if (!Homey.app.isGatewayConnected()) {
+        if (!Homey.app.isConnected()) {
             callback(new Error("Please configure the app first."));
         }
         else {
             let lights = Homey.app.getLights();
-            for (const device of Object.values(lights)) {
+            for (const tuyaDevice of Object.values(lights)) {
 
                 let capabilities = [];
                 capabilities.push("onoff");
-                if(device.support_dim())
+                if (tuyaDevice.data.brightness != null || (tuyaDevice.data.color != null && tuyaDevice.data.color.brightness != null))
                     capabilities.push("dim");
-                if (device.support_color()) {
+                if (tuyaDevice.data.color != null) {
                     capabilities.push("light_hue");
                     capabilities.push("light_saturation");
                 }
-                if (device.support_color_temp())
+                if (tuyaDevice.data.color_temp != null)
                     capabilities.push("light_temperature");
-            }
 
-            devices.push({
-                data: {
-                    id: device.obj_id
-                },
-                capabilities: capabilities,
-                name: obj_name.name
-            });
+                devices.push({
+                    data: {
+                        id: tuyaDevice.id
+                    },
+                    capabilities: capabilities,
+                    name: tuyaDevice.name
+                });
+            }
         }
         callback(null, devices.sort(LightDriver._compareHomeyDevice));
     }

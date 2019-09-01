@@ -54,26 +54,5 @@
         "small": "/drivers/light/assets/images/small.png"
       }
     }
-  ]//,
-  //"flow": {
-  //  "actions": [
-  //    {
-  //      "id": "setScene",
-  //      "title": {
-  //        "en": "Set a mood"
-  //      },
-  //      "args": [
-  //        {
-  //          "name": "group",
-  //          "type": "device",
-  //          "filter": "driver_id=group"
-  //        },
-  //        {
-  //          "name": "scene",
-  //          "type": "autocomplete"
-  //        }
-  //      ]
-  //    }
-  //  ]
-  //}
+  ]
 }

@@ -17,7 +17,7 @@ class TuyaCloudApp extends Homey.App {
     
     onInit() {
         this.initialized =false;
-        this._gatewayConnected = false;
+        this._connected = false;
         //this._homeyClimateDriver = Homey.ManagerDrivers.getDriver(climateType);
         //this._homeyCoverDriver = Homey.ManagerDrivers.getDriver(coverType);
         //this._homeyFanDriver = Homey.ManagerDrivers.getDriver(fanType);
@@ -27,8 +27,9 @@ class TuyaCloudApp extends Homey.App {
         //this._homeySceneDriver = Homey.ManagerDrivers.getDriver(sceneType);
         //this._homeySwitchDriver = Homey.ManagerDrivers.getDriver(switchType);
 
-        async () => { await this._connectCallback();};
-
+        (async () => {
+            await this._connectCallback();
+        })();
         //new Homey.FlowCardAction('setScene')
         //    .register()
         //    .registerRunListener( this._onFlowActionSetScene.bind(this) )
@@ -43,9 +44,9 @@ class TuyaCloudApp extends Homey.App {
     {
         this._destroyTuyaClient();
         this._createNewTuyaClient();
-        this._log("Connect to gateway.");
+        this._log("Connect to cloud.");
         await this.client.connect();
-        this._log("Connected to gateway.");
+        this._log("Connected to cloud.");
         this._connected = true;
     }
 
@@ -74,7 +75,7 @@ class TuyaCloudApp extends Homey.App {
 
     _destroyTuyaClient() {
         this._connected = false;
-        if (this.client !== null) {
+        if (this.client != null) {
             this._log("Disconnect to cloud.");
             this.client =null;
             this._log("Connection to cloud disconnected.");
@@ -86,6 +87,9 @@ class TuyaCloudApp extends Homey.App {
     }
 
     get_device_by_id(id) {
+
+
+        this._log("sessionData: " + JSON.stringify(client.session));
         return this.client.get_device_by_id(id);
     }
 
@@ -126,7 +130,7 @@ class TuyaCloudApp extends Homey.App {
     }
 
     _deviceUpdated(acc) {
-        this._log(`${acc.name} updated`);
+        
         switch (acc.dev_type) {
             //case climateType:
             //    break;
@@ -148,10 +152,12 @@ class TuyaCloudApp extends Homey.App {
             default:
                 break;
         }
+        this._log(`${acc.name} updated`);
     }
 
     _deviceRemoved(acc) {
-        this._log(`${acc.name} removed`);
+        if(acc!=null)
+            this._log(acc.name + ' removed');
     }
 
     //todo scenes below

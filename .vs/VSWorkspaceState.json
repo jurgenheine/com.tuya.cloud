@@ -1,10 +1,10 @@
 {
   "ExpandedNodes": [
     "",
-    "\\assets\\images",
+    "\\drivers",
     "\\drivers\\light",
-    "\\drivers\\light\\assets",
-    "\\drivers\\light\\assets\\images"
+    "\\lib"
   ],
+  "SelectedNode": "\\drivers\\light\\driver.js",
   "PreviewInSolutionExplorer": false
 }

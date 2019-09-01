@@ -33,31 +33,27 @@
         </div>
         <div class="field row">
             <label for="countrycode">Country code</label>
-            <select id="countrycode" type="text" value="" />
+            <select id="countrycode"></select>
         </div>
         <!--<div class="field row">
             <label for="region">Region</label>
-            <select id="region" type="text" value="" />
+            <select id="region" />
         </div>-->
         <div class="field row">
             <label for="business">Business</label>
-            <select id="business" type="text" value="" />
+            <select id="business"></select>
         </div>
-
         <div class="field row">
-            <button id="save" class="left">Save</button>
+            <button id="save" class="left">>Save</button>
         </div>
         <div class="field row">
             <button id="reconnect" class="left">Reconnect</button>
         </div>
-        <div class="field row">
-            <button id="reboot" class="left">Reboot gateway</button>
-        </div>
     </fieldset>
     <script type="text/javascript">
-        fillDropdowns();
 
         function onHomeyReady(Homey) {
+            
             var usernameElement = document.getElementById('username');
             var passwordElement = document.getElementById('password');
             var countrycodeElement = document.getElementById('countrycode');
@@ -65,6 +61,9 @@
             var businessElement = document.getElementById('business');
             var saveElement = document.getElementById('save');
             var reconnectElement = document.getElementById('reconnect');
+
+            fillDropdown(businessElement,businessCodes);
+            fillDropdown(countrycodeElement, countryCodes);
 
             Homey.get('username', function (err, username) {
                 if (err) return Homey.alert(err);
@@ -78,7 +77,8 @@
 
             Homey.get('countrycode', function (err, countrycode) {
                 if (err) return Homey.alert(err);
-                countrycodeElement.value = countrycode;
+                if (countrycode != null)
+                    countrycodeElement.value = countrycode;
             });
 
             //Homey.get('region', function (err, region) {
@@ -88,7 +88,8 @@
 
             Homey.get('biztype', function (err, business) {
                 if (err) return Homey.alert(err);
-                businessElement.value = business;
+                if (business != null)
+                    businessElement.value = business;
             });
 
             reconnectElement.addEventListener('click', function (e) {
@@ -131,45 +132,24 @@
             Homey.ready();
         }
 
-        function fillDropdowns() {
-            fillBusiness();
-            //fillRegions();
-            fillCountryCodes();
-        }
-
-        function fillBusiness() {
-            var select = document.getElementById('business');
-            Object.keys(businessCodes).forEach(function (item) {
-                select.options[select.options.length] = new Option(businessCodes[item], item);
+        function fillDropdown(element, data) {
+            Object.keys(data).forEach(function (item) {
+                element.options[element.options.length] = new Option(data[item], item);
             });
         }
 
-        function fillRegions() {
-            var select = document.getElementById('region');
-            Object.keys(regionCodes).forEach(function (item) {
-                select.options[select.options.length] = new Option(regionCodes[item], item);
-            });
+        const businessCodes = {
+            'smart_life': "Smart Life",
+            'tuya': "Tuya"
         }
 
-        function fillCountryCodes(){
-            var select = document.getElementById('countrycode');
-            Object.keys(countryCodes).forEach(function (item) {
-                select.options[select.options.length] = new Option(countryCodes[item], item);
-            });
-        }
-
-        var businessCodes = {
-            smart_life:"Smart Life",
-            tuya: "Tuya"
-        }
-
-        var regionCodes = {
-            Asia: 'cn',
-            Europe: 'eu',
-            US: 'us'
+        const regionCodes = {
+            'cn': 'Asia',
+            'eu': 'Europe',
+            'us': 'US'
         };
 
-        var countryCodes = {
+        const countryCodes = {
             4: 'Afghanistan',
             248: 'Åland Islands',
             8: 'Albania',
