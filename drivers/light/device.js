@@ -3,14 +3,14 @@
 const Homey = require('homey');
 const BaseDevice = require('../base');
 
-const CAPABILITIES_SET_DEBOUNCE = 100;
+const CAPABILITIES_SET_DEBOUNCE = 1000;
 
 class LightDevice extends BaseDevice {
 
-    async onInit() {
+    onInit() {
         this.initDevice(this.getData().id);
         this.updateCapabilities();
-        this.registerMultipleCapabilityListener(this.getCapabilities(), this._onMultipleCapabilityListener.bind(this), CAPABILITIES_SET_DEBOUNCE);
+        this.registerMultipleCapabilityListener(this.getCapabilities(), async (values, options) => { return this._onMultipleCapabilityListener(values,options); }, CAPABILITIES_SET_DEBOUNCE);
         this.log(`Tuya Light ${this.getName()} has been initialized`);
     }
 
@@ -34,19 +34,21 @@ class LightDevice extends BaseDevice {
                 .catch(this.error);
         }
 
-        if (this.hasCapability("light_temperature")) {
-            this.setCapabilityValue("light_temperature", this.get_color_temp())
-                .catch(this.error);
-        }
+        if (this.data != null && this.data.color_mode === "colour") {
+            if (this.hasCapability("light_hue")) {
+                this.setCapabilityValue("light_hue", this.get_hue())
+                    .catch(this.error);
+            }
 
-        if (this.hasCapability("light_hue")) {
-            this.setCapabilityValue("light_hue", this.get_hue())
-                .catch(this.error);
-        }
-
-        if (this.hasCapability("light_saturation")) {
-            this.setCapabilityValue("light_saturation", this.get_saturation())
-                .catch(this.error);
+            if (this.hasCapability("light_saturation")) {
+                this.setCapabilityValue("light_saturation", this.get_saturation())
+                    .catch(this.error);
+            }
+        }else {
+            if (this.hasCapability("light_temperature")) {
+                this.setCapabilityValue("light_temperature", this.get_color_temp())
+                    .catch(this.error);
+            }
         }
     }
 
@@ -66,11 +68,11 @@ class LightDevice extends BaseDevice {
         if (valueObj.light_temperature != null) {
             await this.set_color_temp(1-valueObj.light_temperature);
         }
-        if (valueObj.light_hue != null && valueObj.light_saturation) {
+        if (valueObj.light_hue != null && valueObj.light_saturation!=null) {
             await this.set_color(valueObj.light_hue, valueObj.light_saturation);
-        } else if (valueObj.light_hue) {
+        } else if (valueObj.light_hue!=null) {
             await this.set_color(valueObj.light_hue, null);
-        } else if (valueObj.light_saturation) {
+        } else if (valueObj.light_saturation!=null) {
             await this.set_color(null, valueObj.light_saturation);
         }
     }
