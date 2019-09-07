@@ -10,7 +10,7 @@ class LightDevice extends BaseDevice {
     onInit() {
         this.initDevice(this.getData().id);
         this.updateCapabilities();
-        this.registerMultipleCapabilityListener(this.getCapabilities(), async (values, options) => { return this._onMultipleCapabilityListener(values,options); }, CAPABILITIES_SET_DEBOUNCE);
+        this.registerMultipleCapabilityListener(this.getCapabilities(), async (values, options) => { return this._onMultipleCapabilityListener(values, options); }, CAPABILITIES_SET_DEBOUNCE);
         this.log(`Tuya Light ${this.getName()} has been initialized`);
     }
 
@@ -44,7 +44,7 @@ class LightDevice extends BaseDevice {
                 this.setCapabilityValue("light_saturation", this.get_saturation())
                     .catch(this.error);
             }
-        }else {
+        } else {
             if (this.hasCapability("light_temperature")) {
                 this.setCapabilityValue("light_temperature", this.get_color_temp())
                     .catch(this.error);
@@ -66,13 +66,13 @@ class LightDevice extends BaseDevice {
             }
         }
         if (valueObj.light_temperature != null) {
-            await this.set_color_temp(1-valueObj.light_temperature);
+            await this.set_color_temp(1 - valueObj.light_temperature);
         }
-        if (valueObj.light_hue != null && valueObj.light_saturation!=null) {
+        if (valueObj.light_hue != null && valueObj.light_saturation != null) {
             await this.set_color(valueObj.light_hue, valueObj.light_saturation);
-        } else if (valueObj.light_hue!=null) {
+        } else if (valueObj.light_hue != null) {
             await this.set_color(valueObj.light_hue, null);
-        } else if (valueObj.light_saturation!=null) {
+        } else if (valueObj.light_saturation != null) {
             await this.set_color(null, valueObj.light_saturation);
         }
     }
@@ -109,7 +109,13 @@ class LightDevice extends BaseDevice {
     }
 
     get_hue() {
-        return this._get_hue() / 360;
+        var input = this._get_hue();
+        var value = Homey.app.getReverseColorMap(input) / 360;
+        if (value < 0.0)
+            return 0.0;
+        if (value > 1.0)
+            return 1.0;
+        return value;
     }
 
     get_saturation() {
@@ -141,7 +147,12 @@ class LightDevice extends BaseDevice {
     async set_brightness(brightness) {
         // brigthness 0-100 for color else 0-255, 10 and below is off
         const value = Math.round(10 + (this.data.color_mode === 'colour' ? brightness * 90 : brightness * 254));
-        this.data.brightness = value;
+        if (this.data.color_mode === 'colour') {
+
+            this.data.color.brightness = value;
+        } else {
+            this.data.brightness = value;
+        }
         await Homey.app.operateDevice(this.id, 'brightnessSet', { value: value });
     }
 
@@ -149,7 +160,7 @@ class LightDevice extends BaseDevice {
         //Set the color of light.
         const hsv_color = {};
         // hue 0 -360
-        hsv_color.hue = hue != null ? Math.round(hue * 360) : this._get_hue();
+        hsv_color.hue = hue != null ? Math.round(Homey.app.getColorMap(hue * 360)) : this._get_hue();
         // saturation 0-1( but status 0-100)
         hsv_color.saturation = saturation != null ? saturation : this.get_saturation();
 
@@ -169,7 +180,7 @@ class LightDevice extends BaseDevice {
         const value = Math.round(1000 + color_temp * 9000);
         this.data.color_temp = value;
         this.data.color_mode = "white";
-        await Homey.app.operateDevice(this.id, 'colorTemperatureSet', { value: value});
+        await Homey.app.operateDevice(this.id, 'colorTemperatureSet', { value: value });
     }
 
     _get_hue() {

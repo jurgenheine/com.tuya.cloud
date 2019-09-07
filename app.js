@@ -1,7 +1,8 @@
 'use strict';
 
-const   Homey                   = require('homey'),
+const Homey = require('homey'),
     TuyaApi = require("./lib/cloudtuya");
+const linear = require('everpolate').linear;
 
 
 const climateType = "climate";
@@ -14,9 +15,9 @@ const sceneType = "scene";
 const switchType = "switch";
 
 class TuyaCloudApp extends Homey.App {
-    
+
     onInit() {
-        this.initialized =false;
+        this.initialized = false;
         this._connected = false;
         //this._homeyClimateDriver = Homey.ManagerDrivers.getDriver(climateType);
         //this._homeyCoverDriver = Homey.ManagerDrivers.getDriver(coverType);
@@ -36,26 +37,84 @@ class TuyaCloudApp extends Homey.App {
         //    .getArgument('scene')
         //    .registerAutocompleteListener( this._onSceneAutoComplete.bind(this) );
 
-        this._log(`Tuya cloud App has been initialized`);
-        this.initialized =true;
+        this.logToHomey(`Tuya cloud App has been initialized`);
+        this.initialized = true;
     }
 
-    async connect()
-    {
+    async connect() {
         this._destroyTuyaClient();
         this._createNewTuyaClient();
-        this._log("Connect to cloud.");
+        this.logToHomey("Start connection to cloud.");
         await this.client.connect();
-        this._log("Connected to cloud.");
+        this.logToHomey("Connected to cloud.");
         this._connected = true;
+        this.setColorMap();
     }
 
-    async _connectCallback(){
+    setColorMap() {
+        try {
+            let colormap = Homey.ManagerSettings.get('huecolormap');
+            if (colormap != null && colormap != "") {
+                const maps = colormap.split(',');
+                this.colormapinput = [];
+                this.colormapoutput = [];
+                maps.forEach((map) => {
+                    let maparray = map.split(':');
+                    if (maparray.length === 2) {
+                        this.colormapinput.push(parseFloat(maparray[0]));
+                        this.colormapoutput.push(parseFloat(maparray[1]));
+                    }
+                });
+            }
+        }
+        catch (ex) {
+            this.logToHomey(ex);
+        }
+    }
+
+    getColorMap(input) {
+        if (this.colormapinput != null) {
+            return linear(input, this.colormapinput, this.colormapoutput);
+        }
+        return input;
+    }
+
+    getReverseColorMap(input) {
+        if (this.colormapinput != null) {
+            return linear(input, this.colormapoutput, this.colormapinput);
+        }
+        return input;
+    }
+
+    interpolateArray(x, input, output) {
+        let value = x;
+        var index = input.findIndex(n => n > x); // first value bigger then desired value
+        if (index > 1) {
+            value = this.interpolate(
+                x,
+                parseFloat(input[index - 1]),
+                parseFloat(input[index]),
+                parseFloat(output[index - 1]),
+                parseFloat(output[index]));
+        }
+        return value;
+    }
+
+    interpolate(x, x0, x1, y0, y1) {
+        let yrange = y1 - y0;
+        let xrange = x1 - x0;
+        let xoffset = x = x0;
+
+        let value = y0 + xoffset * yrange / xrange;
+        return value;
+    }
+
+    async _connectCallback() {
         try {
             await this.connect();
         } catch (err) {
-            this._log(err.message);
-        } 
+            this.logToHomey(err.message);
+        }
     }
 
     _createNewTuyaClient() {
@@ -76,9 +135,8 @@ class TuyaCloudApp extends Homey.App {
     _destroyTuyaClient() {
         this._connected = false;
         if (this.client != null) {
-            this._log("Disconnect to cloud.");
-            this.client =null;
-            this._log("Connection to cloud disconnected.");
+            this.client = null;
+            this.logToHomey("Connection to cloud disconnected.");
         }
     }
 
@@ -87,7 +145,7 @@ class TuyaCloudApp extends Homey.App {
     }
 
     get_device_by_id(id) {
-        this._log("sessionData: " + JSON.stringify(client.session));
+        this.logToHomey("sessionData: " + JSON.stringify(client.session));
         return this.client.get_device_by_id(id);
     }
 
@@ -124,7 +182,11 @@ class TuyaCloudApp extends Homey.App {
     }
 
     operateDevice(devId, action, param = null, namespace = 'control') {
-        return this.client.device_control(devId,action,param,namespace);
+        try {
+            return this.client.device_control(devId, action, param, namespace);
+        } catch (ex) {
+            this.logToHomey(ex);
+        }
     }
 
     _deviceUpdated(acc) {
@@ -149,12 +211,12 @@ class TuyaCloudApp extends Homey.App {
             default:
                 break;
         }
-        this._log(`${acc.name} updated`);
+        this.logToHomey(`${acc.name} updated`);
     }
 
     _deviceRemoved(acc) {
-        if(acc!=null)
-            this._log(acc.name + ' removed');
+        if (acc != null)
+            this.logToHomey(acc.name + ' removed');
     }
 
     //todo scenes below
@@ -173,9 +235,9 @@ class TuyaCloudApp extends Homey.App {
     _isArray(a) {
         return !!a && a.constructor === Array;
     }
-    
+
     // The heart of this app. adding a log entry
-    _log(data) {
+    logToHomey(data) {
         this.log(data);
     }
 }

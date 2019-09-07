@@ -4,6 +4,7 @@
   "description": "This app allows you to connect Homey to the Tuya cloud",
   "main": "app.js",
   "dependencies": {
+    "everpolate": "0.0.3",
     "request": "^2.88.0"
   },
   "scripts": {

@@ -2,9 +2,8 @@
   "ExpandedNodes": [
     "",
     "\\drivers",
-    "\\drivers\\light",
-    "\\lib"
+    "\\drivers\\light"
   ],
-  "SelectedNode": "\\drivers\\light\\device.js",
+  "SelectedNode": "\\app.js",
   "PreviewInSolutionExplorer": false
 }

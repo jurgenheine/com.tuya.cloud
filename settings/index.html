@@ -36,15 +36,20 @@
             <select id="countrycode"></select>
         </div>
         <!--<div class="field row">
-            <label for="region">Region</label>
-            <select id="region" />
-        </div>-->
+        <label for="region">Region</label>
+        <select id="region" />
+    </div>-->
         <div class="field row">
             <label for="business">Business</label>
             <select id="business"></select>
         </div>
+        <h2>Tuya cloud Settings</h2>
         <div class="field row">
-            <button id="save" class="left">>Save</button>
+            <label for="colormap">Hue colormap</label>
+            <input id="colormap" type="text" value=""/>
+        </div>
+        <div class="field row">
+            <button id="save" class="left">Save</button>
         </div>
         <div class="field row">
             <button id="reconnect" class="left">Reconnect</button>
@@ -59,6 +64,7 @@
             var countrycodeElement = document.getElementById('countrycode');
             //var regionElement = document.getElementById('region');
             var businessElement = document.getElementById('business');
+            var colormapElement = document.getElementById('colormap');
             var saveElement = document.getElementById('save');
             var reconnectElement = document.getElementById('reconnect');
 
@@ -92,6 +98,12 @@
                     businessElement.value = business;
             });
 
+            Homey.get('huecolormap', function (err, huecolormap) {
+                if (err) return Homey.alert(err);
+                if (huecolormap != null)
+                    colormapElement.value = huecolormap;
+            });
+
             reconnectElement.addEventListener('click', function (e) {
                 Homey.api('GET', '/connect', null, function (err) {
                     if (err) return Homey.alert(err);
@@ -118,6 +130,10 @@
                 //});
 
                 Homey.set('biztype', businessElement.value, function (err) {
+                    if (err) return Homey.alert(err);
+                });
+
+                Homey.set('huecolormap', colormapElement.value, function (err) {
                     if (err) return Homey.alert(err);
                 });
 
