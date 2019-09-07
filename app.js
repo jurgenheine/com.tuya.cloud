@@ -26,16 +26,16 @@ class TuyaCloudApp extends Homey.App {
         //this._homeyLockDriver = Homey.ManagerDrivers.getDriver(lockType);
         //this._homeyRemoteDriver = Homey.ManagerDrivers.getDriver(remoteType);
         //this._homeySceneDriver = Homey.ManagerDrivers.getDriver(sceneType);
-        //this._homeySwitchDriver = Homey.ManagerDrivers.getDriver(switchType);
+        this._homeySwitchDriver = Homey.ManagerDrivers.getDriver(switchType);
 
         (async () => {
             await this._connectCallback();
         })();
-        //new Homey.FlowCardAction('setScene')
-        //    .register()
-        //    .registerRunListener( this._onFlowActionSetScene.bind(this) )
-        //    .getArgument('scene')
-        //    .registerAutocompleteListener( this._onSceneAutoComplete.bind(this) );
+        new Homey.FlowCardAction('setScene')
+            .register()
+            .registerRunListener( this._onFlowActionSetScene.bind(this) )
+            .getArgument('scene')
+            .registerAutocompleteListener( this._onSceneAutoComplete.bind(this) );
 
         this.logToHomey(`Tuya cloud App has been initialized`);
         this.initialized = true;
@@ -206,8 +206,9 @@ class TuyaCloudApp extends Homey.App {
             //    break;
             //case sceneType:
             //    break;
-            //case switchType:
-            //    break;
+            case switchType:
+                this._homeySwitchDriver.updateCapabilities(acc);
+                break;
             default:
                 break;
         }
@@ -220,16 +221,16 @@ class TuyaCloudApp extends Homey.App {
     }
 
     //todo scenes below
-    //_onFlowActionSetScene( args ) {
-    //    return this.operateGroup(args.group._tradfriInstanceId, { transitionTime:1, onOff:true, sceneId:args.scene.instanceId });
-    //}
+    _onFlowActionSetScene(args) {
+        return this.operateDevice(args.scene.instanceId, 'turnOnOff', { value: '1' });
+    }
 
-    //_onSceneAutoComplete( query, args ) {
-    //    const scenes = this.get_device_by_id(args.group.Id);
-    //    return Object.values(scenes).map(s => {
-    //        return { instanceId: s.instanceId, name: s.name };
-    //    });
-    //}
+    _onSceneAutoComplete( query, args ) {
+        const scenes = this.getScenes();
+        return Object.values(scenes).map(s => {
+            return { instanceId: s.id, name: s.name };
+        });
+    }
 
     // Array check.
     _isArray(a) {

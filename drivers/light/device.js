@@ -103,10 +103,6 @@ class LightDevice extends BaseDevice {
             return true;
     }
 
-    getCurrentState() {
-        return this.data != null ? this.data.state === 'true' : false;
-    }
-
     getBrightness() {
         return this.data.color_mode === 'colour' ?
             parseInt(this.data.color.brightness) / 100 :
@@ -137,16 +133,6 @@ class LightDevice extends BaseDevice {
         return this.data.color_temp == null ?
             0.0 :
             (this.data.color_temp - 1000) / 9000;
-    }
-
-    async turn_on() {
-        await Homey.app.operateDevice(this.id, 'turnOnOff', { value: '1' });
-        this.state = true;
-    }
-
-    async turn_off() {
-        await Homey.app.operateDevice(this.id, 'turnOnOff', { value: '0' });
-        this.state = false;
     }
 
     async set_brightness(brightness) {
