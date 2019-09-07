@@ -4,6 +4,7 @@ const Homey = require('homey');
 
 class BaseDevice extends Homey.Device {
     initDevice(id) {
+        this.updateInprogess = false;
         this.data = {};
         this.id = id;
     }
@@ -15,7 +16,7 @@ class BaseDevice extends Homey.Device {
 
     updateData(data) {
         console.log("try update data" );
-        if (data != null) {
+        if (data != null && !this.updateInprogess) {
             console.log("update device: " + JSON.stringify(data));
             this.data = data;
         }

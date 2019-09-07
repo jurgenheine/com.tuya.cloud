@@ -54,26 +54,31 @@ class LightDevice extends BaseDevice {
 
     async _onMultipleCapabilityListener(valueObj, optsObj) {
         console.log("set capabilities: " + JSON.stringify(valueObj));
-
-        if (valueObj.dim != null) {
-            await this.set_brightness(valueObj.dim);
-        }
-        if (valueObj.onoff != null) {
-            if (valueObj.onoff === true || valueObj.onoff === 1) {
-                await this.turn_on();
-            } else {
-                await this.turn_off();
+        this.updateInprogess = true;
+        try {
+            if (valueObj.dim != null) {
+                await this.set_brightness(valueObj.dim);
             }
-        }
-        if (valueObj.light_temperature != null) {
-            await this.set_color_temp(1 - valueObj.light_temperature);
-        }
-        if (valueObj.light_hue != null && valueObj.light_saturation != null) {
-            await this.set_color(valueObj.light_hue, valueObj.light_saturation);
-        } else if (valueObj.light_hue != null) {
-            await this.set_color(valueObj.light_hue, null);
-        } else if (valueObj.light_saturation != null) {
-            await this.set_color(null, valueObj.light_saturation);
+            if (valueObj.onoff != null) {
+                if (valueObj.onoff === true || valueObj.onoff === 1) {
+                    await this.turn_on();
+                } else {
+                    await this.turn_off();
+                }
+            }
+            if (valueObj.light_temperature != null) {
+                await this.set_color_temp(1 - valueObj.light_temperature);
+            }
+            if (valueObj.light_hue != null && valueObj.light_saturation != null) {
+                await this.set_color(valueObj.light_hue, valueObj.light_saturation);
+            } else if (valueObj.light_hue != null) {
+                await this.set_color(valueObj.light_hue, null);
+            } else if (valueObj.light_saturation != null) {
+                await this.set_color(null, valueObj.light_saturation);
+            }
+        } catch (ex) {
+            Homey.app.logToHomey(ex);
+            this.updateInprogess = false;
         }
     }
 
