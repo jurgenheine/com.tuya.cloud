@@ -22,8 +22,8 @@ class BaseDevice extends Homey.Device {
         }
     }
 
-    getCurrentState() {
-        return this.data != null ? this.data.state === 'true' : false;
+    getState() {
+        return this.data != null ? this.data.state =true || this.data.state === 'true' : false;
     }
 
     async turn_on() {

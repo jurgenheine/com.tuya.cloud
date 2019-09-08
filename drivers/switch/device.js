@@ -25,7 +25,7 @@ class SwitchDevice extends BaseDevice {
         }
 
         if (this.hasCapability("onoff")) {
-            this.setCapabilityValue("onoff", this.getCurrentState())
+            this.setCapabilityValue("onoff", this.getState())
                 .catch(this.error);
         }
     }
