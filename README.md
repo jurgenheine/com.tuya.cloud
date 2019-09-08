@@ -8,12 +8,12 @@ are for now possible to support.
 
 Latest HA implementation: https://github.com/PaulAnnekov/tuyaha
 
-Together with the method used by this app, ther are 3 ways to connect Tuya devices. 
-- The cuurently used HA API
+Together with the method used by this app, there are 3 ways to connect Tuya devices. 
+- The currently used HA API
 	+ Works without CLientID and ClientSecret, same credentials as with mobile app
 	+ Mobile app and this app can work simultanious
 	- Needs Mobile app. You can choose between Tuya or Smart life
-	  Other apps( like LSC) not supported at he moment. You can use one of the mentioned apps to pair your devices
+	  Other apps( like LSC) not supported at the moment. You can use one of the mentioned apps to pair your devices
 	- Needs internet to operate, no local control
 - Intercepting mobile app data, see https://github.com/codetheweb/tuyapi/blob/master/docs/SETUP.md
   This methos is use by the other Tuya app: https://apps.athom.com/app/nl.rebtor.tuya
@@ -28,8 +28,8 @@ Together with the method used by this app, ther are 3 ways to connect Tuya devic
 	+ Support of all device types possible
 	+ Use of official API
 	- Needs requesting ClientId and ClientSecret
-	- Paring exclusive to app with this ClientId and CleintSecret
-		- Can't work toghether with mobile app
+	- Paring exclusive to app with this ClientId and ClientSecret
+		- Can't work with mobile app
 	
 ## Supported devices
 - Light
@@ -48,11 +48,11 @@ Together with the method used by this app, ther are 3 ways to connect Tuya devic
 	- Garage door opener status
 	- Switch with energy monitoring
 
-## Bugs
+## Known bugs
 - State not correct reported to homey
 - Updates all capablities instead only the changed
 
-## TODO 
+## Todo 
 - Add other device types
 - Memory optimalisations
 - Better images and icons
