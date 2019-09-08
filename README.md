@@ -29,7 +29,7 @@ Together with the method used by this app, there are 3 ways to connect Tuya devi
 	+ Use of official API
 	- Needs requesting ClientId and ClientSecret
 	- Paring exclusive to app with this ClientId and ClientSecret
-		- Can't work toghether with mobile app
+		- Can't work with mobile app
 	
 ## Supported devices
 - Light
