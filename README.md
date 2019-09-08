@@ -48,7 +48,7 @@ Together with the method used by this app, ther are 3 ways to connect Tuya devic
 	- Garage door opener status
 	- Switch with energy monitoring
 
-##Bugs
+## Bugs
 - State not correct reported to homey
 - Updates all capablities instead only the changed
 
@@ -91,7 +91,7 @@ Install the app to Homey with the fllowing command:
 $ athom app install
 ```
 
-##Setup
+## Setup
 1. Go to the setup page in mobile app or develloper portal
 2. Set Username, Password and CountryCode
    These are the same as with first login of the mobile app
