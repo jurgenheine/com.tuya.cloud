@@ -10,11 +10,11 @@ Latest HA implementation: https://github.com/PaulAnnekov/tuyaha
 
 Together with the method used by this app, there are 3 ways to connect Tuya devices. 
 - The currently used HA API
-	+ Works without CLientID and ClientSecret, same credentials as with mobile app
-	+ Mobile app and this app can work simultanious
-	- Needs Mobile app. You can choose between Tuya or Smart life
-	  Other apps( like LSC) not supported at the moment. You can use one of the mentioned apps to pair your devices
-	- Needs internet to operate, no local control
+	- + Works without CLientID and ClientSecret, same credentials as with mobile app
+	- + Mobile app and this app can work simultanious
+	- - Needs Mobile app. You can choose between Tuya or Smart life
+	    Other apps( like LSC) not supported at the moment. You can use one of the mentioned apps to pair your devices
+	- - Needs internet to operate, no local control
 - Intercepting mobile app data, see https://github.com/codetheweb/tuyapi/blob/master/docs/SETUP.md
   This methos is use by the other Tuya app: https://apps.athom.com/app/nl.rebtor.tuya
 	+ Local control possible
