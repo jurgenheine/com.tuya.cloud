@@ -10,25 +10,24 @@ Latest HA implementation: https://github.com/PaulAnnekov/tuyaha
 
 Together with the method used by this app, there are 3 ways to connect Tuya devices. 
 - The currently used HA API
-	- + Works without CLientID and ClientSecret, same credentials as with mobile app
-	- + Mobile app and this app can work simultanious
-	- - Needs Mobile app. You can choose between Tuya or Smart life
-	    Other apps( like LSC) not supported at the moment. You can use one of the mentioned apps to pair your devices
-	- - Needs internet to operate, no local control
+	+ \+ Works without CLientID and ClientSecret, same credentials as with mobile app
+	+ \+ Mobile app and this app can work simultanious
+	- \- Needs Mobile app. You can choose between Tuya or Smart life Other apps( like LSC) not supported at the moment. You can use one of the mentioned apps to pair your devices
+	- \- Needs internet to operate, no local control
 - Intercepting mobile app data, see https://github.com/codetheweb/tuyapi/blob/master/docs/SETUP.md
   This methos is use by the other Tuya app: https://apps.athom.com/app/nl.rebtor.tuya
-	+ Local control possible
-	+ Support of all device types possible
-	+ Use of official API
-	- Difficult setup procedure, needs intercepting mobile app data
-	- Needs Mobile app
-	- Mobile app and this method can't work simultanious
-- Own ClientID and ClientSecret
-	+ Local control possible
-	+ Support of all device types possible
-	+ Use of official API
-	- Needs requesting ClientId and ClientSecret
-	- Paring exclusive to app with this ClientId and ClientSecret
+	+ \+ Local control possible
+	+ \+ Support of all device types possible
+	+ \+ Use of official API
+	- \- Difficult setup procedure, needs intercepting mobile app data
+	- \- Needs Mobile app
+	- \- Mobile app and this method can't work simultanious
+- Own ClientID and ClientSecret. This is used by https://github.com/frawau/aiotuya
+	+ \+ Local control possible
+	+ \+ Support of all device types possible
+	+ \+ Use of official API
+	- \- Needs requesting ClientId and ClientSecret
+	- \- Paring exclusive to app with this ClientId and ClientSecret
 		- Can't work with mobile app
 	
 ## Supported devices
@@ -47,6 +46,10 @@ Together with the method used by this app, there are 3 ways to connect Tuya devi
 	- Ledstrip
 	- Garage door opener status
 	- Switch with energy monitoring
+
+## Unknown if device is supported
+- Siren 
+- Doorcontact
 
 ## Known bugs
 - State not correct reported to homey
