@@ -24,18 +24,19 @@ Example:
 ```
 This corrected for me the yellow color
 
-## Supported devices
+## Devices
+### Supported devices
 - Light
 - Switch( On/Off)
 - Scene
 
-## Possible supported devices
+### Possible supported devices
 - Cover
 - Fan
 - Climate
 - Lock
 
-## Usupported devices
+### Usupported devices
 - New device types, see https://github.com/PaulAnnekov/tuyaha/issues/6
 	- Ledstrip
 	- Garage door opener status
