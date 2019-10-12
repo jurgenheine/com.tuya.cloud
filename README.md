@@ -86,7 +86,8 @@ Install the app to Homey with the fllowing command:
 $ athom app install
 ```
 
-##Background
+## Background
+
 Latest HA implementation: https://github.com/PaulAnnekov/tuyaha
 
 Together with the method used by this app, there are 3 ways to connect Tuya devices. 
