@@ -1,10 +1,9 @@
 {
   "ExpandedNodes": [
     "",
-    "\\drivers",
-    "\\drivers\\light",
-    "\\drivers\\switch"
+    "\\lib",
+    "\\settings"
   ],
-  "SelectedNode": "\\app.js",
+  "SelectedNode": "\\settings\\index.html",
   "PreviewInSolutionExplorer": false
 }
