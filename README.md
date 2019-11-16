@@ -29,23 +29,23 @@ This corrected for me the yellow color
 - Light
 - Switch( On/Off)
 - Scene
+- Ledstrip
 
 ### Possible supported devices
 - Cover
 - Fan
 - Climate
 - Lock
+- Switch with energy monitoring
 
 ### Usupported devices
 - New device types, see https://github.com/PaulAnnekov/tuyaha/issues/6
-	- Ledstrip
 	- Garage door opener status
-	- Switch with energy monitoring
 	- Siren 
 	- Doorcontact
 
 ## Known bugs
-- State not correct reported to homey
+- State not always correct reported to homey
 - Updates all capablities instead only the changed
 
 ## Todo 
