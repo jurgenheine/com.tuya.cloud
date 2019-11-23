@@ -24,8 +24,8 @@
   "homepage": "https://github.com/jurgenheine/com.tuya.cloud/blob/master/README.md",
   "permissions": [],
   "images": {
-    "large": "/assets/images/large.png",
-    "small": "/assets/images/small.png"
+    "large": "/assets/images/large.jpg",
+    "small": "/assets/images/small.jpg"
   },
   "drivers": [
     {
