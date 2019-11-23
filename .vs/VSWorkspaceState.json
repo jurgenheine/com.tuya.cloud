@@ -1,7 +1,10 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\assets",
+    "\\assets\\images",
+    "\\drivers\\light"
   ],
-  "SelectedNode": "\\APPSTORE.md",
+  "SelectedNode": "\\assets\\icon.svg",
   "PreviewInSolutionExplorer": false
 }
