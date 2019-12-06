@@ -104,7 +104,7 @@ class LightDevice extends BaseDevice {
     }
 
     getBrightness() {
-        return this.data.color_mode === 'colour' && his.data.color != null && this.data.color.brightness != null?
+        return this.data.color_mode === 'colour' && this.data.color != null && this.data.color.brightness != null?
             parseInt(this.data.color.brightness) / 100 :
             this.data.brightness / 255;
     }
@@ -137,7 +137,7 @@ class LightDevice extends BaseDevice {
 
     async set_brightness(brightness) {
         // brigthness 0-100 for color else 0-255, 10 and below is off
-        const value = Math.round(10 + (this.data.color_mode === 'colour' && his.data.color != null && this.data.color.brightness != null ?
+        const value = Math.round(10 + (this.data.color_mode === 'colour' && this.data.color != null && this.data.color.brightness != null ?
             brightness * 90 :
             brightness * 254));
         if (this.data.color_mode === 'colour' && his.data.color != null && this.data.color.brightness != null) {
