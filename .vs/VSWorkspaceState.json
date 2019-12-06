@@ -3,8 +3,9 @@
     "",
     "\\assets",
     "\\assets\\images",
+    "\\drivers",
     "\\drivers\\light"
   ],
-  "SelectedNode": "\\assets\\icon.svg",
+  "SelectedNode": "\\app.json",
   "PreviewInSolutionExplorer": false
 }
