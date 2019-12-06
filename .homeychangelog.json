@@ -4,5 +4,8 @@
   },
   "0.0.3": {
     "en": "update images"
+  },
+  "0.0.4": {
+    "en": "Possible fix crash"
   }
 }
