@@ -17,14 +17,14 @@ class SwitchDriver extends Homey.Driver {
         homeyDevice.updateCapabilities();
     }
 
-    onPairListDevices(data, callback) {
+    async onPairListDevices(data, callback) {
         let devices = [];
         if (!Homey.app.isConnected()) {
             callback(new Error("Please configure the app first."));
         }
         else {
-            let switches = Homey.app.getSwitches();
-            for (const tuyaDevice of Object.values(switches)) {
+            let switches = await Homey.app.getSwitches();
+            for (let tuyaDevice of Object.values(switches)) {
 
                 let capabilities = [];
                 capabilities.push("onoff");

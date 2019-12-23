@@ -17,14 +17,14 @@ class LightDriver extends Homey.Driver {
         homeyDevice.updateCapabilities();
     }
 
-    onPairListDevices(data, callback) {
+    async onPairListDevices(data, callback) {
         let devices = [];
         if (!Homey.app.isConnected()) {
             callback(new Error("Please configure the app first."));
         }
         else {
-            let lights = Homey.app.getLights();
-            for (const tuyaDevice of Object.values(lights)) {
+            let lights = await Homey.app.getLights();
+            for (let tuyaDevice of Object.values(lights)) {
 
                 let capabilities = [];
                 capabilities.push("onoff");

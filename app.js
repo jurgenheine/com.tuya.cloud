@@ -55,7 +55,7 @@ class TuyaCloudApp extends Homey.App {
         try {
             let colormap = Homey.ManagerSettings.get('huecolormap');
             if (colormap != null && colormap != "") {
-                const maps = colormap.split(',');
+                let maps = colormap.split(',');
                 this.colormapinput = [];
                 this.colormapoutput = [];
                 maps.forEach((map) => {
@@ -143,42 +143,37 @@ class TuyaCloudApp extends Homey.App {
     isConnected() {
         return this._connected;
     }
-
-    get_device_by_id(id) {
-        this.logToHomey("sessionData: " + JSON.stringify(client.session));
-        return this.client.get_device_by_id(id);
+    
+    async getLights() {
+        return await this.client.get_devices_by_type(lightType);
     }
 
-    getLights() {
-        return this.client.get_devices_by_type(lightType);
+    async getClimates() {
+        return await this.client.get_devices_by_type(climateType);
     }
 
-    getClimates() {
-        return this.client.get_devices_by_type(climateType);
-    }
-
-    getCovers() {
+    async getCovers() {
         return this.client.get_devices_by_type(coverType);
     }
 
-    getFans() {
-        return this.client.get_devices_by_type(fanType);
+    async getFans() {
+        return await this.client.get_devices_by_type(fanType);
     }
 
-    getLocks() {
-        return this.client.get_devices_by_type(lockType);
+    async getLocks() {
+        return await this.client.get_devices_by_type(lockType);
     }
 
-    getRemotes() {
-        return this.client.get_devices_by_type(remoteType);
+    async getRemotes() {
+        return await this.client.get_devices_by_type(remoteType);
     }
 
-    getScenes() {
-        return this.client.get_devices_by_type(sceneType);
+    async getScenes() {
+        return await this.client.get_devices_by_type(sceneType);
     }
 
-    getSwitches() {
-        return this.client.get_devices_by_type(switchType);
+    async getSwitches() {
+        return await this.client.get_devices_by_type(switchType);
     }
 
     operateDevice(devId, action, param = null, namespace = 'control') {
@@ -226,7 +221,7 @@ class TuyaCloudApp extends Homey.App {
     }
 
     _onSceneAutoComplete( query, args ) {
-        const scenes = this.getScenes();
+        let scenes = this.getScenes();
         return Object.values(scenes).map(s => {
             return { instanceId: s.id, name: s.name };
         });

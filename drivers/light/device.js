@@ -22,6 +22,7 @@ class LightDevice extends BaseDevice {
         else {
             this.setUnavailable("(temporary) unavailable")
                 .catch(this.error);
+            return;
         }
 
         if (this.hasCapability("onoff")) {
@@ -137,7 +138,7 @@ class LightDevice extends BaseDevice {
 
     async set_brightness(brightness) {
         // brigthness 0-100 for color else 0-255, 10 and below is off
-        const value = Math.round(10 + (this.data.color_mode === 'colour' && this.data.color != null && this.data.color.brightness != null ?
+        let value = Math.round(10 + (this.data.color_mode === 'colour' && device.data.color != null && device.data.color.brightness != null ?
             brightness * 90 :
             brightness * 254));
         if (this.data.color_mode === 'colour' && his.data.color != null && this.data.color.brightness != null) {
@@ -150,7 +151,7 @@ class LightDevice extends BaseDevice {
 
     async set_color(hue, saturation) {
         //Set the color of light.
-        const hsv_color = {};
+        let hsv_color = {};
         // hue 0 -360
         hsv_color.hue = hue != null ? Math.round(Homey.app.getColorMap(hue * 360)) : this._get_hue();
         // saturation 0-1( but status 0-100)
@@ -169,7 +170,7 @@ class LightDevice extends BaseDevice {
 
     async set_color_temp(color_temp) {
         // min 1000, max 10000, range is 9000 => 1000 + color_temp * 9000
-        const value = Math.round(1000 + color_temp * 9000);
+        let value = Math.round(1000 + color_temp * 9000);
         this.data.color_temp = value;
         this.data.color_mode = "white";
         await Homey.app.operateDevice(this.id, 'colorTemperatureSet', { value: value });

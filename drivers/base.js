@@ -10,7 +10,7 @@ class BaseDevice extends Homey.Device {
     }
 
     async update() {
-        const { payload: { data } } = await Homey.app.operateDevice(this.id, 'QueryDevice', null, 'query');
+        let { payload: { data } } = await Homey.app.operateDevice(this.id, 'QueryDevice', null, 'query');
         this.updateData(data);
     }
 

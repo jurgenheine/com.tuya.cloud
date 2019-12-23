@@ -22,6 +22,7 @@ class SwitchDevice extends BaseDevice {
         else {
             this.setUnavailable("(temporary) unavailable")
                 .catch(this.error);
+            return;
         }
 
         if (this.hasCapability("onoff")) {
