@@ -35,6 +35,10 @@ class BaseDevice extends Homey.Device {
         await Homey.app.operateDevice(this.id, 'turnOnOff', { value: '0' });
         this.data.state = false;
     }
+
+    async stop() {
+        await Homey.app.operateDevice(this.id, 'startStop', { value: '0' });
+    }
 }
 
 module.exports = BaseDevice;

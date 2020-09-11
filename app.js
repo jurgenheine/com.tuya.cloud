@@ -188,8 +188,9 @@ class TuyaCloudApp extends Homey.App {
         switch (acc.dev_type) {
             //case climateType:
             //    break;
-            //case coverType:
-            //    break;
+            case coverType:
+                this._homeyCoverDriver.updateCapabilities(acc);
+                break;
             //case fanType:
             //    break;
             case lightType:
