@@ -30,9 +30,9 @@ This corrected for me the yellow color
 - Switch( On/Off)
 - Scene
 - Ledstrip
+- Cover
 
 ### Possible supported devices
-- Cover
 - Fan
 - Climate
 - Lock
