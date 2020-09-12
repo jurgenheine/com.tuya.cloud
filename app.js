@@ -20,7 +20,7 @@ class TuyaCloudApp extends Homey.App {
         this.initialized = false;
         this._connected = false;
         //this._homeyClimateDriver = Homey.ManagerDrivers.getDriver(climateType);
-        //this._homeyCoverDriver = Homey.ManagerDrivers.getDriver(coverType);
+        this._homeyCoverDriver = Homey.ManagerDrivers.getDriver(coverType);
         //this._homeyFanDriver = Homey.ManagerDrivers.getDriver(fanType);
         this._homeyLightDriver = Homey.ManagerDrivers.getDriver(lightType);
         //this._homeyLockDriver = Homey.ManagerDrivers.getDriver(lockType);
@@ -188,8 +188,9 @@ class TuyaCloudApp extends Homey.App {
         switch (acc.dev_type) {
             //case climateType:
             //    break;
-            //case coverType:
-            //    break;
+            case coverType:
+                this._homeyCoverDriver.updateCapabilities(acc);
+                break;
             //case fanType:
             //    break;
             case lightType:
