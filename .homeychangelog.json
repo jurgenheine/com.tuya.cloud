@@ -10,5 +10,8 @@
   },
   "0.0.5": {
     "en": "Fix typo"
+  },
+  "0.0.6": {
+    "en": "Add Cover support by Diko"
   }
 }

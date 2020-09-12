@@ -2,8 +2,10 @@
   "ExpandedNodes": [
     "",
     "\\drivers",
-    "\\drivers\\light"
+    "\\drivers\\switch",
+    "\\drivers\\switch\\assets",
+    "\\lib"
   ],
-  "SelectedNode": "\\app.json",
+  "SelectedNode": "\\app.js",
   "PreviewInSolutionExplorer": false
 }
