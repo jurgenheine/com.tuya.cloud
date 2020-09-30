@@ -13,5 +13,8 @@
   },
   "0.0.6": {
     "en": "Add Cover support by Diko"
+  },
+  "0.0.7": {
+    "en": "Invert setting for cover buttons"
   }
 }
