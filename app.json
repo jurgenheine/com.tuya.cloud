@@ -86,33 +86,51 @@
         "small": "/drivers/switch/assets/images/small.png"
       }
     },
-	{
-		"id": "cover",
-		"name": {
-			"en": "cover"
-		},
-		"class": "windowcoverings",
-		"capabilities": [
-			"windowcoverings_state"
-		],
-		"pair": [
-			{
-				"id": "list_devices",
-				"template": "list_devices",
-				"navigation": {
-					"next": "add_devices"
-				}
-			},
-			{
-				"id": "add_devices",
-				"template": "add_devices"
-			}
-		],
-		"images": {
-			"large": "/drivers/cover/assets/images/large.png",
-			"small": "/drivers/cover/assets/images/small.png"
-		}
-	}
+    {
+      "id": "cover",
+      "name": {
+        "en": "cover"
+      },
+      "class": "windowcoverings",
+      "capabilities": [
+        "windowcoverings_state"
+      ],
+      "pair": [
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ],
+      "images": {
+        "large": "/drivers/cover/assets/images/large.png",
+        "small": "/drivers/cover/assets/images/small.png"
+      },
+      "settings": [
+        {
+          "type": "group",
+          "label": {
+            "en": "General settings"
+          },
+          "children": [
+            {
+              "id": "invertButtons",
+              "type": "checkbox",
+              "value": false,
+              "label": {
+                "en": "Invert buttons"
+              }
+            }
+          ]
+        }
+      ]
+    }
   ],
   "flow": {
     "actions": [

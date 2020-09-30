@@ -29,7 +29,6 @@ class CoverDevice extends BaseDevice {
             this.setCapabilityValue("windowcoverings_state", this.getState())
                 .catch(this.error);
         }
-
     }
 
     async _onMultipleCapabilityListener(valueObj, optsObj) {
@@ -37,12 +36,24 @@ class CoverDevice extends BaseDevice {
         this.log(valueObj);
         this.updateInprogess = true;
         try {
-			if(valueObj.windowcoverings_state != null) {
+            if (valueObj.windowcoverings_state != null) {
+                let invert = this.getSettings().invertButtons;
+
 				if(valueObj.windowcoverings_state == "up") {
-					await this.turn_off();
+                    if (invert) {
+                        await this.turn_on();
+                    }
+                    else {
+                        await this.turn_off();
+                    }
 				}
 				if(valueObj.windowcoverings_state == "down") {
-					await this.turn_on();
+                    if (invert) {
+                        await this.turn_off();
+                    }
+                    else {
+                        await this.turn_on();
+                    }
 				}
 				if(valueObj.windowcoverings_state == "idle") {
 					await this.stop();

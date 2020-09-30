@@ -2,10 +2,13 @@
   "ExpandedNodes": [
     "",
     "\\drivers",
+    "\\drivers\\cover\\assets",
+    "\\drivers\\light",
     "\\drivers\\switch",
     "\\drivers\\switch\\assets",
-    "\\lib"
+    "\\lib",
+    "\\settings"
   ],
-  "SelectedNode": "\\app.js",
+  "SelectedNode": "\\lib\\cloudtuya.js",
   "PreviewInSolutionExplorer": false
 }
