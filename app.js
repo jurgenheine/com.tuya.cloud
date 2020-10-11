@@ -221,8 +221,8 @@ class TuyaCloudApp extends Homey.App {
         return this.operateDevice(args.scene.instanceId, 'turnOnOff', { value: '1' });
     }
 
-    _onSceneAutoComplete( query, args ) {
-        let scenes = this.getScenes();
+    async _onSceneAutoComplete( query, args ) {
+        let scenes = await this.getScenes();
         return Object.values(scenes).map(s => {
             return { instanceId: s.id, name: s.name };
         });
