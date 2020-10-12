@@ -16,5 +16,8 @@
   },
   "0.0.7": {
     "en": "Invert setting for cover buttons"
+  },
+  "0.0.8": {
+    "en": "Fix scenes"
   }
 }

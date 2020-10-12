@@ -2,8 +2,8 @@
   "ExpandedNodes": [
     "",
     "\\drivers",
+    "\\drivers\\cover",
     "\\drivers\\cover\\assets",
-    "\\drivers\\light",
     "\\drivers\\switch",
     "\\drivers\\switch\\assets",
     "\\lib",
