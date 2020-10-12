@@ -137,7 +137,7 @@
       {
         "id": "setScene",
         "title": {
-          "en": "Set a mood"
+          "en": "Trigger a scene"
         },
         "args": [
           {
