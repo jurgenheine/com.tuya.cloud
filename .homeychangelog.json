@@ -19,5 +19,8 @@
   },
   "0.0.8": {
     "en": "Fix scenes"
+  },
+  "0.0.9": {
+    "en": "Fix crash when remote error"
   }
 }
