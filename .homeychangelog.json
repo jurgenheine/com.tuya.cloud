@@ -25,5 +25,8 @@
   },
   "0.0.10": {
     "en": "Fix error"
+  },
+  "0.0.11": {
+    "en": "Fix reconect after expiration acceskey"
   }
 }
