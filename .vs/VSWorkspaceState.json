@@ -3,8 +3,10 @@
     "",
     "\\drivers",
     "\\drivers\\cover",
-    "\\lib"
+    "\\drivers\\light",
+    "\\lib",
+    "\\settings"
   ],
-  "SelectedNode": "\\app.json",
+  "SelectedNode": "\\drivers\\light\\device.js",
   "PreviewInSolutionExplorer": false
 }
