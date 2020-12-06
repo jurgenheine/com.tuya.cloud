@@ -7,6 +7,6 @@
     "\\lib",
     "\\settings"
   ],
-  "SelectedNode": "\\drivers\\light\\device.js",
+  "SelectedNode": "\\lib\\cloudtuya.js",
   "PreviewInSolutionExplorer": false
 }

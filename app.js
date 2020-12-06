@@ -17,6 +17,7 @@ const switchType = "switch";
 class TuyaCloudApp extends Homey.App {
 
     onInit() {
+        this.client = TuyaApi;
         this.initialized = false;
         this._connected = false;
         //this._homeyClimateDriver = Homey.ManagerDrivers.getDriver(climateType);
@@ -42,8 +43,7 @@ class TuyaCloudApp extends Homey.App {
     }
 
     async connect() {
-        this._destroyTuyaClient();
-        this._createNewTuyaClient();
+        this._initTuyaClient();
         this.logToHomey("Start connection to cloud.");
         await this.client.connect();
         this.logToHomey("Connected to cloud.");
@@ -117,8 +117,8 @@ class TuyaCloudApp extends Homey.App {
         }
     }
 
-    _createNewTuyaClient() {
-        this.client = new TuyaApi(
+    _initTuyaClient() {
+        this.client.init(
             Homey.ManagerSettings.get('username'),
             Homey.ManagerSettings.get('password'),
             Homey.ManagerSettings.get('countrycode'),
@@ -130,14 +130,6 @@ class TuyaCloudApp extends Homey.App {
         this.client
             .on("device_updated", this._deviceUpdated.bind(this))
             .on("device_removed", this._deviceRemoved.bind(this));
-    }
-
-    _destroyTuyaClient() {
-        this._connected = false;
-        if (this.client != null) {
-            this.client = null;
-            this.logToHomey("Connection to cloud disconnected.");
-        }
     }
 
     isConnected() {
