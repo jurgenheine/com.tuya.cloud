@@ -31,5 +31,8 @@
   },
   "0.0.12": {
     "en": "Fixed connection timout errors"
+  },
+  "0.0.13": {
+    "en": "Fix stability"
   }
 }
