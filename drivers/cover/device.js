@@ -64,7 +64,10 @@ class CoverDevice extends BaseDevice {
             this.updateInprogess = false;
         }
     }
-
+    
+    async stop() {
+        await Homey.app.operateDevice(this.id, 'startStop', { value: '0' });
+    }
 }
 
 module.exports = CoverDevice;

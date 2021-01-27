@@ -10,8 +10,6 @@ const coverType = "cover";
 const fanType = "fan";
 const lightType = "light";
 const lockType = "lock";
-const remoteType = "remote";
-const sceneType = "scene";
 const switchType = "switch";
 
 class TuyaCloudApp extends Homey.App {
@@ -25,8 +23,6 @@ class TuyaCloudApp extends Homey.App {
         //this._homeyFanDriver = Homey.ManagerDrivers.getDriver(fanType);
         this._homeyLightDriver = Homey.ManagerDrivers.getDriver(lightType);
         //this._homeyLockDriver = Homey.ManagerDrivers.getDriver(lockType);
-        //this._homeyRemoteDriver = Homey.ManagerDrivers.getDriver(remoteType);
-        //this._homeySceneDriver = Homey.ManagerDrivers.getDriver(sceneType);
         this._homeySwitchDriver = Homey.ManagerDrivers.getDriver(switchType);
 
         (async () => {
@@ -189,10 +185,6 @@ class TuyaCloudApp extends Homey.App {
                 this._homeyLightDriver.updateCapabilities(acc);
                 break;
             //case lockType:
-            //    break;
-            //case remoteType:
-            //    break;
-            //case sceneType:
             //    break;
             case switchType:
                 this._homeySwitchDriver.updateCapabilities(acc);

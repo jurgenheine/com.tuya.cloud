@@ -5,7 +5,8 @@
     "en": "Tuya cloud"
   },
   "description": {
-    "en": "This app allows you to connect Homey to the Tuya cloud"
+    "en": "This app allows you to connect Homey to the Tuya cloud",
+    "nl": "Deze app laat je connectie maken met de Tuya cloud"
   },
   "category": "lights",
   "version": "0.0.13",
@@ -31,7 +32,8 @@
     {
       "id": "light",
       "name": {
-        "en": "Light"
+        "en": "Light",
+        "nl": "Verlichting"
       },
       "class": "light",
       "capabilities": [
@@ -54,6 +56,98 @@
           "template": "add_devices"
         }
       ],
+      "settings": [
+        {
+          "type": "group",
+          "label": {
+            "en": "Brightness settings",
+            "nl": "Helderheid instellingen"
+          },
+          "children": [
+            {
+              "type": "group",
+              "label": {
+                "en": "Color mode",
+                "nl": "Kleuren mode"
+              },
+              "children": [
+                {
+                  "id": "minColorBrightness",
+                  "type": "number",
+                  "value": 10,
+                  "label": {
+                    "en": "Min value (default: 10)",
+                    "nl": "Minimale waarde (standaard: 10)"
+                  }
+                },
+                {
+                  "id": "maxColorBrightness",
+                  "type": "number",
+                  "value": 100,
+                  "label": {
+                    "en": "Max value (default: 100)",
+                    "nl": "Maximale waarde (standaard: 100)"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "group",
+              "label": {
+                "en": "White mode",
+                "nl": "Wit mode"
+              },
+              "children": [
+                {
+                  "id": "minBrightness",
+                  "type": "number",
+                  "value": 10,
+                  "label": {
+                    "en": "Min value (default: 10)",
+                    "nl": "Minimale waarde (standaard: 10)"
+                  }
+                },
+                {
+                  "id": "maxBrightness",
+                  "type": "number",
+                  "value": 255,
+                  "label": {
+                    "en": "Max value (default: 255)",
+                    "nl": "Maximale waarde (standaard: 255)"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "label": {
+            "en": "Color temperature settings",
+            "nl": "Kleurtemperatuur instellingen"
+          },
+          "children": [
+            {
+              "id": "minColorTemperature",
+              "type": "number",
+              "value": 1000,
+              "label": {
+                "en": "Min value (default: 1000)",
+                "nl": "Minimale waarde (standaard: 1000)"
+              }
+            },
+            {
+              "id": "maxColorTemperature",
+              "type": "number",
+              "value": 10000,
+              "label": {
+                "en": "Max value (default: 10000)",
+                "nl": "Maximale waarde (standaard: 10000)"
+              }
+            }
+          ]
+        }
+      ],
       "images": {
         "large": "/drivers/light/assets/images/large.png",
         "small": "/drivers/light/assets/images/small.png"
@@ -62,7 +156,36 @@
     {
       "id": "switch",
       "name": {
-        "en": "switch"
+        "en": "switch",
+        "nl": "schakelaar"
+      },
+      "class": "button",
+      "capabilities": [
+        "onoff"
+      ],
+      "pair": [
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ],
+      "images": {
+        "large": "/drivers/switch/assets/images/large.png",
+        "small": "/drivers/switch/assets/images/small.png"
+      }
+    },
+    {
+      "id": "socket",
+      "name": {
+        "en": "socket",
+        "nl": "stopcontact"
       },
       "class": "socket",
       "capabilities": [
@@ -89,7 +212,8 @@
     {
       "id": "cover",
       "name": {
-        "en": "cover"
+        "en": "cover",
+        "nl": "deksel"
       },
       "class": "windowcoverings",
       "capabilities": [
@@ -116,7 +240,8 @@
         {
           "type": "group",
           "label": {
-            "en": "General settings"
+            "en": "General settings",
+            "nl": "Algemene instellingen"
           },
           "children": [
             {
@@ -124,7 +249,8 @@
               "type": "checkbox",
               "value": false,
               "label": {
-                "en": "Invert buttons"
+                "en": "Invert buttons",
+                "nl": "Inverteer knoppen"
               }
             }
           ]
@@ -137,7 +263,8 @@
       {
         "id": "setScene",
         "title": {
-          "en": "Trigger a scene"
+          "en": "Trigger a scene",
+          "nl": "Trigger een scene"
         },
         "args": [
           {
@@ -147,5 +274,68 @@
         ]
       }
     ]
+  },
+  "capabilities": {
+    "speed": {
+      "type": "number",
+      "title": {
+        "en": "Speed",
+        "nl": "Snelheid"
+      },
+      "chartType": "stepLine",
+      "min": 0,
+      "max": 1,
+      "decimals": 2,
+      "units": {
+        "en": "%"
+      },
+      "getable": true,
+      "setable": true,
+      "uiComponent": "slider",
+      "$flow": {
+        "triggers": [
+          {
+            "id": "speed_changed",
+            "title": {
+              "en": "Speed changed",
+              "nl": "Snelheid veranderd"
+            },
+            "tokens": [
+              {
+                "name": "windowcoverings_set",
+                "type": "number",
+                "title": {
+                  "en": "Speed",
+                  "nl": "Snelheid"
+                },
+                "example": 0.5
+              }
+            ]
+          }
+        ],
+        "actions": [
+          {
+            "id": "speed_set",
+            "title": {
+              "en": "Set the speed to",
+              "nl": "Zet de snelheid naar"
+            },
+            "args": [
+              {
+                "name": "speed_set",
+                "type": "range",
+                "min": 0,
+                "max": 1,
+                "step": 0.01,
+                "value": 0.5,
+                "label": "%",
+                "labelMultiplier": 100,
+                "labelDecimals": 0
+              }
+            ]
+          }
+        ]
+      }
+    }
   }
 }

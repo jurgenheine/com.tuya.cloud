@@ -1,1 +1,15 @@
-{}
+{
+  "settings": {
+    "username": "Gebruikersnaam",
+    "title": "Tuya cloud instellingen",
+    "authentication": "Authenticatie instellingen",
+    "password": "Wachtwoord",
+    "countrycode": "Landcode telefoon",
+    "business": "Mobiele app",
+    "general": "Algemene instellingen",
+    "colormap": "Kleurtoon mapping",
+    "save": "Opslaan",
+    "reconnect": "Opnieuw verbinden",
+    "saved": "Instellingen opgeslagen"
+  }
+}

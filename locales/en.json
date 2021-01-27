@@ -1,1 +1,15 @@
-{}
+{
+  "settings": {
+    "username": "Username",
+    "title": "Tuya cloud Settings",
+    "authentication": "Authentication settings",
+    "password": "Password",
+    "countrycode": "Telephone country code",
+    "business": "Mobile app",
+    "general": "general settings",
+    "colormap": "Hue colormap",
+    "save": "Save",
+    "reconnect": "Reconnect",
+    "saved": "Settings saved"
+  }
+}

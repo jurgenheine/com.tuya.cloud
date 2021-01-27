@@ -20,35 +20,35 @@
     }
 </style>
 <body>
-    <h1>Tuya cloud Settings</h1>
+    <h1><span data-i18n="settings.title"></h1>
     <fieldset>
-        <legend>Authentication settings</legend>
+        <legend><span data-i18n="settings.authentication"></legend>
         <div class="field row">
-            <label for="username">Username</label>
+            <label for="username"><span data-i18n="settings.username"></label>
             <input id="username" type="text" value="" />
         </div>
         <div class="field row">
-            <label for="password">Password</label>
+            <label for="password"><span data-i18n="settings.password"></label>
             <input id="password" type="password" value="" />
         </div>
         <div class="field row">
-            <label for="countrycode">Telephone country code</label>
+            <label for="countrycode"><span data-i18n="settings.countrycode"></label>
             <input id="countrycode" type="text" value="" />
         </div>
         <div class="field row">
-            <label for="business">Business (same as smartphone app)</label>
+            <label for="business"><span data-i18n="settings.business"></label>
             <select id="business"></select>
         </div>
-        <h2>Tuya cloud Settings</h2>
+        <legend><span data-i18n="settings.general"></legend>
         <div class="field row">
-            <label for="colormap">Hue colormap</label>
+            <label for="colormap"><span data-i18n="settings.colormap"></label>
             <input id="colormap" type="text" value="" />
         </div>
         <div class="field row">
-            <button id="save" class="left">Save</button>
+            <button id="save" class="left"><span data-i18n="settings.save"></button>
         </div>
         <div class="field row">
-            <button id="reconnect" class="left">Reconnect</button>
+            <button id="reconnect" class="left"><span data-i18n="settings.reconnect"></button>
         </div>
     </fieldset>
     <script type="text/javascript">
@@ -122,7 +122,7 @@
                     if (err) return Homey.alert(err);
                 });
 
-                Homey.alert("Settings saved");
+                Homey.alert(Homey.__("settings.saved"));
 
                 Homey.api('GET', '/connect', null, function (err) {
                     if (err) return Homey.alert(err);
