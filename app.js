@@ -173,27 +173,27 @@ class TuyaCloudApp extends Homey.App {
         }
     }
 
-    _deviceUpdated(device) {
-        switch (device.dev_type) {
+    _deviceUpdated(tuyaDevice) {
+        switch (tuyaDevice.dev_type) {
             //case climateType:
             //    break;
             case coverType:
-                this.updateCapabilities(this._homeyCoverDriver, device);
+                this.updateCapabilities(this._homeyCoverDriver, tuyaDevice);
                 break;
             //case fanType:
             //    break;
             case lightType:
-                this.updateCapabilities(this._homeyLightDriver, device);
+                this.updateCapabilities(this._homeyLightDriver, tuyaDevice);
                 break;
             //case lockType:
             //    break;
             case switchType:
-                this.updateCapabilities(this._homeySwitchDriver, device);
+                this.updateCapabilities(this._homeySwitchDriver, tuyaDevice);
                 break;
             default:
                 break;
         }
-        this.logToHomey(`${acc.name} updated`);
+        this.logToHomey(`${tuyaDevice.name} updated`);
     }
 
     updateCapabilities(driver,tuyaDevice) {
