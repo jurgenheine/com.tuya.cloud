@@ -10,7 +10,6 @@ const coverType = "cover";
 const fanType = "fan";
 const lightType = "light";
 const lockType = "lock";
-const remoteType = "remote";
 const sceneType = "scene";
 const switchType = "switch";
 
@@ -25,8 +24,6 @@ class TuyaCloudApp extends Homey.App {
         //this._homeyFanDriver = Homey.ManagerDrivers.getDriver(fanType);
         this._homeyLightDriver = Homey.ManagerDrivers.getDriver(lightType);
         //this._homeyLockDriver = Homey.ManagerDrivers.getDriver(lockType);
-        //this._homeyRemoteDriver = Homey.ManagerDrivers.getDriver(remoteType);
-        //this._homeySceneDriver = Homey.ManagerDrivers.getDriver(sceneType);
         this._homeySwitchDriver = Homey.ManagerDrivers.getDriver(switchType);
 
         (async () => {
@@ -176,26 +173,22 @@ class TuyaCloudApp extends Homey.App {
         }
     }
 
-    _deviceUpdated(acc) {
-        switch (acc.dev_type) {
+    _deviceUpdated(device) {
+        switch (device.dev_type) {
             //case climateType:
             //    break;
             case coverType:
-                this._homeyCoverDriver.updateCapabilities(acc);
+                this.updateCapabilities(this._homeyCoverDriver, device);
                 break;
             //case fanType:
             //    break;
             case lightType:
-                this._homeyLightDriver.updateCapabilities(acc);
+                this.updateCapabilities(this._homeyLightDriver, device);
                 break;
             //case lockType:
             //    break;
-            //case remoteType:
-            //    break;
-            //case sceneType:
-            //    break;
             case switchType:
-                this._homeySwitchDriver.updateCapabilities(acc);
+                this.updateCapabilities(this._homeySwitchDriver, device);
                 break;
             default:
                 break;
@@ -203,12 +196,20 @@ class TuyaCloudApp extends Homey.App {
         this.logToHomey(`${acc.name} updated`);
     }
 
+    updateCapabilities(driver,tuyaDevice) {
+        console.log("Get device for: " + tuyaDevice.id);
+        let homeyDevice = driver.getDevice({ id: tuyaDevice.id });
+        if (homeyDevice instanceof Error) return;
+        console.log("Device found");
+        homeyDevice.updateData(tuyaDevice.data);
+        homeyDevice.updateCapabilities();
+    }
+
     _deviceRemoved(acc) {
         if (acc != null)
             this.logToHomey(acc.name + ' removed');
     }
 
-    //todo scenes below
     _onFlowActionSetScene(args) {
         return this.operateDevice(args.scene.instanceId, 'turnOnOff', { value: '1' });
     }
@@ -225,7 +226,6 @@ class TuyaCloudApp extends Homey.App {
         return !!a && a.constructor === Array;
     }
 
-    // The heart of this app. adding a log entry
     logToHomey(data) {
         this.log(data);
     }

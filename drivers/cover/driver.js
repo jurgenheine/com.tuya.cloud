@@ -8,15 +8,6 @@ class CoverDriver extends Homey.Driver {
         this.log('Tuya Cover Driver has been initialized');
     }
 
-    updateCapabilities(tuyaDevice) {
-        this.log("Get device for: " + tuyaDevice.id);
-        let homeyDevice = this.getDevice({id: tuyaDevice.id});
-        if (homeyDevice instanceof Error) return;
-        this.log("Device found");
-        homeyDevice.updateData(tuyaDevice.data);
-        homeyDevice.updateCapabilities();
-    }
-
     async onPairListDevices(data, callback) {
         let devices = [];
         if (!Homey.app.isConnected()) {

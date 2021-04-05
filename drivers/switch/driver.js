@@ -8,15 +8,6 @@ class SwitchDriver extends Homey.Driver {
         this.log('Tuya Switch Driver has been initialized');
     }
 
-    updateCapabilities(tuyaDevice) {
-        console.log("Get device for: " + tuyaDevice.id);
-        let homeyDevice = this.getDevice({ id: tuyaDevice.id });
-        if (homeyDevice instanceof Error) return;
-        console.log("Device found");
-        homeyDevice.updateData(tuyaDevice.data);
-        homeyDevice.updateCapabilities();
-    }
-
     async onPairListDevices(data, callback) {
         let devices = [];
         if (!Homey.app.isConnected()) {
