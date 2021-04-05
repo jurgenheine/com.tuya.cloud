@@ -36,13 +36,13 @@ This corrected for me the yellow color
 - Fan
 - Climate
 - Lock
-- Switch with energy monitoring
 
 ### Usupported devices
 - New device types, see https://github.com/PaulAnnekov/tuyaha/issues/6
 	- Garage door opener status
 	- Siren 
 	- Doorcontact
+	- Switch with energy monitoring
 
 ## Known bugs
 - State not always correct reported to homey
