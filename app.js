@@ -10,8 +10,9 @@ const coverType = "cover";
 const fanType = "fan";
 const lightType = "light";
 const lockType = "lock";
-const switchType = "switch";
+const remoteType = "remote";
 const sceneType = "scene";
+const switchType = "switch";
 
 class TuyaCloudApp extends Homey.App {
 
