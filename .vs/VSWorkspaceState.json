@@ -3,10 +3,8 @@
     "",
     "\\drivers",
     "\\drivers\\cover",
-    "\\drivers\\light",
-    "\\lib",
-    "\\settings"
+    "\\drivers\\light"
   ],
-  "SelectedNode": "\\settings\\index.html",
+  "SelectedNode": "\\drivers\\light\\device.js",
   "PreviewInSolutionExplorer": false
 }

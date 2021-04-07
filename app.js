@@ -11,6 +11,7 @@ const fanType = "fan";
 const lightType = "light";
 const lockType = "lock";
 const switchType = "switch";
+const sceneType = "scene";
 
 class TuyaCloudApp extends Homey.App {
 
