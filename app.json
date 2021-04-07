@@ -8,7 +8,7 @@
     "en": "This app allows you to connect Homey to the Tuya cloud"
   },
   "category": "lights",
-  "version": "0.0.14",
+  "version": "0.0.15",
   "compatibility": ">=1.5.3",
   "author": {
     "name": "Jurgen Heine",
