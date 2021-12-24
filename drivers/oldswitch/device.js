@@ -1,17 +1,17 @@
 'use strict';
 
 const Homey = require('homey');
-const BaseDevice = require('../base');
+const OldBaseDevice = require('../oldbasedevice');
 
 const CAPABILITIES_SET_DEBOUNCE = 1000;
 
-class SocketDevice extends BaseDevice {
+class OldSwitchDevice extends OldBaseDevice {
 
     onInit() {
         this.initDevice(this.getData().id);
         this.updateCapabilities();
         this.registerMultipleCapabilityListener(this.getCapabilities(), async (values, options) => { return this._onMultipleCapabilityListener(values, options); }, CAPABILITIES_SET_DEBOUNCE);
-        this.log(`Tuya socket ${this.getName()} has been initialized`);
+        this.log(`Tuya switch ${this.getName()} has been initialized`);
     }
 
     updateCapabilities() {
@@ -49,4 +49,4 @@ class SocketDevice extends BaseDevice {
     }
 }
 
-module.exports = SocketDevice;
+module.exports = OldSwitchDevice;

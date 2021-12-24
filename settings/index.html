@@ -24,12 +24,24 @@
     <fieldset>
         <legend><span data-i18n="settings.authentication"></legend>
         <div class="field row">
+            <label for="apiToUse"><span data-i18n="settings.apiToUse"></label>
+            <select id="apiToUse"></select>
+        </div>
+        <div class="field row">
             <label for="username"><span data-i18n="settings.username"></label>
             <input id="username" type="text" value="" />
         </div>
         <div class="field row">
             <label for="password"><span data-i18n="settings.password"></label>
             <input id="password" type="password" value="" />
+        </div>
+        <div class="field row">
+            <label for="appid"><span data-i18n="settings.appid"></label>
+            <input id="appid" type="text" value="" />
+        </div>
+        <div class="field row">
+            <label for="appsecret"><span data-i18n="settings.appsecret"></label>
+            <input id="appsecret" type="password" value="" />
         </div>
         <div class="field row">
             <label for="countrycode"><span data-i18n="settings.countrycode"></label>
@@ -47,9 +59,6 @@
         <div class="field row">
             <button id="save" class="left"><span data-i18n="settings.save"></button>
         </div>
-        <div class="field row">
-            <button id="reconnect" class="left"><span data-i18n="settings.reconnect"></button>
-        </div>
     </fieldset>
     <script type="text/javascript">
 
@@ -57,14 +66,17 @@
             
             var usernameElement = document.getElementById('username');
             var passwordElement = document.getElementById('password');
+            var appidElement = document.getElementById('appid');
+            var appsecretElement = document.getElementById('appsecret');
             var countrycodeElement = document.getElementById('countrycode');
             var businessElement = document.getElementById('business');
+            var apiToUseElement = document.getElementById('apiToUse');
             var colormapElement = document.getElementById('colormap'); 
             var saveElement = document.getElementById('save');
-            var reconnectElement = document.getElementById('reconnect');
 
-            fillDropdown(businessElement,businessCodes);
-
+            fillDropdown(businessElement, businessCodes);
+            fillDropdown(apiToUseElement, apiToUse);
+            
             Homey.get('username', function (err, username) {
                 if (err) return Homey.alert(err);
                 usernameElement.value = username;
@@ -73,6 +85,16 @@
             Homey.get('password', function (err, password) {
                 if (err) return Homey.alert(err);
                 passwordElement.value = password;
+            });
+
+            Homey.get('appid', function (err, appid) {
+                if (err) return Homey.alert(err);
+                appidElement.value = appid;
+            });
+
+            Homey.get('appsecret', function (err, appsecret) {
+                if (err) return Homey.alert(err);
+                appsecretElement.value = appsecret;
             });
 
             Homey.get('countrycode', function (err, countrycode) {
@@ -87,17 +109,16 @@
                     businessElement.value = business;
             });
 
+            Homey.get('apiToUse', function (err, apiToUse) {
+                if (err) return Homey.alert(err);
+                if (apiToUse != null)
+                    apiToUseElement.value = apiToUse;
+            });
+
             Homey.get('huecolormap', function (err, huecolormap) {
                 if (err) return Homey.alert(err);
                 if (huecolormap != null)
                     colormapElement.value = huecolormap;
-            });
-
-            reconnectElement.addEventListener('click', function (e) {
-                Homey.api('GET', '/connect', null, function (err) {
-                    if (err) return Homey.alert(err);
-                    return Homey.alert("Reconnected to gateway.");
-                });
             });
 
             saveElement.addEventListener('click', function (e) {
@@ -107,6 +128,14 @@
                 });
 
                 Homey.set('password', passwordElement.value, function (err) {
+                    if (err) return Homey.alert(err);
+                });
+
+                Homey.set('appid', appidElement.value, function (err) {
+                    if (err) return Homey.alert(err);
+                });
+
+                Homey.set('appsecret', appsecretElement.value, function (err) {
                     if (err) return Homey.alert(err);
                 });
 
@@ -144,12 +173,11 @@
             'tuya': "Tuya"
         }
 
-        const regionCodes = {
-            'cn': 'Asia',
-            'eu': 'Europe',
-            'us': 'US'
+        const apiToUse = {
+            'both': "Use legacy and official",
+            'legacy': "Use legacy only",
+            'official': "Use official only"
         }
-
     </script>
 </body>
 </html>

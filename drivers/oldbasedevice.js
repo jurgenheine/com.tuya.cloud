@@ -2,7 +2,7 @@
 
 const Homey = require('homey');
 
-class BaseDevice extends Homey.Device {
+class OldBaseDevice extends Homey.Device {
     initDevice(id) {
         this.updateInprogess = false;
         this.data = {};

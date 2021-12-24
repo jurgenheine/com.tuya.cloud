@@ -1,11 +1,11 @@
 'use strict';
 
 const Homey = require('homey');
-const BaseDevice = require('../base');
+const OldBaseDevice = require('../oldbasedevice');
 
 const CAPABILITIES_SET_DEBOUNCE = 1000;
 
-class CoverDevice extends BaseDevice {
+class OldCoverDevice extends OldBaseDevice {
 
     onInit() {
         this.initDevice(this.getData().id);
@@ -70,4 +70,4 @@ class CoverDevice extends BaseDevice {
     }
 }
 
-module.exports = CoverDevice;
+module.exports = OldCoverDevice;

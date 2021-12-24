@@ -2,10 +2,10 @@
 
 const Homey = require('homey');
 
-class CoverDriver extends Homey.Driver {
+class OldCoverDriver extends Homey.Driver {
 
     onInit() {
-        this.log('Tuya Cover Driver has been initialized');
+        this.log('Tuya legacy cover driver has been initialized');
     }
 
     async onPairListDevices(data, callback) {
@@ -32,7 +32,7 @@ class CoverDriver extends Homey.Driver {
                 });
             }
         }
-        callback(null, devices.sort(CoverDriver._compareHomeyDevice));
+        callback(null, devices.sort(OldCoverDriver._compareHomeyDevice));
     }
 
     static _compareHomeyDevice(a, b) {
@@ -45,4 +45,4 @@ class CoverDriver extends Homey.Driver {
 
 }
 
-module.exports = CoverDriver;
+module.exports = OldCoverDriver;

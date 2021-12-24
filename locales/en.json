@@ -1,5 +1,8 @@
 {
   "settings": {
+    "apiToUse": "Choose desired api(s)",
+    "appid": "Official api acces id",
+    "appsecret": "Official api acces secret",
     "username": "Username",
     "title": "Tuya cloud Settings",
     "authentication": "Authentication settings",

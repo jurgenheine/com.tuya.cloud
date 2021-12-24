@@ -2,19 +2,10 @@
 
 const Homey = require('homey');
 
-class SocketDriver extends Homey.Driver {
+class OldSwitchDriver extends Homey.Driver {
 
     onInit() {
-        this.log('Tuya Socket Driver has been initialized');
-    }
-
-    updateCapabilities(tuyaDevice) {
-        console.log("Get device for: " + tuyaDevice.id);
-        let homeyDevice = this.getDevice({ id: tuyaDevice.id });
-        if (homeyDevice instanceof Error) return;
-        console.log("Device found");
-        homeyDevice.updateData(tuyaDevice.data);
-        homeyDevice.updateCapabilities();
+        this.log('Tuya legacy switch driver has been initialized');
     }
 
     async onPairListDevices(data, callback) {
@@ -23,7 +14,7 @@ class SocketDriver extends Homey.Driver {
             callback(new Error("Please configure the app first."));
         }
         else {
-            let switches = await Homey.app.getSwitches();
+            let switches = await Homey.app.getOldSwitches();
             for (let tuyaDevice of Object.values(switches)) {
 
                 let capabilities = [];
@@ -37,7 +28,7 @@ class SocketDriver extends Homey.Driver {
                 });
             }
         }
-        callback(null, devices.sort(SocketDriver._compareHomeyDevice));
+        callback(null, devices.sort(OldSwitchDriver._compareHomeyDevice));
     }
 
     static _compareHomeyDevice(a, b) {
@@ -50,4 +41,4 @@ class SocketDriver extends Homey.Driver {
 
 }
 
-module.exports = SocketDriver;
+module.exports = OldSwitchDriver;

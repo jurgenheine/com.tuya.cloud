@@ -2,10 +2,19 @@
 
 const Homey = require('homey');
 
-class LightDriver extends Homey.Driver {
+class OldSocketDriver extends Homey.Driver {
 
     onInit() {
-        this.log('Tuya Light Driver has been initialized');
+        this.log('Tuya legacy socket driver has been initialized');
+    }
+
+    updateCapabilities(tuyaDevice) {
+        console.log("Get device for: " + tuyaDevice.id);
+        let homeyDevice = this.getDevice({ id: tuyaDevice.id });
+        if (homeyDevice instanceof Error) return;
+        console.log("Device found");
+        homeyDevice.updateData(tuyaDevice.data);
+        homeyDevice.updateCapabilities();
     }
 
     async onPairListDevices(data, callback) {
@@ -14,20 +23,11 @@ class LightDriver extends Homey.Driver {
             callback(new Error("Please configure the app first."));
         }
         else {
-            let lights = await Homey.app.getLights();
-            for (let tuyaDevice of Object.values(lights)) {
+            let switches = await Homey.app.getOldSwitches();
+            for (let tuyaDevice of Object.values(switches)) {
 
                 let capabilities = [];
                 capabilities.push("onoff");
-                if (tuyaDevice.data.brightness != null || (tuyaDevice.data.color != null && tuyaDevice.data.color.brightness != null))
-                    capabilities.push("dim");
-                if (tuyaDevice.data.color != null) {
-                    capabilities.push("light_hue");
-                    capabilities.push("light_saturation");
-                }
-                if (tuyaDevice.data.color_temp != null)
-                    capabilities.push("light_temperature");
-
                 devices.push({
                     data: {
                         id: tuyaDevice.id
@@ -37,7 +37,7 @@ class LightDriver extends Homey.Driver {
                 });
             }
         }
-        callback(null, devices.sort(LightDriver._compareHomeyDevice));
+        callback(null, devices.sort(OldSocketDriver._compareHomeyDevice));
     }
 
     static _compareHomeyDevice(a, b) {
@@ -50,4 +50,4 @@ class LightDriver extends Homey.Driver {
 
 }
 
-module.exports = LightDriver;
+module.exports = OldSocketDriver;
