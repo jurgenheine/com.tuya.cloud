@@ -1,11 +1,8 @@
 {
   "ExpandedNodes": [
     "",
-    "\\drivers",
-    "\\drivers\\cover",
-    "\\drivers\\socket",
-    "\\lib"
+    "\\drivers"
   ],
-  "SelectedNode": "\\app.json",
+  "SelectedNode": "\\util",
   "PreviewInSolutionExplorer": false
 }

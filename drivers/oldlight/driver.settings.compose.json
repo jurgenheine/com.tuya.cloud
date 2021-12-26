@@ -1,0 +1,92 @@
+[
+  {
+    "type": "group",
+    "label": {
+      "en": "Brightness settings",
+      "nl": "Helderheid instellingen"
+    },
+    "children": [
+      {
+        "type": "group",
+        "label": {
+          "en": "Color mode",
+          "nl": "Kleuren mode"
+        },
+        "children": [
+          {
+            "id": "minColorBrightness",
+            "type": "number",
+            "value": 10,
+            "label": {
+              "en": "Min value (default: 10)",
+              "nl": "Minimale waarde (standaard: 10)"
+            }
+          },
+          {
+            "id": "maxColorBrightness",
+            "type": "number",
+            "value": 100,
+            "label": {
+              "en": "Max value (default: 100)",
+              "nl": "Maximale waarde (standaard: 100)"
+            }
+          }
+        ]
+      },
+      {
+        "type": "group",
+        "label": {
+          "en": "White mode",
+          "nl": "Wit mode"
+        },
+        "children": [
+          {
+            "id": "minBrightness",
+            "type": "number",
+            "value": 10,
+            "label": {
+              "en": "Min value (default: 10)",
+              "nl": "Minimale waarde (standaard: 10)"
+            }
+          },
+          {
+            "id": "maxBrightness",
+            "type": "number",
+            "value": 255,
+            "label": {
+              "en": "Max value (default: 255)",
+              "nl": "Maximale waarde (standaard: 255)"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "type": "group",
+    "label": {
+      "en": "Color temperature settings",
+      "nl": "Kleurtemperatuur instellingen"
+    },
+    "children": [
+      {
+        "id": "minColorTemperature",
+        "type": "number",
+        "value": 1000,
+        "label": {
+          "en": "Min value (default: 1000)",
+          "nl": "Minimale waarde (standaard: 1000)"
+        }
+      },
+      {
+        "id": "maxColorTemperature",
+        "type": "number",
+        "value": 10000,
+        "label": {
+          "en": "Max value (default: 10000)",
+          "nl": "Maximale waarde (standaard: 10000)"
+        }
+      }
+    ]
+  }
+]

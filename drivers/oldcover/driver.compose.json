@@ -1,0 +1,11 @@
+{
+  "name": {
+    "en": "cover (Legacy)",
+    "nl": "scherm (Legacy)"
+  },
+  "class": "windowcoverings",
+  "capabilities": [
+    "windowcoverings_state"
+  ],
+  "$extends": [ "defaults" ]
+}

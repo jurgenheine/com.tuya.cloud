@@ -1,0 +1,11 @@
+{
+  "name": {
+    "en": "socket  (Legacy)",
+    "nl": "stopcontact  (Legacy)"
+  },
+  "class": "socket",
+  "capabilities": [
+    "onoff"
+  ],
+  "$extends": [ "defaults" ]
+}

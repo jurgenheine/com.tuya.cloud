@@ -1,0 +1,20 @@
+[
+  {
+    "type": "group",
+    "label": {
+      "en": "General settings",
+      "nl": "Algemene instellingen"
+    },
+    "children": [
+      {
+        "id": "invertButtons",
+        "type": "checkbox",
+        "value": false,
+        "label": {
+          "en": "Invert buttons",
+          "nl": "Inverteer knoppen"
+        }
+      }
+    ]
+  }
+]

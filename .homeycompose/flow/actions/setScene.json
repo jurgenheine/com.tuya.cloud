@@ -1,0 +1,12 @@
+{
+	"title": {
+		"en": "Trigger a scene",
+		"nl": "Trigger een scene"
+	},
+	"args": [
+		{
+			"name": "scene",
+			"type": "autocomplete"
+		}
+	]
+}
