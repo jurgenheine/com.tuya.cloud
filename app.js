@@ -2,18 +2,11 @@
 
 const Homey = require('homey');
 const TuyaApi = require("./lib/cloudtuya");
-const TuyaOpenAPI = require("./lib/tuyaopenapi");
 const TuyaSHOpenAPI = require("./lib/tuyashopenapi");
 const TuyaOpenMQ = require("./lib/tuyamqttapi");
-
-const linear = require('everpolate').linear;
 const Colormapping = require("./util/colormapping");
 const LogUtil = require("./util/logutil");
-
-const coverType = "cover";
-const lightType = "light";
-const switchType = "switch";
-const socketType = "socket";
+const BaseDriver = require("./drivers/basedriver");
 
 class TuyaCloudApp extends Homey.App {
 
@@ -23,17 +16,18 @@ class TuyaCloudApp extends Homey.App {
         this.oldclient = TuyaApi;
         this.colormapping = Colormapping;
         this.initialized = false;
+        this._oldconnected = false;
         this._connected = false;
 
         let apiToUse = Homey.ManagerSettings.get('apiToUse');
 
-        this._oldhomeyCoverDriver = Homey.ManagerDrivers.getDriver('old' + coverType);
-        this._oldhomeyLightDriver = Homey.ManagerDrivers.getDriver('old' + lightType);
-        this._oldhomeySwitchDriver = Homey.ManagerDrivers.getDriver('old' + switchType);
-        this._homeyCoverDriver = Homey.ManagerDrivers.getDriver(coverType);
-        this._homeyLightDriver = Homey.ManagerDrivers.getDriver(lightType);
-        this._homeySwitchDriver = Homey.ManagerDrivers.getDriver(switchType);
-        this._homeySocketDriver = Homey.ManagerDrivers.getDriver(socketType);
+        this._oldhomeyCoverDriver = Homey.ManagerDrivers.getDriver('oldcover');
+        this._oldhomeyLightDriver = Homey.ManagerDrivers.getDriver('oldlight');
+        this._oldhomeySwitchDriver = Homey.ManagerDrivers.getDriver('oldswitch');
+        this._homeyCoverDriver = Homey.ManagerDrivers.getDriver('cover');
+        this._homeyLightDriver = Homey.ManagerDrivers.getDriver('light');
+        this._homeySwitchDriver = Homey.ManagerDrivers.getDriver('switch');
+        this._homeySocketDriver = Homey.ManagerDrivers.getDriver('socket');
 
         if (apiToUse !== 'official') {
             this.UseOfficialApi = true;
@@ -77,6 +71,7 @@ class TuyaCloudApp extends Homey.App {
         this.tuyaOpenMQ = mq;
         this.tuyaOpenMQ.start();
         this.tuyaOpenMQ.addMessageListener(this.onMQTTMessage.bind(this));
+        this._connected = true;
     }
     
     async connect() {
@@ -91,38 +86,18 @@ class TuyaCloudApp extends Homey.App {
         this.logToHomey("Start connection to cloud.");
         await this.oldclient.connect();
         this.logToHomey("Connected to cloud.");
-        this._connected = true;
+        this._oldconnected = true;
         this.colormapping.setColorMap();
+    }
+
+    isOldConnected() {
+        return this._oldconnected;
     }
 
     isConnected() {
         return this._connected;
     }
-    
-    async getOldLights() {
-        return await this.oldclient.get_devices_by_type(lightType);
-    }
-
-    async getOldCovers() {
-        return this.oldclient.get_devices_by_type(coverType);
-    }
-
-    async getOldScenes() {
-        return await this.oldclient.get_devices_by_type(sceneType);
-    }
-
-    async getOldSwitches() {
-        return await this.oldclient.get_devices_by_type(switchType);
-    }
-
-    operateDevice(devId, action, param = null, namespace = 'control') {
-        try {
-            return this.oldclient.device_control(devId, action, param, namespace);
-        } catch (ex) {
-            this.logToHomey(ex);
-        }
-    }
-
+   
     async onMQTTMessage(message) {
         if (message.bizCode) {
             if (message.bizCode === 'delete') {
@@ -139,58 +114,60 @@ class TuyaCloudApp extends Homey.App {
         }
     }
 
+    get_device_by_devid(devId) {
+        this.devices.forEach((device) => {
+            if (device.id === devId) {
+                return device;
+            }
+        });
+        return null;
+    }
+
     //refresh Accessorie status
     async refreshDeviceStates(message) {
-        switch (message.category) {
-            case 'kj':
-                //AirPurifier
+        let device = this.get_device_by_devid(message.devId);
+        let type = BaseDriver.get_type_by_category(device.category);
+        switch (type) {
+            case 'airPurifier':
                 break;
-            case 'dj':
-            case 'dd':
-            case 'fwd':
-            case 'tgq':
-            case 'xdd':
-            case 'dc':
-            case 'tgkg':
-                //lights
+            case 'light':
                 this.updateCapabilities(this._homeyLightDriver, message);
                 break;
-            case 'cz':
-            case 'pc':
-                //socket
+            case 'socket':
                 this.updateCapabilities(this._homeySocketDriver, message);
                 break;
-            case 'kg':
-            case 'tdq':
-                //switch
+            case 'switch':
                 this.updateCapabilities(this._homeySwitchDriver, message);
                 break;
-            case 'fs':
-            case 'fskg':
-                //fan
+            case 'fan':
                 break;
-            case 'ywbj':
-                //smoke sensor
+            case 'smokeSensor':
                 break;
-            case 'qn':
-                //heater
+            case 'heater':
                 break;
-            case 'ckmkzq': //garage_door_opener
+            case 'garageDoorOpener': 
                 break;
-            case 'cl':
+            case 'cover':
                 this.updateCapabilities(this._homeyCoverDriver, message);
                 break;
-            case 'mcs':
+            case 'contactSensor':
                 //contact sensor
                 break;
-            case 'rqbj':
-            case 'jwbj':
+            case 'leakSensor':
                 //leak sensor
                 break;
             default:
                 break;
         }
-        this.logToHomey(`${message.devId} updated`);
+        this.logToHomey(`${device.name} updated`);
+    }
+
+    updateCapabilities(driver, message) {
+        console.log("Get device for: " + message.devId);
+        let homeyDevice = driver.getDevice({ id: message.devId });
+        if (homeyDevice instanceof Error) return;
+        console.log("Device found");
+        homeyDevice.updateCapabilities(message.status);
     }
 
     _olddeviceUpdated(tuyaDevice) {
@@ -219,26 +196,21 @@ class TuyaCloudApp extends Homey.App {
         homeyDevice.updateCapabilities();
     }
 
-    updateCapabilities(driver,message) {
-        console.log("Get device for: " + message.devId);
-        let homeyDevice = driver.getDevice({ id: tuyaDevice.devId });
-        if (homeyDevice instanceof Error) return;
-        console.log("Device found");
-        homeyDevice.updateData(message);
-        homeyDevice.updateCapabilities();
-    }
-
     _olddeviceRemoved(acc) {
         if (acc != null)
             this.logToHomey(acc.name + ' removed');
     }
 
     _onFlowActionSetScene(args) {
-        return this.operateDevice(args.scene.instanceId, 'turnOnOff', { value: '1' });
+        try {
+            return this.oldclient.device_control(args.scene.instanceId, 'turnOnOff', { value: '1' }, 'control');
+        } catch (ex) {
+            this.logToHomey(ex);
+        }
     }
 
     async _onSceneAutoComplete( query, args ) {
-        let scenes = await this.getOldScenes();
+        let scenes = await this.oldclient.get_devices_by_type('scene')();
         return Object.values(scenes).map(s => {
             return { instanceId: s.id, name: s.name };
         });

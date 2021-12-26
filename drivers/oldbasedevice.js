@@ -10,7 +10,7 @@ class OldBaseDevice extends Homey.Device {
     }
 
     async update() {
-        let { payload: { data } } = await Homey.app.operateDevice(this.id, 'QueryDevice', null, 'query');
+        let { payload: { data } } = await this.operateDevice(this.id, 'QueryDevice', null, 'query');
         this.updateData(data);
     }
 
@@ -22,17 +22,25 @@ class OldBaseDevice extends Homey.Device {
         }
     }
 
+    operateDevice(devId, action, param = null, namespace = 'control') {
+        try {
+            return Homey.app.oldclient.device_control(devId, action, param, namespace);
+        } catch (ex) {
+            this.logToHomey(ex);
+        }
+    }
+
     getState() {
         return this.data != null ? this.data.state ===true || this.data.state === 'true' : false;
     }
 
     async turn_on() {
-        await Homey.app.operateDevice(this.id, 'turnOnOff', { value: '1' });
+        await this.operateDevice(this.id, 'turnOnOff', { value: '1' });
         this.data.state = true;
     }
 
     async turn_off() {
-        await Homey.app.operateDevice(this.id, 'turnOnOff', { value: '0' });
+        await this.operateDevice(this.id, 'turnOnOff', { value: '0' });
         this.data.state = false;
     }
 }

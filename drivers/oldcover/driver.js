@@ -10,11 +10,11 @@ class OldCoverDriver extends Homey.Driver {
 
     async onPairListDevices(data, callback) {
         let devices = [];
-        if (!Homey.app.isConnected()) {
+        if (!Homey.app.isOldConnected()) {
             callback(new Error("Please configure the app first."));
         }
         else {
-            let covers = await Homey.app.getCovers();
+            let covers = await Homey.app.oldclient.get_devices_by_type('cover');
             for (let tuyaDevice of Object.values(covers)) {
 
                 let capabilities = [];

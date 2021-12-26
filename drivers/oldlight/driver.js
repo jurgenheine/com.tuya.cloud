@@ -10,7 +10,7 @@ class OldLightDriver extends Homey.Driver {
 
     async onPairListDevices(data, callback) {
         let devices = [];
-        if (!Homey.app.isConnected()) {
+        if (!Homey.app.isOldConnected()) {
             callback(new Error("Please configure the app first."));
         }
         else {

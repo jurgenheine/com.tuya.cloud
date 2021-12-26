@@ -141,13 +141,13 @@ class OldLightDevice extends OldBaseDevice {
             let maxValue = this.getSettings().maxColorBrightness - minValue;
             let value = Math.round(minValue + brightness * maxValue);
             this.data.color.brightness = value;
-            await Homey.app.operateDevice(this.id, 'brightnessSet', { value: value });
+            await this.operateDevice(this.id, 'brightnessSet', { value: value });
         } else {
             let minValue = this.getSettings().minBrightness;
             let maxValue = this.getSettings().maxBrightness - minValue;
             let value = Math.round(minValue + brightness * maxValue);
             this.data.brightness = value;
-            await Homey.app.operateDevice(this.id, 'brightnessSet', { value: value });
+            await this.operateDevice(this.id, 'brightnessSet', { value: value });
         }
     }
 
@@ -167,14 +167,14 @@ class OldLightDevice extends OldBaseDevice {
         this.data.saturation = hsv_color.saturation * 100;
         this.data.brightness = hsv_color.brightness;
         this.data.color_mode = "colour";
-        await Homey.app.operateDevice(this.id, 'colorSet', { color: hsv_color });
+        await this.operateDevice(this.id, 'colorSet', { color: hsv_color });
     }
 
     async set_color_temp(color_temp) {
         let value = Math.round(this.getSettings().minColorTemperature + color_temp * (this.getSettings().maxColorTemperature - this.getSettings().minColorTemperature));
         this.data.color_temp = value;
         this.data.color_mode = "white";
-        await Homey.app.operateDevice(this.id, 'colorTemperatureSet', { value: value });
+        await this.operateDevice(this.id, 'colorTemperatureSet', { value: value });
     }
 
     _get_hue() {

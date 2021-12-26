@@ -66,7 +66,7 @@ class OldCoverDevice extends OldBaseDevice {
     }
     
     async stop() {
-        await Homey.app.operateDevice(this.id, 'startStop', { value: '0' });
+        await this.operateDevice(this.id, 'startStop', { value: '0' });
     }
 }
 
