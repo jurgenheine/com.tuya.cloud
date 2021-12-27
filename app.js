@@ -97,7 +97,54 @@ class TuyaCloudApp extends Homey.App {
     isConnected() {
         return this._connected;
     }
-   
+
+    //refresh Accessorie status
+    async setAllDeviceConfigs() {
+        for (device of this.devices) {
+            let type = BaseDriver.get_type_by_category(device.category);
+            switch (type) {
+                case 'airPurifier':
+                    break;
+                case 'light':
+                    this.updateCapabilities(this._homeyLightDriver, message);
+                    break;
+                case 'socket':
+                    this.updateCapabilities(this._homeySocketDriver, message);
+                    break;
+                case 'switch':
+                    this.updateCapabilities(this._homeySwitchDriver, message);
+                    break;
+                case 'fan':
+                    break;
+                case 'smokeSensor':
+                    break;
+                case 'heater':
+                    break;
+                case 'garageDoorOpener':
+                    break;
+                case 'cover':
+                    this.updateCapabilities(this._homeyCoverDriver, message);
+                    break;
+                case 'contactSensor':
+                    //contact sensor
+                    break;
+                case 'leakSensor':
+                    //leak sensor
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+
+    setDeviceConfig(driver, device) {
+        console.log("Get device for: " + device.id);
+        let homeyDevice = driver.getDevice({ id: device.id });
+        if (homeyDevice instanceof Error) return;
+        console.log("Device found");
+        homeyDevice.setDeviceConfig(device);
+    }
+
     async onMQTTMessage(message) {
         if (message.bizCode) {
             if (message.bizCode === 'delete') {

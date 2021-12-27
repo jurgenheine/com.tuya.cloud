@@ -9,7 +9,11 @@ class LightDevice extends BaseDevice {
 
     onInit() {
         this.initDevice(this.getData().id);
-        let deviceConfig = get_deviceConfig();
+        this.registerMultipleCapabilityListener(this.getCapabilities(), async (values, options) => { return this._onMultipleCapabilityListener(values, options); }, CAPABILITIES_SET_DEBOUNCE);
+        this.log(`Tuya Light ${this.getName()} has been initialized`);
+    }
+
+    setDeviceConfig(deviceConfig) {
         let statusArr = deviceConfig.status ? deviceConfig.status : [];
 
         //Distinguish Tuya different devices under the same HomeBridge Service
@@ -18,25 +22,22 @@ class LightDevice extends BaseDevice {
         //get Lightbulb dp range
         this.function_dp_range = this.getDefaultDPRange(statusArr);
         this.updateCapabilities(statusArr);
-        this.registerMultipleCapabilityListener(this.getCapabilities(), async (values, options) => { return this._onMultipleCapabilityListener(values, options); }, CAPABILITIES_SET_DEBOUNCE);
-        this.log(`Tuya Light ${this.getName()} has been initialized`);
     }
 
-    async _onMultipleCapabilityListener(valueObj, optsObj) {
+    _onMultipleCapabilityListener(valueObj, optsObj) {
         console.log("set capabilities: " + JSON.stringify(valueObj));
         try {
             if (valueObj.dim != null) {
-                this.getSendParam("dim", valueObj.dim);
-                await this.set_brightness(valueObj.dim);
+                this.set_brightness(valueObj.dim);
             }
             if (valueObj.onoff != null) {
-                this.(valueObj.onoff === true || valueObj.onoff === 1)
+                this.set_on_off(valueObj.onoff === true || valueObj.onoff === 1);
             }
             if (valueObj.light_temperature != null) {
-                await this.set_color_temp(1 - valueObj.light_temperature);
+                this.set_color_temp(1 - valueObj.light_temperature);
             }
             if (valueObj.light_hue != null || valueObj.light_saturation != null) {
-                await this.set_color(valueObj.light_hue, valueObj.light_saturation);
+                this.set_color(valueObj.light_hue, valueObj.light_saturation);
             }
         } catch (ex) {
             Homey.app.logToHomey(ex);
@@ -94,6 +95,16 @@ class LightDevice extends BaseDevice {
         this.setCachedState(name, hbValue);
         this.setCapabilityValue(name, hbValue)
             .catch(this.error);
+    }
+
+    sendCommand(name, value) {
+        var param = getSendParam(name, value);
+        Homey.app.tuyaOpenApi.sendCommand(this.id, param).then(() => {
+            this.setCachedState(name, value);
+        }).catch((error) => {
+            this.log.error('[SET][%s] capabilities Error: %s', this.id, error);
+            this.invalidateCache();
+        });
     }
 
     // deviceConfig.functions is null, return defaultdpRange
@@ -176,16 +187,6 @@ class LightDevice extends BaseDevice {
         if (hue != null) {
             this.sendCommand("light_hue", hue);
         }
-    }
-
-    sendCommand(name, value) {
-        param = this.getSendParam("light_temperature", color_temp);
-        Homey.app.tuyaOpenApi.sendCommand(this.id, value).then(() => {
-            this.setCachedState(name, value);
-        }).catch((error) => {
-            this.log.error('[SET][%s] capabilities Error: %s', this.id, error);
-            this.invalidateCache();
-        });
     }
 
     //get Command SendData

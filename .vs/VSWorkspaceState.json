@@ -1,8 +1,9 @@
 {
   "ExpandedNodes": [
     "",
-    "\\drivers"
+    "\\.homeycompose\\flow\\actions",
+    "\\lib"
   ],
-  "SelectedNode": "\\util",
+  "SelectedNode": "\\package.json",
   "PreviewInSolutionExplorer": false
 }
