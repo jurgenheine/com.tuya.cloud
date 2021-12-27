@@ -1,0 +1,183 @@
+<!doctype html>
+<html>
+<head>
+    <script type="text/javascript" src="/homey.js" data-origin="settings"></script>
+</head>
+<style>
+    i {
+        margin-right: 20px;
+    }
+
+    .logline {
+        height: auto;
+        line-height: initial;
+        white-space: nowrap;
+    }
+
+    input {
+        margin-top: 10px;
+        margin-right: 24px;
+    }
+</style>
+<body>
+    <h1><span data-i18n="settings.title"></h1>
+    <fieldset>
+        <legend><span data-i18n="settings.authentication"></legend>
+        <div class="field row">
+            <label for="apiToUse"><span data-i18n="settings.apiToUse"></label>
+            <select id="apiToUse"></select>
+        </div>
+        <div class="field row">
+            <label for="username"><span data-i18n="settings.username"></label>
+            <input id="username" type="text" value="" />
+        </div>
+        <div class="field row">
+            <label for="password"><span data-i18n="settings.password"></label>
+            <input id="password" type="password" value="" />
+        </div>
+        <div class="field row">
+            <label for="appid"><span data-i18n="settings.appid"></label>
+            <input id="appid" type="text" value="" />
+        </div>
+        <div class="field row">
+            <label for="appsecret"><span data-i18n="settings.appsecret"></label>
+            <input id="appsecret" type="password" value="" />
+        </div>
+        <div class="field row">
+            <label for="countrycode"><span data-i18n="settings.countrycode"></label>
+            <input id="countrycode" type="text" value="" />
+        </div>
+        <div class="field row">
+            <label for="business"><span data-i18n="settings.business"></label>
+            <select id="business"></select>
+        </div>
+        <legend><span data-i18n="settings.general"></legend>
+        <div class="field row">
+            <label for="colormap"><span data-i18n="settings.colormap"></label>
+            <input id="colormap" type="text" value="" />
+        </div>
+        <div class="field row">
+            <button id="save" class="left"><span data-i18n="settings.save"></button>
+        </div>
+    </fieldset>
+    <script type="text/javascript">
+
+        function onHomeyReady(Homey) {
+            
+            var usernameElement = document.getElementById('username');
+            var passwordElement = document.getElementById('password');
+            var appidElement = document.getElementById('appid');
+            var appsecretElement = document.getElementById('appsecret');
+            var countrycodeElement = document.getElementById('countrycode');
+            var businessElement = document.getElementById('business');
+            var apiToUseElement = document.getElementById('apiToUse');
+            var colormapElement = document.getElementById('colormap'); 
+            var saveElement = document.getElementById('save');
+
+            fillDropdown(businessElement, businessCodes);
+            fillDropdown(apiToUseElement, apiToUse);
+            
+            Homey.get('username', function (err, username) {
+                if (err) return Homey.alert(err);
+                usernameElement.value = username;
+            });
+
+            Homey.get('password', function (err, password) {
+                if (err) return Homey.alert(err);
+                passwordElement.value = password;
+            });
+
+            Homey.get('appid', function (err, appid) {
+                if (err) return Homey.alert(err);
+                appidElement.value = appid;
+            });
+
+            Homey.get('appsecret', function (err, appsecret) {
+                if (err) return Homey.alert(err);
+                appsecretElement.value = appsecret;
+            });
+
+            Homey.get('countrycode', function (err, countrycode) {
+                if (err) return Homey.alert(err);
+                if (countrycode != null)
+                    countrycodeElement.value = countrycode;
+            });
+
+            Homey.get('biztype', function (err, business) {
+                if (err) return Homey.alert(err);
+                if (business != null)
+                    businessElement.value = business;
+            });
+
+            Homey.get('apiToUse', function (err, apiToUse) {
+                if (err) return Homey.alert(err);
+                if (apiToUse != null)
+                    apiToUseElement.value = apiToUse;
+            });
+
+            Homey.get('huecolormap', function (err, huecolormap) {
+                if (err) return Homey.alert(err);
+                if (huecolormap != null)
+                    colormapElement.value = huecolormap;
+            });
+
+            saveElement.addEventListener('click', function (e) {
+
+                Homey.set('username', usernameElement.value, function (err) {
+                    if (err) return Homey.alert(err);
+                });
+
+                Homey.set('password', passwordElement.value, function (err) {
+                    if (err) return Homey.alert(err);
+                });
+
+                Homey.set('appid', appidElement.value, function (err) {
+                    if (err) return Homey.alert(err);
+                });
+
+                Homey.set('appsecret', appsecretElement.value, function (err) {
+                    if (err) return Homey.alert(err);
+                });
+
+                Homey.set('countrycode', countrycodeElement.value, function (err) {
+                    if (err) return Homey.alert(err);
+                });
+
+                Homey.set('biztype', businessElement.value, function (err) {
+                    if (err) return Homey.alert(err);
+                });
+
+                Homey.set('huecolormap', colormapElement.value, function (err) {
+                    if (err) return Homey.alert(err);
+                });
+
+                Homey.alert(Homey.__("settings.saved"));
+
+                Homey.api('GET', '/connect', null, function (err) {
+                    if (err) return Homey.alert(err);
+                });
+
+            });
+
+            Homey.ready();
+        }
+
+        function fillDropdown(element, data) {
+            Object.keys(data).forEach(function (item) {
+                element.options[element.options.length] = new Option(data[item], item);
+            });
+        }
+
+        const businessCodes = {
+            'smart_life': "Smart Life",
+            'tuya': "Tuya"
+        }
+
+        const apiToUse = {
+            'both': "Use legacy and official",
+            'legacy': "Use legacy only",
+            'official': "Use official only"
+        }
+    </script>
+</body>
+</html>

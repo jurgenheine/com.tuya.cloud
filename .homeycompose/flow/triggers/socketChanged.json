@@ -7,7 +7,7 @@
 	"args": [
 		{
 			"type": "device",
-			"name": "my_socket",
+			"name": "my_device",
 			"filter": "driver_id=socket"
 		},
 		{
@@ -20,11 +20,7 @@
 		},
 		{
 			"name": "state",
-			"type": "dropdowm",
-			"title": {
-				"en": "State",
-				"nl": "Status"
-			},
+			"type": "dropdown",
 			"values": [
 				{
 					"id": "On",
@@ -40,7 +36,11 @@
 						"nl": "Uit"
 					}
 				}
-			]
+			],
+			"title": {
+				"en": "State",
+				"nl": "Status"
+			}
 		}
 	]
 }

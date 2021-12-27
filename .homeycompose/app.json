@@ -4,6 +4,7 @@
   "name": {
     "en": "Tuya cloud"
   },
+  "brandColor": "#FF4900",
   "description": {
     "en": "This app allows you to connect Homey to the Tuya cloud",
     "nl": "Deze app laat je connectie maken met de Tuya cloud"

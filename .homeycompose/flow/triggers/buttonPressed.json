@@ -7,7 +7,7 @@
 	"args": [
 		{
 			"type": "device",
-			"name": "my_socket",
+			"name": "my_device",
 			"filter": "driver_id=switch"
 		},
 		{
@@ -19,28 +19,22 @@
 			}
 		},
 		{
-			"name": "state",
-			"type": "dropdowm",
-			"title": {
-				"en": "State",
-				"nl": "Status"
-			},
+			"name": "buttonstate",
+			"type": "dropdown",
 			"values": [
 				{
 					"id": "On",
-					"label": {
-						"en": "On",
-						"nl": "Aan"
-					}
+					"label": { "en": "On", "nl": "Aan" }
 				},
 				{
 					"id": "Off",
-					"label": {
-						"en": "Off",
-						"nl": "Uit"
-					}
+					"label": {"en": "Off",	"nl": "Uit"	}
 				}
-			]
+			],
+			"title": {
+				"en": "State",
+				"nl": "Status"
+			}
 		}
 	]
 }
