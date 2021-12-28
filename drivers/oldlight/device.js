@@ -106,8 +106,8 @@ class OldLightDevice extends OldBaseDevice {
 
     getBrightness() {
         return this.data.color_mode === 'colour' && this.data.color != null && this.data.color.brightness != null?
-            parseInt(this.data.color.brightness) / this.getSettings().maxColorBrightness :
-            this.data.brightness / this.getSettings().maxBrightness;
+            parseInt(this.data.color.brightness) / 100 :
+            this.data.brightness / 255;
     }
 
     get_hue() {
@@ -130,25 +130,23 @@ class OldLightDevice extends OldBaseDevice {
     }
 
     get_color_temp() {
+        // 1000 - 10000
         return this.data.color_temp == null ?
             0.0 :
-            (this.data.color_temp - this.getSettings().minColorTemperature) / (this.getSettings().maxColorTemperature - this.getSettings().minColorTemperature);
+            (this.data.color_temp - 1000) / 9000;
     }
 
     async set_brightness(brightness) {
+        // brigthness 0-100 for color else 0-255, 10 and below is off
+        let value = Math.round(10 + (this.data.color_mode === 'colour' && device.data.color != null && device.data.color.brightness != null ?
+            brightness * 90 :
+            brightness * 254));
         if (this.data.color_mode === 'colour' && his.data.color != null && this.data.color.brightness != null) {
-            let minValue = this.getSettings().minColorBrightness;
-            let maxValue = this.getSettings().maxColorBrightness - minValue;
-            let value = Math.round(minValue + brightness * maxValue);
             this.data.color.brightness = value;
-            await this.operateDevice(this.id, 'brightnessSet', { value: value });
         } else {
-            let minValue = this.getSettings().minBrightness;
-            let maxValue = this.getSettings().maxBrightness - minValue;
-            let value = Math.round(minValue + brightness * maxValue);
             this.data.brightness = value;
-            await this.operateDevice(this.id, 'brightnessSet', { value: value });
         }
+        await this.operateDevice(this.id, 'brightnessSet', { value: value });
     }
 
     async set_color(hue, saturation) {
@@ -159,7 +157,7 @@ class OldLightDevice extends OldBaseDevice {
         // saturation 0-1( but status 0-100)
         hsv_color.saturation = saturation != null ? saturation : this.get_saturation();
 
-        hsv_color.brightness = Math.round(this.getBrightness() * this.getSettings().maxColorBrightness);
+        hsv_color.brightness = Math.round(this.getBrightness() * 100);
         // color white
         if (hsv_color.saturation === 0)
             hsv_color.hue = 0;
@@ -171,7 +169,8 @@ class OldLightDevice extends OldBaseDevice {
     }
 
     async set_color_temp(color_temp) {
-        let value = Math.round(this.getSettings().minColorTemperature + color_temp * (this.getSettings().maxColorTemperature - this.getSettings().minColorTemperature));
+        // min 1000, max 10000, range is 9000 => 1000 + color_temp * 9000
+        let value = Math.round(1000 + color_temp * 9000);
         this.data.color_temp = value;
         this.data.color_mode = "white";
         await this.operateDevice(this.id, 'colorTemperatureSet', { value: value });

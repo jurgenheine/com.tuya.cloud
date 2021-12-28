@@ -14,7 +14,7 @@ class OldLightDriver extends Homey.Driver {
             callback(new Error("Please configure the app first."));
         }
         else {
-            let lights = await Homey.app.getLights();
+            let lights = await Homey.app.oldclient.get_devices_by_type('light');
             for (let tuyaDevice of Object.values(lights)) {
 
                 let capabilities = [];

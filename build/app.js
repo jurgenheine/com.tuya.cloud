@@ -11,8 +11,8 @@ const BaseDriver = require("./drivers/basedriver");
 class TuyaCloudApp extends Homey.App {
 
     onInit() {
-        initApiUssager();
-        this.logger = LogUtil(this.log, true);
+        //initApiUssager();
+        this.logger = new LogUtil(this.log, true);
         this.oldclient = TuyaApi;
         this.colormapping = Colormapping;
         this.initialized = false;

@@ -1,9 +1,14 @@
 {
   "ExpandedNodes": [
     "",
+    "\\.homeycompose",
+    "\\.homeycompose\\drivers\\templates",
     "\\.homeycompose\\flow\\actions",
-    "\\lib"
+    "\\.homeycompose\\flow\\conditions",
+    "\\.homeycompose\\flow\\triggers",
+    "\\drivers",
+    "\\drivers\\switch"
   ],
-  "SelectedNode": "\\package.json",
+  "SelectedNode": "\\.homeycompose\\app.json",
   "PreviewInSolutionExplorer": false
 }

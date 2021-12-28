@@ -14,7 +14,7 @@ class OldSwitchDriver extends Homey.Driver {
             callback(new Error("Please configure the app first."));
         }
         else {
-            let switches = await Homey.app.await.oldclient.get_devices_by_type('switch');
+            let switches = await Homey.app.oldclient.get_devices_by_type('switch');
             for (let tuyaDevice of Object.values(switches)) {
 
                 let capabilities = [];

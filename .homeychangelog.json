@@ -34,5 +34,11 @@
   },
   "0.0.13": {
     "en": "Fix stability"
+  },
+  "0.0.14": {
+    "en": "Fix some bugs"
+  },
+  "0.0.15": {
+    "en": "Fix scene autocomplete"
   }
 }

@@ -1,4 +1,4 @@
-'use strict';
+ 'use strict';
 
 const Homey = require('homey');
 
@@ -95,3 +95,5 @@ class BaseDriver extends Homey.Driver {
         return device_list;
     }
 }
+
+module.exports = BaseDriver;
