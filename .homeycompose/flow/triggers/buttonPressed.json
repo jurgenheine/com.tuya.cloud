@@ -2,13 +2,16 @@
 	"title": {
 		"en": "Button pressed",
 		"nl": "Knop ingedrukt"
-
+	},
+	"titleFormatted": {
+		"en": "[[buttonid]] is turned [[buttonstate]]",
+		"nl": "[[buttonid]] is [[buttonstate]] gezet"
 	},
 	"args": [
 		{
 			"type": "device",
 			"name": "my_device",
-			"filter": "driver_id=switch"
+			"filter": "driver_id=tuyaswitch"
 		},
 		{
 			"name": "buttonid",
@@ -24,11 +27,17 @@
 			"values": [
 				{
 					"id": "On",
-					"label": { "en": "On", "nl": "Aan" }
+					"label": {
+						"en": "On",
+						"nl": "Aan"
+					}
 				},
 				{
 					"id": "Off",
-					"label": {"en": "Off",	"nl": "Uit"	}
+					"label": {
+						"en": "Off",
+						"nl": "Uit"
+					}
 				}
 			],
 			"title": {

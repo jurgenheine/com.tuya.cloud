@@ -13,6 +13,7 @@
     "colormap": "Hue colormap",
     "save": "Save",
     "reconnect": "Reconnect",
-    "saved": "Settings saved"
+    "saved": "Settings saved",
+    "isrequired": "is required"
   }
 }

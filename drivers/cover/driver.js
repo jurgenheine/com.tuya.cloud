@@ -2,10 +2,10 @@
 
 const Homey = require('homey');
 
-class SwitchDriver extends Homey.Driver {
+class CoverDriver extends Homey.Driver {
 
     onInit() {
-        this.log('Tuya legacy switch driver has been initialized');
+        this.log('Tuya legacy cover driver has been initialized');
     }
 
     async onPairListDevices(data, callback) {
@@ -14,11 +14,15 @@ class SwitchDriver extends Homey.Driver {
             callback(new Error("Please configure the app first."));
         }
         else {
-            let switches = await Homey.app.oldclient.get_devices_by_type('switch');
-            for (let tuyaDevice of Object.values(switches)) {
+            let covers = await Homey.app.oldclient.get_devices_by_type('cover');
+            for (let tuyaDevice of Object.values(covers)) {
 
                 let capabilities = [];
-                capabilities.push("onoff");
+				this.log("OnPairList: ");
+				this.log(tuyaDevice.data);
+              
+				capabilities.push("windowcoverings_state");
+
                 devices.push({
                     data: {
                         id: tuyaDevice.id
@@ -28,7 +32,7 @@ class SwitchDriver extends Homey.Driver {
                 });
             }
         }
-        callback(null, devices.sort(SwitchDriver._compareHomeyDevice));
+        callback(null, devices.sort(CoverDriver._compareHomeyDevice));
     }
 
     static _compareHomeyDevice(a, b) {
@@ -41,4 +45,4 @@ class SwitchDriver extends Homey.Driver {
 
 }
 
-module.exports = SwitchDriver;
+module.exports = CoverDriver;

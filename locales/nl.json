@@ -13,6 +13,7 @@
     "colormap": "Kleurtoon mapping",
     "save": "Opslaan",
     "reconnect": "Opnieuw verbinden",
-    "saved": "Instellingen opgeslagen"
+    "saved": "Instellingen opgeslagen",
+    "isrequired": "is verplicht"
   }
 }

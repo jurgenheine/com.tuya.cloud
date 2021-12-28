@@ -1,9 +1,9 @@
 {
   "name": {
-    "en": "switch (Legacy)",
-    "nl": "schakelaar (Legacy)"
+    "en": "socket",
+    "nl": "stopcontact"
   },
-  "class": "button",
+  "class": "socket",
   "capabilities": [
     "onoff"
   ],

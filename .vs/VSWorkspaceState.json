@@ -1,14 +1,9 @@
 {
   "ExpandedNodes": [
     "",
-    "\\.homeycompose",
-    "\\.homeycompose\\drivers\\templates",
-    "\\.homeycompose\\flow\\actions",
-    "\\.homeycompose\\flow\\conditions",
-    "\\.homeycompose\\flow\\triggers",
     "\\drivers",
-    "\\drivers\\switch"
+    "\\util"
   ],
-  "SelectedNode": "\\.homeycompose\\app.json",
+  "SelectedNode": "\\drivers\\tuyabasedriver.js",
   "PreviewInSolutionExplorer": false
 }

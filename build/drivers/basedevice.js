@@ -4,37 +4,44 @@ const Homey = require('homey');
 
 class BaseDevice extends Homey.Device {
     initDevice(id) {
+        this.updateInprogess = false;
+        this.data = {};
         this.id = id;
-                
-        // Setup caching
-        this.cachedState = new Map();
-        this.validCache = false;
     }
 
-    get_deviceConfig() {
-        return Homey.app.get_device_by_devid(id);
+    async update() {
+        let { payload: { data } } = await this.operateDevice(this.id, 'QueryDevice', null, 'query');
+        this.updateData(data);
     }
 
-    getOnline() {
-        let device = this.get_deviceConfig();
-        return device != null ? device.online === true || device.online === 'true' : false;
+    updateData(data) {
+        console.log("try update data" );
+        if (data != null && !this.updateInprogess) {
+            console.log("update device: " + JSON.stringify(data));
+            this.data = data;
+        }
     }
 
-    setCachedState(characteristic, value) {
-        this.cachedState.set(characteristic, value);
-        this.validCache = true;
+    operateDevice(devId, action, param = null, namespace = 'control') {
+        try {
+            return Homey.app.oldclient.device_control(devId, action, param, namespace);
+        } catch (ex) {
+            this.logToHomey(ex);
+        }
     }
 
-    getCachedState(characteristic) {
-        return this.cachedState.get(characteristic);
+    getState() {
+        return this.data != null ? this.data.state ===true || this.data.state === 'true' : false;
     }
 
-    hasValidCache() {
-        return this.validCache && this.cachedState.size > 0;
+    async turn_on() {
+        await this.operateDevice(this.id, 'turnOnOff', { value: '1' });
+        this.data.state = true;
     }
 
-    invalidateCache() {
-        this.validCache = false;
+    async turn_off() {
+        await this.operateDevice(this.id, 'turnOnOff', { value: '0' });
+        this.data.state = false;
     }
 }
 

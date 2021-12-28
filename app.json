@@ -11,7 +11,7 @@
     "nl": "Deze app laat je connectie maken met de Tuya cloud"
   },
   "category": "lights",
-  "version": "0.1.0",
+  "version": "0.0.14",
   "compatibility": ">=1.5.3",
   "author": {
     "name": "Jurgen Heine",
@@ -47,11 +47,15 @@
           "en": "Button pressed",
           "nl": "Knop ingedrukt"
         },
+        "titleFormatted": {
+          "en": "[[buttonid]] is turned [[buttonstate]]",
+          "nl": "[[buttonid]] is [[buttonstate]] gezet"
+        },
         "args": [
           {
             "type": "device",
             "name": "my_device",
-            "filter": "driver_id=switch"
+            "filter": "driver_id=tuyaswitch"
           },
           {
             "name": "buttonid",
@@ -90,14 +94,18 @@
       },
       {
         "title": {
-          "en": "Socket state changed",
-          "nl": "stopcontact status veranderd"
+          "en": "Socket is turned on/off",
+          "nl": "stopcontact is aan/uit gezet"
+        },
+        "titleFormatted": {
+          "en": "[[socketid]] is turned [[state]]",
+          "nl": "[[socketid]] is [[state]] gezet"
         },
         "args": [
           {
             "type": "device",
             "name": "my_device",
-            "filter": "driver_id=socket"
+            "filter": "driver_id=tuyasocket"
           },
           {
             "name": "socketid",
@@ -138,14 +146,18 @@
     "conditions": [
       {
         "title": {
-          "en": "Trigger a socket",
-          "nl": "Trigger een stopcontact"
+          "en": "Is Socket !{{On|Off}}?",
+          "nl": "Is Stopcontact !{{Aan|Uit}}?"
+        },
+        "titleFormatted": {
+          "en": "Is [[socketid]] !{{On|Off}}?",
+          "nl": "Is [[socketid]] !{{Aan|Uit}}?"
         },
         "args": [
           {
             "type": "device",
             "name": "my_device",
-            "filter": "driver_id=socket"
+            "filter": "driver_id=tuyasocket"
           },
           {
             "name": "socketid",
@@ -154,33 +166,9 @@
               "en": "Socket id",
               "nl": "Stopcontact id"
             }
-          },
-          {
-            "name": "state",
-            "type": "dropdown",
-            "values": [
-              {
-                "id": "On",
-                "label": {
-                  "en": "On",
-                  "nl": "Aan"
-                }
-              },
-              {
-                "id": "Off",
-                "label": {
-                  "en": "Off",
-                  "nl": "Uit"
-                }
-              }
-            ],
-            "title": {
-              "en": "State",
-              "nl": "Status"
-            }
           }
         ],
-        "id": "getSocketState"
+        "id": "isSocketOnOff"
       }
     ],
     "actions": [
@@ -188,6 +176,10 @@
         "title": {
           "en": "Trigger a scene",
           "nl": "Trigger een scene"
+        },
+        "titleFormatted": {
+          "en": "Start [[scene]] scene",
+          "nl": "Start [[scene]] scene"
         },
         "args": [
           {
@@ -199,14 +191,18 @@
       },
       {
         "title": {
-          "en": "Set socket",
-          "nl": "Zet stopcontact"
+          "en": "Set socket on/off",
+          "nl": "Zet stopcontact aan/uit"
+        },
+        "titleFormatted": {
+          "en": "Set [[socketid]] [[state]]",
+          "nl": "Zet [[socketid]] [[state]]"
         },
         "args": [
           {
             "type": "device",
             "name": "my_device",
-            "filter": "driver_id=socket"
+            "filter": "driver_id=tuyasocket"
           },
           {
             "name": "socketid",
@@ -248,43 +244,10 @@
   "drivers": [
     {
       "images": {
-        "large": "/drivers/light/assets/images/large.png",
-        "small": "/drivers/light/assets/images/small.png"
+        "large": "/drivers/cover/assets/images/large.png",
+        "small": "/drivers/cover/assets/images/small.png"
       },
-      "icon": "/drivers/light/assets/icon.svg",
-      "pair": [
-        {
-          "id": "list_devices",
-          "template": "list_devices",
-          "navigation": {
-            "next": "add_devices"
-          }
-        },
-        {
-          "id": "add_devices",
-          "template": "add_devices"
-        }
-      ],
-      "name": {
-        "en": "Light",
-        "nl": "Verlichting"
-      },
-      "class": "light",
-      "capabilities": [
-        "onoff",
-        "dim",
-        "light_temperature",
-        "light_hue",
-        "light_saturation"
-      ],
-      "id": "light"
-    },
-    {
-      "images": {
-        "large": "/drivers/oldcover/assets/images/large.png",
-        "small": "/drivers/oldcover/assets/images/small.png"
-      },
-      "icon": "/drivers/oldcover/assets/icon.svg",
+      "icon": "/drivers/cover/assets/icon.svg",
       "pair": [
         {
           "id": "list_devices",
@@ -306,7 +269,7 @@
       "capabilities": [
         "windowcoverings_state"
       ],
-      "id": "oldcover",
+      "id": "cover",
       "settings": [
         {
           "type": "group",
@@ -330,10 +293,10 @@
     },
     {
       "images": {
-        "large": "/drivers/oldlight/assets/images/large.png",
-        "small": "/drivers/oldlight/assets/images/small.png"
+        "large": "/drivers/light/assets/images/large.png",
+        "small": "/drivers/light/assets/images/small.png"
       },
-      "icon": "/drivers/oldlight/assets/icon.svg",
+      "icon": "/drivers/light/assets/icon.svg",
       "pair": [
         {
           "id": "list_devices",
@@ -359,186 +322,7 @@
         "light_hue",
         "light_saturation"
       ],
-      "id": "oldlight",
-      "settings": [
-        {
-          "type": "group",
-          "label": {
-            "en": "Brightness settings",
-            "nl": "Helderheid instellingen"
-          },
-          "children": [
-            {
-              "type": "group",
-              "label": {
-                "en": "Color mode",
-                "nl": "Kleuren mode"
-              },
-              "children": [
-                {
-                  "id": "minColorBrightness",
-                  "type": "number",
-                  "value": 10,
-                  "label": {
-                    "en": "Min value (default: 10)",
-                    "nl": "Minimale waarde (standaard: 10)"
-                  }
-                },
-                {
-                  "id": "maxColorBrightness",
-                  "type": "number",
-                  "value": 100,
-                  "label": {
-                    "en": "Max value (default: 100)",
-                    "nl": "Maximale waarde (standaard: 100)"
-                  }
-                }
-              ]
-            },
-            {
-              "type": "group",
-              "label": {
-                "en": "White mode",
-                "nl": "Wit mode"
-              },
-              "children": [
-                {
-                  "id": "minBrightness",
-                  "type": "number",
-                  "value": 10,
-                  "label": {
-                    "en": "Min value (default: 10)",
-                    "nl": "Minimale waarde (standaard: 10)"
-                  }
-                },
-                {
-                  "id": "maxBrightness",
-                  "type": "number",
-                  "value": 255,
-                  "label": {
-                    "en": "Max value (default: 255)",
-                    "nl": "Maximale waarde (standaard: 255)"
-                  }
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "type": "group",
-          "label": {
-            "en": "Color temperature settings",
-            "nl": "Kleurtemperatuur instellingen"
-          },
-          "children": [
-            {
-              "id": "minColorTemperature",
-              "type": "number",
-              "value": 1000,
-              "label": {
-                "en": "Min value (default: 1000)",
-                "nl": "Minimale waarde (standaard: 1000)"
-              }
-            },
-            {
-              "id": "maxColorTemperature",
-              "type": "number",
-              "value": 10000,
-              "label": {
-                "en": "Max value (default: 10000)",
-                "nl": "Maximale waarde (standaard: 10000)"
-              }
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "images": {
-        "large": "/drivers/oldsocket/assets/images/large.png",
-        "small": "/drivers/oldsocket/assets/images/small.png"
-      },
-      "icon": "/drivers/oldsocket/assets/icon.svg",
-      "pair": [
-        {
-          "id": "list_devices",
-          "template": "list_devices",
-          "navigation": {
-            "next": "add_devices"
-          }
-        },
-        {
-          "id": "add_devices",
-          "template": "add_devices"
-        }
-      ],
-      "name": {
-        "en": "socket  (Legacy)",
-        "nl": "stopcontact  (Legacy)"
-      },
-      "class": "socket",
-      "capabilities": [
-        "onoff"
-      ],
-      "id": "oldsocket"
-    },
-    {
-      "images": {
-        "large": "/drivers/oldswitch/assets/images/large.png",
-        "small": "/drivers/oldswitch/assets/images/small.png"
-      },
-      "icon": "/drivers/oldswitch/assets/icon.svg",
-      "pair": [
-        {
-          "id": "list_devices",
-          "template": "list_devices",
-          "navigation": {
-            "next": "add_devices"
-          }
-        },
-        {
-          "id": "add_devices",
-          "template": "add_devices"
-        }
-      ],
-      "name": {
-        "en": "switch (Legacy)",
-        "nl": "schakelaar (Legacy)"
-      },
-      "class": "button",
-      "capabilities": [
-        "onoff"
-      ],
-      "id": "oldswitch"
-    },
-    {
-      "images": {
-        "large": "/drivers/socket/assets/images/large.png",
-        "small": "/drivers/socket/assets/images/small.png"
-      },
-      "icon": "/drivers/socket/assets/icon.svg",
-      "pair": [
-        {
-          "id": "list_devices",
-          "template": "list_devices",
-          "navigation": {
-            "next": "add_devices"
-          }
-        },
-        {
-          "id": "add_devices",
-          "template": "add_devices"
-        }
-      ],
-      "name": {
-        "en": "socket",
-        "nl": "stopcontact"
-      },
-      "class": "socket",
-      "capabilities": [
-        "onoff"
-      ],
-      "id": "socket"
+      "id": "light"
     },
     {
       "images": {
@@ -560,6 +344,68 @@
         }
       ],
       "name": {
+        "en": "switch (Legacy)",
+        "nl": "schakelaar (Legacy)"
+      },
+      "class": "button",
+      "capabilities": [
+        "onoff"
+      ],
+      "id": "switch"
+    },
+    {
+      "images": {
+        "large": "/drivers/tuyalight/assets/images/large.png",
+        "small": "/drivers/tuyalight/assets/images/small.png"
+      },
+      "icon": "/drivers/tuyalight/assets/icon.svg",
+      "pair": [
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ],
+      "name": {
+        "en": "Light",
+        "nl": "Verlichting"
+      },
+      "class": "light",
+      "capabilities": [
+        "onoff",
+        "dim",
+        "light_temperature",
+        "light_hue",
+        "light_saturation"
+      ],
+      "id": "tuyalight"
+    },
+    {
+      "images": {
+        "large": "/drivers/tuyasocket/assets/images/large.png",
+        "small": "/drivers/tuyasocket/assets/images/small.png"
+      },
+      "icon": "/drivers/tuyasocket/assets/icon.svg",
+      "pair": [
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ],
+      "name": {
         "en": "socket",
         "nl": "stopcontact"
       },
@@ -567,26 +413,36 @@
       "capabilities": [
         "onoff"
       ],
-      "id": "switch"
-    }
-  ],
-  "capabilities": {
-    "speed": {
-      "type": "number",
-      "title": {
-        "en": "Speed",
-        "nl": "Snelheid"
+      "id": "tuyasocket"
+    },
+    {
+      "images": {
+        "large": "/drivers/tuyaswitch/assets/images/large.png",
+        "small": "/drivers/tuyaswitch/assets/images/small.png"
       },
-      "chartType": "stepLine",
-      "min": 0,
-      "max": 1,
-      "decimals": 2,
-      "units": {
-        "en": "%"
+      "icon": "/drivers/tuyaswitch/assets/icon.svg",
+      "pair": [
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ],
+      "name": {
+        "en": "socket",
+        "nl": "stopcontact"
       },
-      "getable": true,
-      "setable": true,
-      "uiComponent": "slider"
+      "class": "socket",
+      "capabilities": [
+        "onoff"
+      ],
+      "id": "tuyaswitch"
     }
-  }
+  ]
 }

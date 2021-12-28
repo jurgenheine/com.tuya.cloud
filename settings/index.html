@@ -122,28 +122,62 @@
             });
 
             saveElement.addEventListener('click', function (e) {
+                let username = usernameElement.value;
+                let password = passwordElement.value;
+                let apiToUse = apiToUseElement.value;
+                let appid = appidElement.value;
+                let appsecret = appsecretElement.value;
+                let countrycode = countrycodeElement.value;
+                let business = businessElement.value;
 
-                Homey.set('username', usernameElement.value, function (err) {
+                if (!apiToUse || apiToUse.length === 0) {
+                    return Homey.alert(Homey.__("settings.apiToUse") +" "+ Homey.__("settings.isrequired") );
+                }  
+                if (!username || username.length === 0) {
+                    return Homey.alert(Homey.__("settings.username") +" "+ Homey.__("settings.isrequired") );
+                }
+                if (!password || password.length === 0) {
+                    return Homey.alert(Homey.__("settings.password") +" "+ Homey.__("settings.isrequired") );
+                }
+                if(apiToUse !=="legacy")
+                if (!appid || appid.length === 0) {
+                    return Homey.alert(Homey.__("settings.appid") +" "+ Homey.__("settings.isrequired") );
+                }                
+                if (!appsecret || appsecret.length === 0) {
+                    return Homey.alert(Homey.__("settings.appsecret") +" "+ Homey.__("settings.isrequired") );
+                }    
+                if (!countrycode || countrycode.length === 0) {
+                    return Homey.alert(Homey.__("settings.countrycode") +" "+ Homey.__("settings.isrequired") );
+                } 
+                if (!business || business.length === 0) {
+                    return Homey.alert(Homey.__("settings.business") +" "+ Homey.__("settings.isrequired") );
+                } 
+
+                Homey.set('username', username, function (err) {
                     if (err) return Homey.alert(err);
                 });
 
-                Homey.set('password', passwordElement.value, function (err) {
+                Homey.set('password', password, function (err) {
                     if (err) return Homey.alert(err);
                 });
 
-                Homey.set('appid', appidElement.value, function (err) {
+                Homey.set('apiToUse', apiToUse, function (err) {
                     if (err) return Homey.alert(err);
                 });
 
-                Homey.set('appsecret', appsecretElement.value, function (err) {
+                Homey.set('appid', appid, function (err) {
                     if (err) return Homey.alert(err);
                 });
 
-                Homey.set('countrycode', countrycodeElement.value, function (err) {
+                Homey.set('appsecret', appsecret, function (err) {
                     if (err) return Homey.alert(err);
                 });
 
-                Homey.set('biztype', businessElement.value, function (err) {
+                Homey.set('countrycode', countrycode, function (err) {
+                    if (err) return Homey.alert(err);
+                });
+
+                Homey.set('biztype', business, function (err) {
                     if (err) return Homey.alert(err);
                 });
 

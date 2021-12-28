@@ -1,14 +1,17 @@
 {
 	"title": {
-		"en": "Socket state changed",
-		"nl": "stopcontact status veranderd"
-
+		"en": "Socket is turned on/off",
+		"nl": "stopcontact is aan/uit gezet"
+	},
+	"titleFormatted": {
+		"en": "[[socketid]] is turned [[state]]",
+		"nl": "[[socketid]] is [[state]] gezet"
 	},
 	"args": [
 		{
 			"type": "device",
 			"name": "my_device",
-			"filter": "driver_id=socket"
+			"filter": "driver_id=tuyasocket"
 		},
 		{
 			"name": "socketid",

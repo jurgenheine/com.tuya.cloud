@@ -1,7 +1,7 @@
 {
   "name": {
-    "en": "Light (Legacy)",
-    "nl": "Verlichting (Legacy)"
+    "en": "Light",
+    "nl": "Verlichting"
   },
   "class": "light",
   "capabilities": [

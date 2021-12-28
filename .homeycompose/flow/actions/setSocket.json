@@ -1,13 +1,17 @@
 {
 	"title": {
-		"en": "Set socket",
-		"nl": "Zet stopcontact"
+		"en": "Set socket on/off",
+		"nl": "Zet stopcontact aan/uit"
+	},
+	"titleFormatted": {
+		"en": "Set [[socketid]] [[state]]",
+		"nl": "Zet [[socketid]] [[state]]"
 	},
 	"args": [
 		{
 			"type": "device",
 			"name": "my_device",
-			"filter": "driver_id=socket"
+			"filter": "driver_id=tuyasocket"
 		},
 		{
 			"name": "socketid",

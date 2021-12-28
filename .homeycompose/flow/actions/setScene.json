@@ -3,6 +3,10 @@
 		"en": "Trigger a scene",
 		"nl": "Trigger een scene"
 	},
+	"titleFormatted": {
+		"en": "Start [[scene]] scene",
+		"nl": "Start [[scene]] scene"
+	},
 	"args": [
 		{
 			"name": "scene",

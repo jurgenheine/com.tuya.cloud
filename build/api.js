@@ -6,7 +6,7 @@ module.exports = [
         path: '/connect/',
         fn: async (args, callback) => {
             try {
-                await Homey.app.connect();
+                await Homey.app.connectToTuyaApi();
                 return callback(null);
             } catch (err) {
                 return callback(err);

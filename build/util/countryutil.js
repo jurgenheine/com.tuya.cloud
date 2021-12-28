@@ -2,6 +2,7 @@
 
 const AMERICA = "https://openapi.tuyaus.com";
 const EUROPE = "https://openapi.tuyaeu.com";
+const WEUROPE = "https://openapi-weaz.tuyaeu.com";
 const INDIA = "https://openapi.tuyain.com";
 const CHINA = "https://openapi.tuyacn.com";
 

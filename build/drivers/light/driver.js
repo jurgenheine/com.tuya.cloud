@@ -1,55 +1,53 @@
 'use strict';
 
 const Homey = require('homey');
-const BaseDriver = require('../basedriver');
 
-class LightDriver extends BaseDriver {
+class LightDriver extends Homey.Driver {
 
     onInit() {
-        this.log('Tuya light driver has been initialized');
+        this.log('Tuya legacy light driver has been initialized');
     }
 
     async onPairListDevices(data, callback) {
         let devices = [];
-        if (!Homey.app.isConnected()) {
+        if (!Homey.app.isOldConnected()) {
             callback(new Error("Please configure the app first."));
         }
         else {
-            let lights = this.get_devices_by_type("light");
+            let lights = await Homey.app.oldclient.get_devices_by_type('light');
             for (let tuyaDevice of Object.values(lights)) {
+
                 let capabilities = [];
                 capabilities.push("onoff");
-                for (let func of tuyaDevice.functions) {
-                    switch (func.code) {
-                        case "bright_value":
-                        case "bright_value_v2":
-                        case "bright_value_1":
-                            capabilities.push("dim");
-                            break;
-                        case "temp_value":
-                        case "temp_value_v2":
-                            capabilities.push("light_temperature");
-                            break;
-                        case "colour_data":
-                        case "colour_data_v2":
-                            capabilities.push("light_temperature");
-                            break;
-                        default:
-                            break;
-                    }
-                    devices.push({
-                        data: {
-                            id: tuyaDevice.id
-                        },
-                        capabilities: capabilities,
-                        name: tuyaDevice.name
-                    });
+                if (tuyaDevice.data.brightness != null || (tuyaDevice.data.color != null && tuyaDevice.data.color.brightness != null))
+                    capabilities.push("dim");
+                if (tuyaDevice.data.color != null) {
+                    capabilities.push("light_hue");
+                    capabilities.push("light_saturation");
                 }
+                if (tuyaDevice.data.color_temp != null)
+                    capabilities.push("light_temperature");
 
+                devices.push({
+                    data: {
+                        id: tuyaDevice.id
+                    },
+                    capabilities: capabilities,
+                    name: tuyaDevice.name
+                });
             }
         }
-        callback(null, devices.sort(BaseDriver._compareHomeyDevice));
+        callback(null, devices.sort(LightDriver._compareHomeyDevice));
     }
+
+    static _compareHomeyDevice(a, b) {
+        if (a.name < b.name)
+            return -1;
+        if (a.name > b.name)
+            return 1;
+        return 0;
+    }
+
 }
 
 module.exports = LightDriver;
