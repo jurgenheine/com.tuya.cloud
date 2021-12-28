@@ -6,12 +6,12 @@ class LogUtil {
 
     debug(...args) {
         if (this.isDebug) {
-            logfunction(...args);
+            this.logfunction(...args);
         }
     }
 
     log(...args) {
-        logfunction(...args);
+        this.logfunction(...args);
     }
 }
 
