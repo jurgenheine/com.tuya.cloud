@@ -40,5 +40,8 @@
   },
   "0.0.15": {
     "en": "Fix scene autocomplete"
+  },
+  "0.1.0": {
+    "en": "Tuya official API added"
   }
 }
