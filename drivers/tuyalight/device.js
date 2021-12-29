@@ -98,18 +98,14 @@ class TuyaLightDevice extends TuyaBaseDevice {
     }
 
     normalAsync(name, hbValue) {
-        this.setCachedState(name, hbValue);
         this.setCapabilityValue(name, hbValue)
             .catch(this.error);
     }
 
-    sendCommand(name, value) {
-        var param = this.getSendParam(name, value);
-        Homey.app.tuyaOpenApi.sendCommand(this.id, param).then(() => {
-            this.setCachedState(name, value);
-        }).catch((error) => {
+    sendCommand(name, value, value2) {
+        var param = this.getSendParam(name, value, value2);
+        Homey.app.tuyaOpenApi.sendCommand(this.id, param).catch((error) => {
             this.log.error('[SET][%s] capabilities Error: %s', this.id, error);
-            this.invalidateCache();
         });
     }
 
@@ -158,11 +154,13 @@ class TuyaLightDevice extends TuyaBaseDevice {
                     break;
             }
         }
-        return {
+        let function_dp_range = {
             bright_range: defaultBrightRange,
             temp_range: defaultTempRange,
             saturation_range: defaultSaturationRange
         };
+        console.log("set device config: " + JSON.stringify(function_dp_range));
+        return function_dp_range;
     }
 
     _setIsHaveDPCodeOfBrightValue(statusArr) {
@@ -187,16 +185,11 @@ class TuyaLightDevice extends TuyaBaseDevice {
     }
 
     set_color(hue, saturation) {
-        if (saturation != null) {
-            this.setCachedState("light_saturation", saturation);
-        }
-        if (hue != null) {
-            this.sendCommand("light_hue", hue);
-        }
+        this.sendCommand("light_hue", hue, saturation);
     }
 
     //get Command SendData
-    getSendParam(name, value) {
+    getSendParam(name, value, value2) {
         var code;
         var value;
         switch (name) {
@@ -207,7 +200,7 @@ class TuyaLightDevice extends TuyaBaseDevice {
                 break;
             case "light_temperature":
                 var temperature;
-                temperature = Math.floor(value * (this.function_dp_range.temp_range.max - this.function_dp_range.temp_range.min) / 360 + this.function_dp_range.temp_range.min); // value 140~500
+                temperature = Math.floor(value * (this.function_dp_range.temp_range.max - this.function_dp_range.temp_range.min) + this.function_dp_range.temp_range.min); // value 140~500
                 code = this.tempValue.code;
                 value = temperature;
                 break;
@@ -220,8 +213,8 @@ class TuyaLightDevice extends TuyaBaseDevice {
                         value = percentage;
                     } else {
                         var saturation;
-                        saturation = Math.floor((this.function_dp_range.saturation_range.max - this.function_dp_range.saturation_range.min) * this.getCachedState("saturation") + this.function_dp_range.saturation_range.min); // value 0~100
-                        var hue = this.getCachedState("hue") * 359; // 0-359
+                        saturation = Math.floor((this.function_dp_range.saturation_range.max - this.function_dp_range.saturation_range.min) * this.getCapabilityValue("saturation") + this.function_dp_range.saturation_range.min); // value 0~100
+                        var hue = this.getCapabilityValue("hue") * 359; // 0-359
                         code = this.colourData.code;
                         value = {
                             "h": hue,
@@ -233,15 +226,20 @@ class TuyaLightDevice extends TuyaBaseDevice {
                 break;
             case "light_hue":
                 var bright;
-                var saturation;
-                bright = Math.floor((this.function_dp_range.bright_range.max - this.function_dp_range.bright_range.min) * this.getCachedState("dim") / 100 + this.function_dp_range.bright_range.min); //  value 0~100
-                saturation = Math.floor((this.function_dp_range.saturation_range.max - this.function_dp_range.saturation_range.min) * this.getCachedState("saturation") / 100 + this.function_dp_range.saturation_range.min);// value 0~100
+                var saturation2;
+                bright = Math.floor((this.function_dp_range.bright_range.max - this.function_dp_range.bright_range.min) * this.getCapabilityValue("dim") + this.function_dp_range.bright_range.min); //  value 0~100
+                if (value2) {
+                    saturation2 = Math.floor((this.function_dp_range.saturation_range.max - this.function_dp_range.saturation_range.min) * value2 + this.function_dp_range.saturation_range.min);// value 0~100
+                } else {
+                    saturation2 = Math.floor((this.function_dp_range.saturation_range.max - this.function_dp_range.saturation_range.min) * this.getCapabilityValue("saturation") + this.function_dp_range.saturation_range.min);// value 0~100
+                }
                 code = this.colourData.code;
                 value = {
-                    "h": value,
-                    "s": saturation,
+                    "h": value * 359,
+                    "s": saturation2,
                     "v": bright
                 };
+                console.log("update capabilities: " + JSON.stringify(value));
                 break;
             default:
                 break;

@@ -1,11 +1,11 @@
 {
 	"title": {
-		"en": "Trigger a scene",
-		"nl": "Trigger een scene"
+		"en": "Trigger a legacy scene",
+		"nl": "Trigger een legacy scene"
 	},
 	"titleFormatted": {
-		"en": "Start [[scene]] scene",
-		"nl": "Start [[scene]] scene"
+		"en": "Start [[scene]] legacy scene",
+		"nl": "Start [[scene]] legacy scene"
 	},
 	"args": [
 		{

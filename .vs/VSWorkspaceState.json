@@ -2,8 +2,11 @@
   "ExpandedNodes": [
     "",
     "\\drivers",
-    "\\util"
+    "\\drivers\\light",
+    "\\drivers\\tuyalight",
+    "\\drivers\\tuyasocket",
+    "\\drivers\\tuyaswitch"
   ],
-  "SelectedNode": "\\drivers\\tuyabasedriver.js",
+  "SelectedNode": "\\drivers\\tuyalight\\device.js",
   "PreviewInSolutionExplorer": false
 }

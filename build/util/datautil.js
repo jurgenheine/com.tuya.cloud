@@ -1,7 +1,7 @@
 class DataUtil {
     constructor() {}
     
-    getSubService(status) {
+    static getSubService(status) {
         var subTypeArr = [];
         for (var map of status) {
             if (map.code.indexOf("switch") !== -1) {
@@ -10,9 +10,7 @@ class DataUtil {
                 } 
             }
         }
-        return {
-            subType: subTypeArr
-        };
+        return subTypeArr;
     }
 }
 

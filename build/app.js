@@ -40,7 +40,12 @@ class TuyaCloudApp extends Homey.App {
         let apiToUse = Homey.ManagerSettings.get('apiToUse');
         if (apiToUse != null && apiToUse !== 'legacy') {
             this.UseOfficialApi = true;
-            await this.initTuyaSDK(); 
+            await this.initTuyaSDK();
+            new Homey.FlowCardAction('setTuyaScene')
+                .register()
+                .registerRunListener(this._onFlowActionSetTuyaScene.bind(this))
+                .getArgument('scene')
+                .registerAutocompleteListener(this._onTuyaSceneAutoComplete.bind(this));
         }
 
         if (apiToUse == null || apiToUse !== 'official') {
@@ -67,11 +72,16 @@ class TuyaCloudApp extends Homey.App {
         try {
             this.devices = await this.tuyaOpenApi.getDevices();
         } catch (e) {
-            this.logger.log('Failed to get device information. Please check if the config.json is correct.');
+            this.logger.log('Failed to get device information.');
             return;
         }
         this.setAllDeviceConfigs();
-
+        try {
+            this.scenes = await this.tuyaOpenApi.getScenes();
+        } catch (e) {
+            this.logger.log(e);
+            return;
+        }
 
         let mq = new TuyaOpenMQ(this.tuyaOpenApi, "1.0", this.logger);
         this.tuyaOpenMQ = mq;
@@ -244,6 +254,20 @@ class TuyaCloudApp extends Homey.App {
         let scenes = await this.oldclient.get_devices_by_type('scene')();
         return Object.values(scenes).map(s => {
             return { instanceId: s.id, name: s.name };
+        });
+    }
+
+    _onFlowActionSetTuyaScene(args) {
+        try {
+            return this.tuyaOpenApi.executeScene(args.scene.instanceId);
+        } catch (ex) {
+            this.logToHomey(ex);
+        }
+    }
+
+    async _onTuyaSceneAutoComplete(query, args) {
+        return this.scenes.map(s => {
+            return { instanceId: s.scene_id, name: s.name };
         });
     }
 

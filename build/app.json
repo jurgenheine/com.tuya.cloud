@@ -174,12 +174,12 @@
     "actions": [
       {
         "title": {
-          "en": "Trigger a scene",
-          "nl": "Trigger een scene"
+          "en": "Trigger a legacy scene",
+          "nl": "Trigger een legacy scene"
         },
         "titleFormatted": {
-          "en": "Start [[scene]] scene",
-          "nl": "Start [[scene]] scene"
+          "en": "Start [[scene]] legacy scene",
+          "nl": "Start [[scene]] legacy scene"
         },
         "args": [
           {
@@ -238,6 +238,23 @@
           }
         ],
         "id": "setSocket"
+      },
+      {
+        "title": {
+          "en": "Execute a scene",
+          "nl": "Uitvoeren scene"
+        },
+        "titleFormatted": {
+          "en": "Execute [[scene]] scene",
+          "nl": "Uitvoeren [[scene]] scene"
+        },
+        "args": [
+          {
+            "name": "scene",
+            "type": "autocomplete"
+          }
+        ],
+        "id": "setTuyaScene"
       }
     ]
   },
@@ -435,10 +452,10 @@
         }
       ],
       "name": {
-        "en": "socket",
-        "nl": "stopcontact"
+        "en": "Switch",
+        "nl": "Schakelaar"
       },
-      "class": "socket",
+      "class": "button",
       "capabilities": [
         "onoff"
       ],

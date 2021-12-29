@@ -2,6 +2,7 @@
 
 const Homey = require('homey');
 const TuyaBaseDevice = require('../tuyabasedevice');
+const DataUtil = require('../../util/datautil');
 
 class TuyaSwitchDevice extends TuyaBaseDevice {
 
@@ -15,7 +16,7 @@ class TuyaSwitchDevice extends TuyaBaseDevice {
         if (deviceConfig != null) {
             console.log("set device config: " + JSON.stringify(deviceConfig));
             let statusArr = deviceConfig.status ? deviceConfig.status : [];
-            this.subcodes = DataUtil.getSubService(deviceConfig);
+            this.subcodes = DataUtil.getSubService(statusArr);
             this.updateCapabilities(statusArr);
             this.registerCapabilitieListener();
         }
@@ -33,7 +34,7 @@ class TuyaSwitchDevice extends TuyaBaseDevice {
 
             this.registerCapabilityListener(name, (value, opts) => {
                 console.log("set capabilities: " + name + "; " + value);
-                this.sendCommand(name + code, value);
+                this.sendCommand(name, value);
                 return Promise.resolve();
             });
         }
@@ -44,7 +45,7 @@ class TuyaSwitchDevice extends TuyaBaseDevice {
         if (!statusArr) {
             return;
         }
-
+        this.subcodes = DataUtil.getSubService(statusArr);
         for (var subType of this.subcodes) {
             var status = statusArr.find(item => item.code === subType);
             if (!status) {
@@ -59,7 +60,6 @@ class TuyaSwitchDevice extends TuyaBaseDevice {
             else {
                 name = "onoff." + subType;
             }
-            this.setCachedState(name, value);
             this.setCapabilityValue(name, value).catch(this.error);
             this.triggerButtonPressed(subType, value);
         }
@@ -76,11 +76,8 @@ class TuyaSwitchDevice extends TuyaBaseDevice {
 
     sendCommand(name, value) {
         var param = this.getSendParam(name, value);
-        Homey.app.tuyaOpenApi.sendCommand(this.id, param).then(() => {
-            this.setCachedState(name, value);
-        }).catch((error) => {
+        Homey.app.tuyaOpenApi.sendCommand(this.id, param).catch((error) => {
             this.log.error('[SET][%s] capabilities Error: %s', this.id, error);
-            this.invalidateCache();
         });
     }
 

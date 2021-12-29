@@ -19,7 +19,7 @@ class TuyaSwitchDriver extends TuyaBaseDriver {
     async _onButtonIdAutoComplete(query, args) {
         let device = args.my_device;
         return Object.values(device.subcodes).map(s => {
-            return { instanceId: s, name: s };
+            return { id: s, name: s };
         });
     }
 
@@ -39,10 +39,16 @@ class TuyaSwitchDriver extends TuyaBaseDriver {
             let switches = this.get_devices_by_type("switch");
             for (let tuyaDevice of Object.values(switches)) {
                 let capabilities = [];
-                capabilities.push("onoff");
-                let subcodes = DataUtil.getSubService(tuyaDevice);
+                let subcodes = DataUtil.getSubService(tuyaDevice.status);
+
                 for (var code of subcodes) {
-                    capabilities.push("onoff." + code);
+                    let name;
+                    if (subcodes.length === 1) {
+                        name = "onoff";
+                    } else {
+                        name = "onoff." + code;
+                    }
+                    capabilities.push(name);
                 }
 
                 devices.push({
