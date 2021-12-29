@@ -9,7 +9,7 @@ class TuyaSwitchDriver extends TuyaBaseDriver {
     onInit() {
         this._flowTriggerbuttonPressed = new Homey.FlowCardTriggerDevice('buttonPressed')
             .register()
-            .registerRunListener((args, state) => { return Promise.resolve(args.buttonid === state.buttonid && args.buttonstate === state.buttonstate); });
+            .registerRunListener((args, state) => { return Promise.resolve(args.buttonid.instanceId === state.buttonid && args.buttonstate === state.buttonstate); });
         this._flowTriggerbuttonPressed.getArgument('buttonid')
             .registerAutocompleteListener(this._onButtonIdAutoComplete.bind(this));
 
@@ -17,9 +17,9 @@ class TuyaSwitchDriver extends TuyaBaseDriver {
     }
 
     async _onButtonIdAutoComplete(query, args) {
-        let device = args.my_device;
-        return Object.values(device.subcodes).map(s => {
-            return { id: s, name: s };
+        let subcodes = DataUtil.getSubService(args.my_device.get_deviceConfig().status);
+        return subcodes.map(s => {
+            return { instanceId: s, name: s };
         });
     }
 

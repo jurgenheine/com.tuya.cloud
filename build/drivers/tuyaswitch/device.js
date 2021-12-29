@@ -4,6 +4,8 @@ const Homey = require('homey');
 const TuyaBaseDevice = require('../tuyabasedevice');
 const DataUtil = require('../../util/datautil');
 
+const CAPABILITIES_SET_DEBOUNCE = 1000;
+
 class TuyaSwitchDevice extends TuyaBaseDevice {
 
     onInit() {
@@ -16,27 +18,35 @@ class TuyaSwitchDevice extends TuyaBaseDevice {
         if (deviceConfig != null) {
             console.log("set device config: " + JSON.stringify(deviceConfig));
             let statusArr = deviceConfig.status ? deviceConfig.status : [];
-            this.subcodes = DataUtil.getSubService(statusArr);
+            let capabilities = this.getCustomCapabilities(DataUtil.getSubService(statusArr));
             this.updateCapabilities(statusArr);
-            this.registerCapabilitieListener();
+            this.registerMultipleCapabilityListener(capabilities, async (values, options) => { return this._onMultipleCapabilityListener(values, options); }, CAPABILITIES_SET_DEBOUNCE);
         }
     }
 
-    registerCapabilitieListener() {
-        for (var code of this.subcodes) {
+    getCustomCapabilities(subcodes) {
+        var capabilties = [];
+        for (var code of subcodes) {
             let name;
-            if (this.subcodes.length === 1) {
+            if (subcodes.length === 1) {
                 name = "onoff";
             }
             else {
                 name = "onoff." + code;
             }
+            capabilties.push(name);
+        }
+        return capabilties;
+    }
 
-            this.registerCapabilityListener(name, (value, opts) => {
-                console.log("set capabilities: " + name + "; " + value);
-                this.sendCommand(name, value);
-                return Promise.resolve();
-            });
+    _onMultipleCapabilityListener(valueObj, optsObj) {
+        console.log("set capabilities: " + JSON.stringify(valueObj));
+        try {
+            for (key in Object.keys(valueObj)) {
+                this.sendCommand(key, valueObj[key]);
+            }
+        } catch (ex) {
+            Homey.app.logToHomey(ex);
         }
     }
 
@@ -45,15 +55,15 @@ class TuyaSwitchDevice extends TuyaBaseDevice {
         if (!statusArr) {
             return;
         }
-        this.subcodes = DataUtil.getSubService(statusArr);
-        for (var subType of this.subcodes) {
+        let subcodes = DataUtil.getSubService(statusArr);
+        for (var subType of subcodes) {
             var status = statusArr.find(item => item.code === subType);
             if (!status) {
                 continue;
             }
             let name;
             var value = status.value;
-            if (this.subcodes.length === 1) {
+            if (subcodes.length === 1) {
                 name = "onoff";
                 this.switchValue = status;
             }
@@ -85,10 +95,10 @@ class TuyaSwitchDevice extends TuyaBaseDevice {
     getSendParam(name, value) {
         var code;
         const isOn = value ? true : false;
-        if (this.subcodes.length == 1) {
+        if (name.indexOf(".") === -1) {
             code = this.switchValue.code;
         } else {
-            code = name;
+            code = name.split('.')[1];
         }
         value = isOn;
         return {

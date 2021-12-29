@@ -9,15 +9,15 @@ class TuyaSocketDriver extends TuyaBaseDriver {
     onInit() {
         this._flowTriggerSocketChanged = new Homey.FlowCardTriggerDevice('socketChanged')
             .register()
-            .registerRunListener((args, state) => { return Promise.resolve(args.socketid === state.socketid && args.state === state.state); });
+            .registerRunListener((args, state) => { return Promise.resolve(args.socketid.instanceId === state.socketid && args.state === state.state); });
         this._flowTriggerSocketChanged.getArgument('socketid')
             .registerAutocompleteListener(this._onSocketIdTriggerAutoComplete.bind(this));
             
 
         this._flowSetSocket = new Homey.FlowCardAction('setSocket')
             .registerRunListener((args, state) => {
-                this.log(`Flow set capability ${args.socketid} to ${args.state}`);
-                args.my_device.setCapabilityValue(args.socketid, args.state === "On" ? true : false).catch(this.error);
+                this.log(`Flow set capability ${args.socketid.instanceId} to ${args.state}`);
+                return args.my_device.setCapabilityValue(args.socketid.instanceId, args.state === "On" ? true : false).catch(this.error);
             })
             .register();
         this._flowSetSocket.getArgument('socketid')
@@ -25,8 +25,8 @@ class TuyaSocketDriver extends TuyaBaseDriver {
 
         this._flowIsSocketOnOff = new Homey.FlowCardCondition('isSocketOnOff')
             .registerRunListener((args, state) => {
-                this.log(`Flow check capability: ${args.socketid}`);
-                return args.my_device.getCapabilityValue(args.socketid);
+                this.log(`Flow check capability: ${args.socketid.instanceId}`);
+                return args.my_device.getCapabilityValue(args.socketid.instanceId);
             })
             .register();
         this._flowIsSocketOnOff.getArgument('socketid')
@@ -36,15 +36,15 @@ class TuyaSocketDriver extends TuyaBaseDriver {
     }
 
     async _onSocketIdTriggerAutoComplete(query, args) {
-        let device = args.my_device;
-        return device.subcodes.map(s => {
+        let subcodes = DataUtil.getSubService(args.my_device.get_deviceConfig().status);
+        return subcodes.map(s => {
             return { instanceId: s, name: s };
         });
     }
 
     async _onSocketIdAutoComplete(query, args) {
-        let device = args.my_device;
-        return device.subcodes.map(s => {
+        let subcodes = DataUtil.getSubService(args.my_device.get_deviceConfig().status);
+        return subcodes.map(s => {
             let id;
             if (subcodes.length === 1) {
                 id = "onoff";

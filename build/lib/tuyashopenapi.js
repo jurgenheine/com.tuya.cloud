@@ -75,7 +75,7 @@ class TuyaSHOpenAPI {
         if (this.home_id == null) {
             await this.setHomeId();
         }
-        let res = await this.get(`/v1.0/homes/${this.home_id}/scenes/${scene_id}/trigger`);
+        let res = await this.post(`/v1.0/homes/${this.home_id}/scenes/${scene_id}/trigger`);
         return res.result;
     }
 
