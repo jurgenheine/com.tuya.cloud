@@ -46,5 +46,8 @@
   },
   "0.1.1": {
     "en": "Fix socket and switch trigger and get legacy scene names"
+  },
+  "0.1.2": {
+    "en": "Fixed a switch error"
   }
 }

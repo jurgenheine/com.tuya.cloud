@@ -6,12 +6,12 @@ const DataUtil = require('../../util/datautil');
 
 const CAPABILITIES_SET_DEBOUNCE = 1000;
 
-class TuyaSocketDevice extends TuyaBaseDevice {
+class TuyaSwitchDevice extends TuyaBaseDevice {
 
     onInit() {
         this.initDevice(this.getData().id);
         this.setDeviceConfig(this.get_deviceConfig());
-        this.log(`Tuya socket ${this.getName()} has been initialized`);
+        this.log(`Tuya switch ${this.getName()} has been initialized`);
     }
 
     setDeviceConfig(deviceConfig) {
@@ -80,8 +80,8 @@ class TuyaSocketDevice extends TuyaBaseDevice {
     triggerButtonPressed(name, value) {
         let tokens = {};
         let state = {
-            socketid: name,
-            state: value ? "On" : "Off"
+            buttonid: name,
+            buttonstate: value ? "On" : "Off"
         };
         this.getDriver().triggerButtonPressed(this, tokens, state);
     }
@@ -114,4 +114,4 @@ class TuyaSocketDevice extends TuyaBaseDevice {
     }
 }
 
-module.exports = TuyaSocketDevice;
+module.exports = TuyaSwitchDevice;
