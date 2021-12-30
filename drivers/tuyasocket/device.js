@@ -42,8 +42,9 @@ class TuyaSocketDevice extends TuyaBaseDevice {
     _onMultipleCapabilityListener(valueObj, optsObj) {
         console.log("set capabilities: " + JSON.stringify(valueObj));
         try {
-            for (key in Object.keys(valueObj)) {
-                this.sendCommand(key, valueObj[key]);
+            for (let key of Object.keys(valueObj)) {
+                let value = valueObj[key];
+                this.sendCommand(key, value);
             }
         } catch (ex) {
             Homey.app.logToHomey(ex);

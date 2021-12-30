@@ -6,12 +6,12 @@ const DataUtil = require('../../util/datautil');
 
 const CAPABILITIES_SET_DEBOUNCE = 1000;
 
-class TuyaSwitchDevice extends TuyaBaseDevice {
+class TuyaSocketDevice extends TuyaBaseDevice {
 
     onInit() {
         this.initDevice(this.getData().id);
         this.setDeviceConfig(this.get_deviceConfig());
-        this.log(`Tuya switch ${this.getName()} has been initialized`);
+        this.log(`Tuya socket ${this.getName()} has been initialized`);
     }
 
     setDeviceConfig(deviceConfig) {
@@ -42,8 +42,9 @@ class TuyaSwitchDevice extends TuyaBaseDevice {
     _onMultipleCapabilityListener(valueObj, optsObj) {
         console.log("set capabilities: " + JSON.stringify(valueObj));
         try {
-            for (key in Object.keys(valueObj)) {
-                this.sendCommand(key, valueObj[key]);
+            for (let key of Object.keys(valueObj)) {
+                let value = valueObj[key];
+                this.sendCommand(key, value);
             }
         } catch (ex) {
             Homey.app.logToHomey(ex);
@@ -70,18 +71,19 @@ class TuyaSwitchDevice extends TuyaBaseDevice {
             else {
                 name = "onoff." + subType;
             }
+            console.log(`Update capability ${name} with value ${value}`);
             this.setCapabilityValue(name, value).catch(this.error);
-            this.triggerButtonPressed(subType, value);
+            this.triggerSocketChanged(subType, value);
         }
     }
 
-    triggerButtonPressed(name, value) {
+    triggerSocketChanged(name, value) {
         let tokens = {};
         let state = {
-            buttonid: name,
-            buttonstate: value ? "On" : "Off"
+            socketid: name,
+            state: value ? "On" : "Off"
         };
-        this.getDriver().triggerButtonPressed(this, tokens, state);
+        this.getDriver().triggerSocketChanged(this, tokens, state);
     }
 
     sendCommand(name, value) {
@@ -112,4 +114,4 @@ class TuyaSwitchDevice extends TuyaBaseDevice {
     }
 }
 
-module.exports = TuyaSwitchDevice;
+module.exports = TuyaSocketDevice;

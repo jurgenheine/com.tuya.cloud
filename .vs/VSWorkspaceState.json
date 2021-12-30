@@ -1,12 +1,13 @@
 {
   "ExpandedNodes": [
     "",
-    "\\drivers",
-    "\\drivers\\light",
-    "\\drivers\\tuyalight",
-    "\\drivers\\tuyasocket",
-    "\\drivers\\tuyaswitch"
+    "\\.homeycompose",
+    "\\.homeycompose\\drivers\\templates",
+    "\\.homeycompose\\flow\\actions",
+    "\\.homeycompose\\flow\\conditions",
+    "\\.homeycompose\\flow\\triggers",
+    "\\build\\drivers\\tuyaswitch"
   ],
-  "SelectedNode": "\\drivers\\tuyalight\\device.js",
+  "SelectedNode": "\\.homeycompose\\app.json",
   "PreviewInSolutionExplorer": false
 }

@@ -43,5 +43,8 @@
   },
   "0.1.0": {
     "en": "Tuya official API added"
+  },
+  "0.1.1": {
+    "en": "Fix socket and switch trigger and get legacy scene names"
   }
 }

@@ -251,7 +251,7 @@ class TuyaCloudApp extends Homey.App {
     }
 
     async _onSceneAutoComplete( query, args ) {
-        let scenes = await this.oldclient.get_devices_by_type('scene')();
+        let scenes = await this.oldclient.get_devices_by_type('scene');
         return Object.values(scenes).map(s => {
             return { instanceId: s.id, name: s.name };
         });

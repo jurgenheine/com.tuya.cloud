@@ -42,8 +42,9 @@ class TuyaSwitchDevice extends TuyaBaseDevice {
     _onMultipleCapabilityListener(valueObj, optsObj) {
         console.log("set capabilities: " + JSON.stringify(valueObj));
         try {
-            for (key in Object.keys(valueObj)) {
-                this.sendCommand(key, valueObj[key]);
+            for (let key of Object.keys(valueObj)) {
+                let value = valueObj[key];
+                this.sendCommand(key, value);
             }
         } catch (ex) {
             Homey.app.logToHomey(ex);
@@ -70,6 +71,7 @@ class TuyaSwitchDevice extends TuyaBaseDevice {
             else {
                 name = "onoff." + subType;
             }
+            console.log(`Update capability ${name} with value ${value}`);
             this.setCapabilityValue(name, value).catch(this.error);
             this.triggerButtonPressed(subType, value);
         }
