@@ -73,17 +73,17 @@ class TuyaSocketDevice extends TuyaBaseDevice {
             }
             console.log(`Update capability ${name} with value ${value}`);
             this.setCapabilityValue(name, value).catch(this.error);
-            this.triggerSocketChanged(subType, value);
+            this.triggerButtonPressed(subType, value);
         }
     }
 
-    triggerSocketChanged(name, value) {
+    triggerButtonPressed(name, value) {
         let tokens = {};
         let state = {
             socketid: name,
             state: value ? "On" : "Off"
         };
-        this.getDriver().triggerSocketChanged(this, tokens, state);
+        this.getDriver().triggerButtonPressed(this, tokens, state);
     }
 
     sendCommand(name, value) {
