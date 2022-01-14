@@ -73,7 +73,7 @@ class TuyaLightDevice extends TuyaBaseDevice {
                 var percentage;
                 rawValue = this.tempValue.value;
                 percentage = Math.floor((rawValue - this.function_dp_range.temp_range.min) * 100 / (this.function_dp_range.temp_range.max - this.function_dp_range.temp_range.min)); // ra$
-                this.normalAsync("light_temperature", (percentage > 100 ? 100 : percentage) / 100);
+                this.normalAsync("light_temperature", (100-(percentage > 100 ? 100 : percentage)) / 100);
             }
             if (statusMap.code === 'colour_data' || statusMap.code === 'colour_data_v2') {
                 this.colourData = statusMap;
@@ -206,8 +206,8 @@ class TuyaLightDevice extends TuyaBaseDevice {
                         value = percentage;
                     } else {
                         var saturation;
-                        saturation = Math.floor((this.function_dp_range.saturation_range.max - this.function_dp_range.saturation_range.min) * this.getCapabilityValue("saturation") + this.function_dp_range.saturation_range.min); // value 0~100
-                        var hue = this.getCapabilityValue("hue") * 359; // 0-359
+                        saturation = Math.floor((this.function_dp_range.saturation_range.max - this.function_dp_range.saturation_range.min) * this.getCapabilityValue("light_saturation") + this.function_dp_range.saturation_range.min); // value 0~100
+                        var hue = this.getCapabilityValue("light_hue") * 359; // 0-359
                         code = this.colourData.code;
                         value = {
                             "h": hue,
@@ -225,12 +225,12 @@ class TuyaLightDevice extends TuyaBaseDevice {
                 if (value) {
                     hue = value * 359;
                 } else {
-                    hue = this.getCapabilityValue("hue") *359;
+                    hue = this.getCapabilityValue("light_hue") *359;
                 }
                 if (value2) {
                     saturation2 = Math.floor((this.function_dp_range.saturation_range.max - this.function_dp_range.saturation_range.min) * value2 + this.function_dp_range.saturation_range.min);// value 0~100
                 } else {
-                    saturation2 = Math.floor((this.function_dp_range.saturation_range.max - this.function_dp_range.saturation_range.min) * this.getCapabilityValue("saturation") + this.function_dp_range.saturation_range.min);// value 0~100
+                    saturation2 = Math.floor((this.function_dp_range.saturation_range.max - this.function_dp_range.saturation_range.min) * this.getCapabilityValue("light_saturation") + this.function_dp_range.saturation_range.min);// value 0~100
                 }
                 code = this.colourData.code;
                 value = {

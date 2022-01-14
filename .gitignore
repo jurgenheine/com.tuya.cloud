@@ -396,3 +396,7 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+
+# Added by Homey CLI
+/.homeybuild/
+/build/
