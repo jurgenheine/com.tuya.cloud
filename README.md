@@ -1,61 +1,70 @@
 # Tuya cloud
+https://homey.app/nl-nl/app/com.tuya.cloud/Tuya-cloud/
 
 Homey App for the Tuya cloud.
 
-This app is based on the Home Assistant implementation. Tuya has an undocumented API for HA that differs from the official API.
-Because this API is undocumented and differs, it's unclear what is supported and not. The devices that are supported in HA implementation
-are for now possible to support. 
+This app was based on the Home Assistant implementation. Tuya has an undocumented API for Home Assistant that differs from the official API. This API supports login with credentials only with that API. The official API is also supported now. It requires an extra development account and keys. The API is also returning keys for local control, so maybe it's in the future also possible to local control devices. But commands are not yet available.
 
-## Setup Homey
+### Supported devices
+* Legacy Light ( On/Off, some devices brightness and color)
+* Legacy Switch( On/Off)
+* Legacy Cover
+* Light
+* Switch
+* Socket
+
+The official API( non legacy devices) is using push messages, so changes to devices should be direct visible, so no more 10 minutes waiting for updates.
+
+**Color settings are not supported for all legacy devices, if it's not working for your light, it's not supported by legacy API. The new light devices have better support, but it's still possible that your device is not supported yet.**
+
+Only when device is supported by API, it's possible to add the device to this app. because I don't own all device types, it's hard to implement a device type which I don't own. Contributions to code are welkom to add unsupported devices.
+
+### Scenes
+This app support the use of scenes. In the mobile Tuya/Smart life app you can make 'Tap to run' actions( In the past they where called scenes). Those actions can be called in a flow from this app.
+
+## Setup Homey for legacy devices and API
+
 1. Go to the setup page in mobile app or develloper portal
-2. Set Username, Password and CountryCode
-   These are the same as with first login of the mobile app
+2. Set Username, Password and CountryCode These are the same as with first login of the mobile app
+    **It won't work with linked Cloud accounts like Google, Facebook or other**
 3. Set Business. This is Smart life or Tuya and corespondents with mobile app you use
 
-The colormap can be leaved empty. this is experimental and is used to correct the colors between Homey and the lights
-If you want to use it, it has the flowing format: 
+The colormap can be leaved empty. this is experimental and is used to correct the colors between Homey and the lights. It also only works for legacy lights and not for the new device types. If you want to use it, it has the flowing format:
+
 ```
 HomeyHueValue1:TuyaHueValue1,HomeyHueValue2:TuyaHueValue2
 ```
-The values are between 0-360. You have to include 0:0 and 360:360
-Example:
+
+The values are between 0-360. You have to include 0:0 and 360:360 Example:
+
 ```
 0:0,60:10,360:360
 ```
+
 This corrected for me the yellow color
 
-## Devices
-### Supported devices
-- Light
-- Switch( On/Off)
-- Scene
-- Ledstrip
-- Cover
+## Setup Homey for new device types
 
-### Possible supported devices
-- Fan
-- Climate
-- Lock
+To use the new API you should follow the same basic instruction as for Home assistant/ Homebridge.
 
-### Usupported devices
-- New device types, see https://github.com/PaulAnnekov/tuyaha/issues/6
-	- Garage door opener status
-	- Siren 
-	- Doorcontact
-	- Switch with energy monitoring
+1. [Tuya IoT Platform Configuration ](https://github.com/tuya/tuya-homebridge/wiki/Tuya-IoT-Platform-Configuration-Guide-Using-Smart-Home-PaaS?_source=d8fba44feeef4757f7f22a14c2295f3f)
+2. Set the APi to use to both or Official
+3. The authorization key acces key and secret from step 1have to be filled in on the settings page.
+The country code is used to determine which datacenter has to be used and must match with your android app and region of your project. [Mappings Between OEM App Accounts and Data Centers-Documentation-Tuya Developer ](https://developer.tuya.com/en/docs/iot/oem-app-data-center-distributed?id=Kafi0ku9l07qb)
+4. Username, Password are the same as with first login of the mobile app
+    **It won't work with linked Cloud accounts like Google, Facebook or other** 
+    ***It's your mobile phone login credentials, and not develloper portal credentials***
+![image](upload://u2jDD5ZuZTUJik83d1vYWr6RwcI)
+## Todo
+* Add other possible device types
+* Better images and icons
+* Support renaming of devices (so Tuya device names and Homey device names stay in sync)
+* Translation of texts
+* Add other manufacturer Tuya apps
+* Move to Homey API V3
+* Replace settings page by setting device
 
-## Known bugs
-- State not always correct reported to homey
-- Updates all capablities instead only the changed
-
-## Todo 
-- Add other possible device types
-- Memory optimalisations
-- Better images and icons
-- Support renaming of devices (so Tuya device names and Homey device names stay in sync)
-- Translation of texts
-- Add other manufacturer Tuya apps
-- Poll interval( now 5 seconds)
+The last 2 points are needed to support Homey Cloud, until those are fixed Homey Cloud isn't supported and only Homey PRO is supported.
 
 ## Manually installing app on homey
 To manually install this app, you have to use the CLI method.
@@ -111,6 +120,11 @@ Together with the method used by this app, there are 3 ways to connect Tuya devi
 	- \- Needs requesting ClientId and ClientSecret
 	- \- Paring exclusive to app with this ClientId and ClientSecret
 		- Can't work with mobile app
+- Official API, needs ClientID and ClientSecret.
+	+ \+ Local control possible
+	+ \+ Support of all device types possible
+	+ \+ Use of official API
+	- \- Needs ClientId and ClientSecret( extra devacount and steps needed)
 
 ## License
 The MIT License (MIT)

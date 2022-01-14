@@ -51,7 +51,6 @@ class TuyaLightDevice extends TuyaBaseDevice {
     //init Or refresh AccessoryService
     updateCapabilities(statusArr) {
         console.log("update capabilities: " + JSON.stringify(statusArr));
-        this._setIsHaveDPCodeOfBrightValue(statusArr);
         for (var statusMap of statusArr) {
             if (statusMap.code === 'work_mode') {
                 this.workMode = statusMap;
@@ -111,26 +110,29 @@ class TuyaLightDevice extends TuyaBaseDevice {
 
     // deviceConfig.functions is null, return defaultdpRange
     getDefaultDPRange(statusArr) {
-        let defaultBrightRange;
-        let defaultTempRange;
-        let defaultSaturationRange;
+        this.isHaveDPCodeOfBrightValue = false;
+        let defaultBrightRange = { 'min': 10, 'max': 1000 };
+        let defaultTempRange = { 'min': 0, 'max': 1000 };;
+        let defaultSaturationRange = { 'min': 0, 'max': 1000 };
         for (var statusMap of statusArr) {
             switch (statusMap.code) {
                 case 'bright_value':
+                    this.isHaveDPCodeOfBrightValue = true;
                     if (this.deviceCategorie === 'dj' || this.deviceCategorie === 'dc') {
                         defaultBrightRange = { 'min': 25, 'max': 255 };
-                    } else if (this.deviceCategorie === 'xdd' || this.deviceCategorie === 'fwd' || this.deviceCategorie === 'tgq' || this.deviceCategorie === 'dd' || this.deviceCategorie === 'tgkg') {
+                    } else {
                         defaultBrightRange = { 'min': 10, 'max': 1000 };
                     }
                     break;
                 case 'bright_value_1':
                 case 'bright_value_v2':
+                    this.isHaveDPCodeOfBrightValue = true;
                     defaultBrightRange = { 'min': 10, 'max': 1000 };
                     break;
                 case 'temp_value':
                     if (this.deviceCategorie === 'dj' || this.deviceCategorie === 'dc') {
                         defaultTempRange = { 'min': 0, 'max': 255 };
-                    } else if (this.deviceCategorie === 'xdd' || this.deviceCategorie === 'fwd' || this.deviceCategorie === 'dd') {
+                    } else {
                         defaultTempRange = { 'min': 0, 'max': 1000 };
                     }
                     break;
@@ -141,7 +143,7 @@ class TuyaLightDevice extends TuyaBaseDevice {
                     if (this.deviceCategorie === 'dj' || this.deviceCategorie === 'dc') {
                         defaultSaturationRange = { 'min': 0, 'max': 255 };
                         defaultBrightRange = { 'min': 25, 'max': 255 };
-                    } else if (this.deviceCategorie === 'xdd' || this.deviceCategorie === 'fwd' || this.deviceCategorie === 'dd') {
+                    } else {
                         defaultSaturationRange = { 'min': 0, 'max': 1000 };
                         defaultBrightRange = { 'min': 10, 'max': 1000 };
                     }
@@ -161,15 +163,6 @@ class TuyaLightDevice extends TuyaBaseDevice {
         };
         console.log("set device config: " + JSON.stringify(function_dp_range));
         return function_dp_range;
-    }
-
-    _setIsHaveDPCodeOfBrightValue(statusArr) {
-        const brightDic = statusArr.find((item, index) => { return item.code.indexOf("bright_value") != -1 });
-        if (brightDic) {
-            this.isHaveDPCodeOfBrightValue = true;
-        } else {
-            this.isHaveDPCodeOfBrightValue = false;
-        }
     }
 
     set_on_off(onoff) {
@@ -227,7 +220,13 @@ class TuyaLightDevice extends TuyaBaseDevice {
             case "light_hue":
                 var bright;
                 var saturation2;
+                var hue;
                 bright = Math.floor((this.function_dp_range.bright_range.max - this.function_dp_range.bright_range.min) * this.getCapabilityValue("dim") + this.function_dp_range.bright_range.min); //  value 0~100
+                if (value) {
+                    hue = value * 359;
+                } else {
+                    hue = this.getCapabilityValue("hue") *359;
+                }
                 if (value2) {
                     saturation2 = Math.floor((this.function_dp_range.saturation_range.max - this.function_dp_range.saturation_range.min) * value2 + this.function_dp_range.saturation_range.min);// value 0~100
                 } else {
@@ -235,7 +234,7 @@ class TuyaLightDevice extends TuyaBaseDevice {
                 }
                 code = this.colourData.code;
                 value = {
-                    "h": value * 359,
+                    "h": hue,
                     "s": saturation2,
                     "v": bright
                 };
