@@ -5,7 +5,8 @@
   },
   "class": "button",
   "capabilities": [
-    "onoff"
+    "onoff",
+    "measure_power"
   ],
   "$extends": [ "defaults" ]
 }

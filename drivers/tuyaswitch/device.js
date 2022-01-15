@@ -75,6 +75,11 @@ class TuyaSwitchDevice extends TuyaBaseDevice {
             this.setCapabilityValue(name, value).catch(this.error);
             this.triggerButtonPressed(subType, value);
         }
+        for (var statusMap of statusArr) {
+            if (statusMap.code === 'cur_power') {
+                this.setCapabilityValue("measure_power", statusMap.value).catch(this.error);
+            }
+        }
     }
 
     triggerButtonPressed(name, value) {
