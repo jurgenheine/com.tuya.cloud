@@ -35,6 +35,7 @@
   },
   "source": "https://github.com/jurgenheine/com.tuya.cloud",
   "homepage": "https://github.com/jurgenheine/com.tuya.cloud/blob/master/README.md",
+  "homeyCommunityTopicId": 21313,
   "permissions": [],
   "images": {
     "large": "/assets/images/large.jpg",
