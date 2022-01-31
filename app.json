@@ -11,7 +11,7 @@
     "nl": "Deze app laat je connectie maken met de Tuya cloud"
   },
   "category": "lights",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "compatibility": ">=1.5.3",
   "author": {
     "name": "Jurgen Heine",
@@ -35,6 +35,7 @@
   },
   "source": "https://github.com/jurgenheine/com.tuya.cloud",
   "homepage": "https://github.com/jurgenheine/com.tuya.cloud/blob/master/README.md",
+  "homeyCommunityTopicId": 21313,
   "permissions": [],
   "images": {
     "large": "/assets/images/large.jpg",
