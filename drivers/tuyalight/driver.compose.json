@@ -9,7 +9,8 @@
     "dim",
     "light_temperature",
     "light_hue",
-    "light_saturation"
+    "light_saturation",
+    "light_mode"
   ],
   "$extends": [ "defaults" ]
 }

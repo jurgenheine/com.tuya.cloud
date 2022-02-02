@@ -16,7 +16,7 @@ class TuyaLightDevice extends TuyaBaseDevice {
 
     setDeviceConfig(deviceConfig) {
         if (deviceConfig != null) {
-            console.log("set device config: " + JSON.stringify(deviceConfig));
+            this.log("set light device config: " + JSON.stringify(deviceConfig));
             let statusArr = deviceConfig.status ? deviceConfig.status : [];
 
             //Distinguish Tuya different devices under the same HomeBridge Service
@@ -29,7 +29,7 @@ class TuyaLightDevice extends TuyaBaseDevice {
     }
 
     _onMultipleCapabilityListener(valueObj, optsObj) {
-        console.log("set capabilities: " + JSON.stringify(valueObj));
+        this.log("Light capabilities changed by Homey: " + JSON.stringify(valueObj));
         try {
             if (valueObj.dim != null) {
                 this.set_brightness(valueObj.dim);
@@ -50,7 +50,7 @@ class TuyaLightDevice extends TuyaBaseDevice {
 
     //init Or refresh AccessoryService
     updateCapabilities(statusArr) {
-        console.log("update capabilities: " + JSON.stringify(statusArr));
+        this.log("Update light capabilities from Tuya: " + JSON.stringify(statusArr));
         for (var statusMap of statusArr) {
             if (statusMap.code === 'work_mode') {
                 this.workMode = statusMap;
@@ -73,17 +73,15 @@ class TuyaLightDevice extends TuyaBaseDevice {
                 var percentage;
                 rawValue = this.tempValue.value;
                 percentage = Math.floor((rawValue - this.function_dp_range.temp_range.min) * 100 / (this.function_dp_range.temp_range.max - this.function_dp_range.temp_range.min)); // ra$
-                this.normalAsync("light_temperature", (100-(percentage > 100 ? 100 : percentage)) / 100);
+                this.normalAsync("light_temperature", (100 - (percentage > 100 ? 100 : percentage)) / 100);
             }
             if (statusMap.code === 'colour_data' || statusMap.code === 'colour_data_v2') {
                 this.colourData = statusMap;
                 this.colourObj = this.colourData.value === "" ? { "h": 100.0, "s": 100.0, "v": 100.0 } : JSON.parse(this.colourData.value);
 
-                if (!this.isHaveDPCodeOfBrightValue) {
-                    var percentage;
-                    percentage = Math.floor((this.colourObj.v - this.function_dp_range.bright_range.min) * 100 / (this.function_dp_range.bright_range.max - this.function_dp_range.bright_range.min));
-                    this.normalAsync("dim", (percentage > 100 ? 100 : percentage) / 100);
-                }
+                var percentage;
+                percentage = Math.floor((this.colourObj.v - this.function_dp_range.bright_range.min) * 100 / (this.function_dp_range.bright_range.max - this.function_dp_range.bright_range.min));
+                this.normalAsync("dim", (percentage > 100 ? 100 : percentage) / 100);
 
                 const hue = Math.floor(this.colourObj.h / 359 * 100); // 0-359 to 0-100
                 this.normalAsync("light_hue", (hue > 100 ? 100 : hue) / 100);
@@ -91,12 +89,13 @@ class TuyaLightDevice extends TuyaBaseDevice {
                 var saturation;
                 saturation = Math.floor((this.colourObj.s - this.function_dp_range.saturation_range.min) * 100 / (this.function_dp_range.saturation_range.max - this.function_dp_range.saturation_range.min));  // saturation 0-100
                 this.normalAsync("light_saturation", (saturation > 100 ? 100 : saturation) / 100);
-
+                this.normalAsync("light_mode", "color");
             }
         }
     }
 
     normalAsync(name, hbValue) {
+        this.log("Set light Capability " + name + " with " + hbValue);
         this.setCapabilityValue(name, hbValue)
             .catch(this.error);
     }
@@ -161,7 +160,7 @@ class TuyaLightDevice extends TuyaBaseDevice {
             temp_range: defaultTempRange,
             saturation_range: defaultSaturationRange
         };
-        console.log("set device config: " + JSON.stringify(function_dp_range));
+        this.log("set light device config: " + JSON.stringify(function_dp_range));
         return function_dp_range;
     }
 
@@ -225,7 +224,7 @@ class TuyaLightDevice extends TuyaBaseDevice {
                 if (value) {
                     hue = value * 359;
                 } else {
-                    hue = this.getCapabilityValue("light_hue") *359;
+                    hue = this.getCapabilityValue("light_hue") * 359;
                 }
                 if (value2) {
                     saturation2 = Math.floor((this.function_dp_range.saturation_range.max - this.function_dp_range.saturation_range.min) * value2 + this.function_dp_range.saturation_range.min);// value 0~100
@@ -238,11 +237,12 @@ class TuyaLightDevice extends TuyaBaseDevice {
                     "s": saturation2,
                     "v": bright
                 };
-                console.log("update capabilities: " + JSON.stringify(value));
+                
                 break;
             default:
                 break;
         }
+        this.log("update Tuya light code " + code+": " + JSON.stringify(value));
         return {
             "commands": [
                 {

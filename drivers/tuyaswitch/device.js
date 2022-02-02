@@ -16,7 +16,7 @@ class TuyaSwitchDevice extends TuyaBaseDevice {
 
     setDeviceConfig(deviceConfig) {
         if (deviceConfig != null) {
-            console.log("set device config: " + JSON.stringify(deviceConfig));
+            this.log("set switch device config: " + JSON.stringify(deviceConfig));
             let statusArr = deviceConfig.status ? deviceConfig.status : [];
             let capabilities = this.getCustomCapabilities(DataUtil.getSubService(statusArr));
             this.updateCapabilities(statusArr);
@@ -40,7 +40,7 @@ class TuyaSwitchDevice extends TuyaBaseDevice {
     }
 
     _onMultipleCapabilityListener(valueObj, optsObj) {
-        console.log("set capabilities: " + JSON.stringify(valueObj));
+        this.log("Switch Capabilities changed by Homey: " + JSON.stringify(valueObj));
         try {
             for (let key of Object.keys(valueObj)) {
                 let value = valueObj[key];
@@ -52,7 +52,7 @@ class TuyaSwitchDevice extends TuyaBaseDevice {
     }
 
     updateCapabilities(statusArr) {
-        console.log("update capabilities: " + JSON.stringify(statusArr));
+        this.log("Update switch capabilities from Tuya: " + JSON.stringify(statusArr));
         if (!statusArr) {
             return;
         }
@@ -71,7 +71,7 @@ class TuyaSwitchDevice extends TuyaBaseDevice {
             else {
                 name = "onoff." + subType;
             }
-            console.log(`Update capability ${name} with value ${value}`);
+            this.log(`Set switch capability ${name} with value ${value}`);
             this.setCapabilityValue(name, value).catch(this.error);
             this.triggerButtonPressed(subType, value);
         }
@@ -103,6 +103,7 @@ class TuyaSwitchDevice extends TuyaBaseDevice {
             code = name.split('.')[1];
         }
         value = isOn;
+        this.log("update Tuya switch code " + code + ": " + JSON.stringify(value));
         return {
             "commands": [
                 {

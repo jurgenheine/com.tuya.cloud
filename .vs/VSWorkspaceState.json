@@ -1,13 +1,13 @@
 {
   "ExpandedNodes": [
     "",
-    "\\build\\drivers\\tuyalight",
-    "\\build\\drivers\\tuyasocket",
-    "\\build\\drivers\\tuyaswitch",
-    "\\drivers\\cover",
-    "\\drivers\\tuyasocket",
-    "\\drivers\\tuyaswitch"
+    "\\.homeycompose",
+    "\\assets\\images",
+    "\\drivers",
+    "\\drivers\\switch\\assets",
+    "\\drivers\\switch\\assets\\images",
+    "\\drivers\\tuyaswitch\\assets"
   ],
-  "SelectedNode": "\\.gitignore",
+  "SelectedNode": "\\app.json",
   "PreviewInSolutionExplorer": false
 }

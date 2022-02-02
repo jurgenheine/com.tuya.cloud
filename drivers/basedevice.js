@@ -15,9 +15,9 @@ class BaseDevice extends Homey.Device {
     }
 
     updateData(data) {
-        console.log("try update data" );
+        console.log("try update legacy data" );
         if (data != null && !this.updateInprogess) {
-            console.log("update device: " + JSON.stringify(data));
+            console.log("update legacy device: " + JSON.stringify(data));
             this.data = data;
         }
     }
