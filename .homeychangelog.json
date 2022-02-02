@@ -55,5 +55,8 @@
   },
   "0.1.4": {
     "en": "fix images"
+  },
+  "0.1.5": {
+    "en": "Fix light color update and extra logging"
   }
 }
