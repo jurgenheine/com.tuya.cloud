@@ -25,6 +25,9 @@ class TuyaLightDevice extends TuyaBaseDevice {
             this.function_dp_range = this.getDefaultDPRange(statusArr);
             this.updateCapabilities(statusArr);
         }
+        else {
+            this.homey.app.logToHomey("No device config found");
+        }
     }
 
     _onMultipleCapabilityListener(valueObj, optsObj) {
@@ -111,7 +114,7 @@ class TuyaLightDevice extends TuyaBaseDevice {
     sendCommand(name, value, value2) {
         var param = this.getSendParam(name, value, value2);
         this.homey.app.tuyaOpenApi.sendCommand(this.id, param).catch((error) => {
-            this.log.error('[SET][%s] capabilities Error: %s', this.id, error);
+            this.error('[SET][%s] capabilities Error: %s', this.id, error);
         });
     }
 

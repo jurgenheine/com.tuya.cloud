@@ -24,7 +24,6 @@ class TuyaSwitchDriver extends TuyaBaseDriver {
     triggerButtonPressed(device, tokens, state) {
         this._flowTriggerbuttonPressed
             .trigger(device, tokens, state)
-            .then(this.log)
             .catch(this.error);
     }
 

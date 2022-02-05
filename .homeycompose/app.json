@@ -1,6 +1,6 @@
 {
   "id": "com.tuya.cloud",
-  "sdk": 2,
+  "sdk": 3,
   "name": {
     "en": "Tuya cloud"
   },

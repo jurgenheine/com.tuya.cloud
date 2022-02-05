@@ -20,11 +20,11 @@ class TuyaSocketDriver extends TuyaBaseDriver {
         this._flowSetSocket.getArgument('socketid')
             .registerAutocompleteListener(async (query, args) => this._onSocketIdAutoComplete(query, args));
 
-        this._flowIsSocketOnOff this.homey.flow.getConditionCard('isSocketOnOff')
+        this._flowIsSocketOnOff = this.homey.flow.getConditionCard('isSocketOnOff')
             .registerRunListener((args, state) => {
                 this.log(`Flow check capability: ${args.socketid.instanceId}`);
                 return args.my_device.getCapabilityValue(args.socketid.instanceId);
-            })
+            });
         this._flowIsSocketOnOff.getArgument('socketid')
             .registerAutocompleteListener(async (query, args) => this._onSocketIdAutoComplete(query, args));
 
@@ -54,13 +54,12 @@ class TuyaSocketDriver extends TuyaBaseDriver {
     triggerSocketChanged(device, tokens, state) {
         this._flowTriggerSocketChanged
             .trigger(device, tokens, state)
-            .then(this.log)
             .catch(this.error);
     }
 
     async onPairListDevices() {
         let devices = [];
-        if (!this.homey.app.isConnected()) {
+        if (!his.homey.app.isConnected()) {
             throw new Error("Please configure the app first.");
         }
         else {
