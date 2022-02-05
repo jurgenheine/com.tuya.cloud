@@ -30,9 +30,11 @@ class TuyaSwitchDevice extends TuyaBaseDevice {
             let name;
             if (subcodes.length === 1) {
                 name = "onoff";
+                this.multiswitch = false;
             }
             else {
                 name = "onoff." + code;
+                this.multiswitch = true;
             }
             capabilties.push(name);
         }
@@ -64,7 +66,7 @@ class TuyaSwitchDevice extends TuyaBaseDevice {
             }
             let name;
             var value = status.value;
-            if (subcodes.length === 1) {
+            if (!this.multiswitch) {
                 name = "onoff";
                 this.switchValue = status;
             }

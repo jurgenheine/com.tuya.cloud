@@ -1,13 +1,13 @@
 {
   "ExpandedNodes": [
     "",
-    "\\.homeycompose",
-    "\\assets\\images",
     "\\drivers",
-    "\\drivers\\switch\\assets",
+    "\\drivers\\cover",
     "\\drivers\\switch\\assets\\images",
-    "\\drivers\\tuyaswitch\\assets"
+    "\\drivers\\tuyalight",
+    "\\drivers\\tuyaswitch\\assets",
+    "\\settings"
   ],
-  "SelectedNode": "\\app.json",
+  "SelectedNode": "\\drivers\\tuyalight\\driver.compose.json",
   "PreviewInSolutionExplorer": false
 }
