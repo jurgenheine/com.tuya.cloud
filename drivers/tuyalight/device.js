@@ -20,6 +20,7 @@ class TuyaLightDevice extends TuyaBaseDevice {
 
             //Distinguish Tuya different devices under the same HomeBridge Service
             this.deviceCategorie = deviceConfig.category;
+            this.correctLightModeCapability(statusArr);
 
             //get Lightbulb dp range
             this.function_dp_range = this.getDefaultDPRange(statusArr);
@@ -28,6 +29,19 @@ class TuyaLightDevice extends TuyaBaseDevice {
         else {
             this.homey.app.logToHomey("No device config found");
         }
+    }
+
+    correctLightModeCapability(statusArr) {
+        for (var statusMap of statusArr) {
+            switch (statusMap.code) {
+                case "colour_data":
+                case "colour_data_v2":
+                    if (!this.hasCapability("light_mode")) {
+                        this.homey.app.logToHomey("addCapability light_mode");
+                        this.addCapability("light_mode");
+                    }
+            }
+        }  
     }
 
     _onMultipleCapabilityListener(valueObj, optsObj) {

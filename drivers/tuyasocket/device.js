@@ -17,9 +17,23 @@ class TuyaSocketDevice extends TuyaBaseDevice {
         if (deviceConfig != null) {
             console.log("set socket device config: " + JSON.stringify(deviceConfig));
             let statusArr = deviceConfig.status ? deviceConfig.status : [];
+            this.correctMeasurePowerCapability(statusArr);
             let capabilities = this.getCustomCapabilities(DataUtil.getSubService(statusArr));
             this.updateCapabilities(statusArr);
             this.registerMultipleCapabilityListener(capabilities, async (values, options) => { return this._onMultipleCapabilityListener(values, options); }, CAPABILITIES_SET_DEBOUNCE);
+        }
+    }
+
+    correctMeasurePowerCapability(statusArr) {
+        for (var statusMap of statusArr) {
+            switch (statusMap.code) {
+                case "cur_power":
+                    if (!this.hasCapability("measure_power")) {
+                        this.homey.app.logToHomey("addCapability measure_power");
+                        this.addCapability("measure_power");
+                    }
+                    break;
+            }
         }
     }
 
