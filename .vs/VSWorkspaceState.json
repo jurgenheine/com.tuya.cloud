@@ -1,10 +1,10 @@
 {
   "ExpandedNodes": [
     "",
-    "\\drivers",
     "\\drivers\\tuyalight",
-    "\\drivers\\tuyasocket"
+    "\\drivers\\tuyaswitch",
+    "\\drivers\\tuyaswitch\\assets"
   ],
-  "SelectedNode": "\\README.txt",
+  "SelectedNode": "\\.gitignore",
   "PreviewInSolutionExplorer": false
 }
