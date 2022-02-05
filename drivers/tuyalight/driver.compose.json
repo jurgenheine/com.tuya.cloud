@@ -1,0 +1,16 @@
+{
+  "name": {
+    "en": "Light",
+    "nl": "Verlichting"
+  },
+  "class": "light",
+  "capabilities": [
+    "onoff",
+    "dim",
+    "light_temperature",
+    "light_hue",
+    "light_saturation",
+    "light_mode"
+  ],
+  "$extends": [ "defaults" ]
+}

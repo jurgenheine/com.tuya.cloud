@@ -1,0 +1,43 @@
+{
+  "id": "com.tuya.cloud",
+  "sdk": 2,
+  "name": {
+    "en": "Tuya cloud"
+  },
+  "brandColor": "#FF4900",
+  "description": {
+    "en": "This app allows you to connect Homey to the Tuya cloud",
+    "nl": "Deze app laat je connectie maken met de Tuya cloud"
+  },
+  "category": "lights",
+  "version": "0.1.5",
+  "compatibility": ">=1.5.3",
+  "author": {
+    "name": "Jurgen Heine",
+    "email": "jurgen2.heine@gmail.com"
+  },
+  "contributors": {
+    "developers": [
+      {
+        "name": "Jurgen Heine"
+      },
+      {
+        "name": "Diko"
+      },
+      {
+        "name": "Peter Keuter"
+      }
+    ]
+  },
+  "bugs": {
+    "url": "https://github.com/jurgenheine/com.tuya.cloud/issues"
+  },
+  "source": "https://github.com/jurgenheine/com.tuya.cloud",
+  "homepage": "https://github.com/jurgenheine/com.tuya.cloud/blob/master/README.md",
+  "homeyCommunityTopicId": 21313,
+  "permissions": [],
+  "images": {
+    "large": "/assets/images/large.jpg",
+    "small": "/assets/images/small.jpg"
+  }
+}

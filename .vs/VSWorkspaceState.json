@@ -3,8 +3,11 @@
     "",
     "\\drivers",
     "\\drivers\\cover",
-    "\\drivers\\light"
+    "\\drivers\\switch\\assets\\images",
+    "\\drivers\\tuyalight",
+    "\\drivers\\tuyaswitch\\assets",
+    "\\settings"
   ],
-  "SelectedNode": "\\drivers\\light\\device.js",
+  "SelectedNode": "\\drivers\\tuyalight\\driver.compose.json",
   "PreviewInSolutionExplorer": false
 }

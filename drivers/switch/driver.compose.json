@@ -1,0 +1,11 @@
+{
+  "name": {
+    "en": "switch (Legacy)",
+    "nl": "schakelaar (Legacy)"
+  },
+  "class": "button",
+  "capabilities": [
+    "onoff"
+  ],
+  "$extends": [ "defaults" ]
+}

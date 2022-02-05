@@ -1,7 +1,7 @@
 'use strict';
 
 const Homey = require('homey');
-const BaseDevice = require('../base');
+const BaseDevice = require('../basedevice');
 
 const CAPABILITIES_SET_DEBOUNCE = 1000;
 
@@ -32,7 +32,7 @@ class SwitchDevice extends BaseDevice {
     }
 
     async _onMultipleCapabilityListener(valueObj, optsObj) {
-        console.log("set capabilities: " + JSON.stringify(valueObj));
+        console.log("Capabilities changed by Homey: " + JSON.stringify(valueObj));
         this.updateInprogess = true;
         try {
             if (valueObj.onoff != null) {

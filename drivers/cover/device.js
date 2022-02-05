@@ -1,7 +1,6 @@
 'use strict';
 
-const Homey = require('homey');
-const BaseDevice = require('../base');
+const BaseDevice = require('../basedevice');
 
 const CAPABILITIES_SET_DEBOUNCE = 1000;
 
@@ -11,7 +10,7 @@ class CoverDevice extends BaseDevice {
         this.initDevice(this.getData().id);
         this.updateCapabilities();
         this.registerMultipleCapabilityListener(this.getCapabilities(), async (values, options) => { return this._onMultipleCapabilityListener(values, options); }, CAPABILITIES_SET_DEBOUNCE);
-        this.log(`Tuya Cover ${this.getName()} has been initialized`);
+        this.log(`Legacy Tuya Cover ${this.getName()} has been initialized`);
     }
 
     updateCapabilities() {
@@ -32,8 +31,7 @@ class CoverDevice extends BaseDevice {
     }
 
     async _onMultipleCapabilityListener(valueObj, optsObj) {
-		this.log('Capabilitylistener');
-        this.log(valueObj);
+        this.log("Cover Capabilities changed by Homey: " + JSON.stringify(valueObj));
         this.updateInprogess = true;
         try {
             if (valueObj.windowcoverings_state != null) {
@@ -66,7 +64,7 @@ class CoverDevice extends BaseDevice {
     }
     
     async stop() {
-        await Homey.app.operateDevice(this.id, 'startStop', { value: '0' });
+        await this.operateDevice(this.id, 'startStop', { value: '0' });
     }
 }
 

@@ -1,0 +1,49 @@
+{
+	"title": {
+		"en": "Socket is turned on/off",
+		"nl": "stopcontact is aan/uit gezet"
+	},
+	"titleFormatted": {
+		"en": "[[socketid]] is turned [[state]]",
+		"nl": "[[socketid]] is [[state]] gezet"
+	},
+	"args": [
+		{
+			"type": "device",
+			"name": "my_device",
+			"filter": "driver_id=tuyasocket"
+		},
+		{
+			"name": "socketid",
+			"type": "autocomplete",
+			"title": {
+				"en": "Socket id",
+				"nl": "Stopcontact id"
+			}
+		},
+		{
+			"name": "state",
+			"type": "dropdown",
+			"values": [
+				{
+					"id": "On",
+					"label": {
+						"en": "On",
+						"nl": "Aan"
+					}
+				},
+				{
+					"id": "Off",
+					"label": {
+						"en": "Off",
+						"nl": "Uit"
+					}
+				}
+			],
+			"title": {
+				"en": "State",
+				"nl": "Status"
+			}
+		}
+	]
+}

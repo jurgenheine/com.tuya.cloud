@@ -1,0 +1,16 @@
+{
+	"title": {
+		"en": "Execute a scene",
+		"nl": "Uitvoeren scene"
+	},
+	"titleFormatted": {
+		"en": "Execute [[scene]] scene",
+		"nl": "Uitvoeren [[scene]] scene"
+	},
+	"args": [
+		{
+			"name": "scene",
+			"type": "autocomplete"
+		}
+	]
+}

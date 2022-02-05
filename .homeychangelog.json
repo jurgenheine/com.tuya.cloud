@@ -40,5 +40,23 @@
   },
   "0.0.15": {
     "en": "Fix scene autocomplete"
+  },
+  "0.1.0": {
+    "en": "Tuya official API added"
+  },
+  "0.1.1": {
+    "en": "Fix socket and switch trigger and get legacy scene names"
+  },
+  "0.1.2": {
+    "en": "Fixed a switch error"
+  },
+  "0.1.3": {
+    "en": "Fix light issues"
+  },
+  "0.1.4": {
+    "en": "fix images"
+  },
+  "0.1.5": {
+    "en": "Fix light color update and extra logging"
   }
 }

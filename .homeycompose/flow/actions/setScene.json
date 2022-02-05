@@ -1,0 +1,16 @@
+{
+	"title": {
+		"en": "Trigger a legacy scene",
+		"nl": "Trigger een legacy scene"
+	},
+	"titleFormatted": {
+		"en": "Start [[scene]] legacy scene",
+		"nl": "Start [[scene]] legacy scene"
+	},
+	"args": [
+		{
+			"name": "scene",
+			"type": "autocomplete"
+		}
+	]
+}

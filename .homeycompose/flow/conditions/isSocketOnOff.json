@@ -1,0 +1,25 @@
+{
+	"title": {
+		"en": "Is Socket !{{On|Off}}?",
+		"nl": "Is Stopcontact !{{Aan|Uit}}?"
+	},
+	"titleFormatted": {
+		"en": "Is [[socketid]] !{{On|Off}}?",
+		"nl": "Is [[socketid]] !{{Aan|Uit}}?"
+	},
+	"args": [
+		{
+			"type": "device",
+			"name": "my_device",
+			"filter": "driver_id=tuyasocket"
+		},
+		{
+			"name": "socketid",
+			"type": "autocomplete",
+			"title": {
+				"en": "Socket id",
+				"nl": "Stopcontact id"
+			}
+		}
+	]
+}
