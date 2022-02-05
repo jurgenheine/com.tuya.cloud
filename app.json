@@ -11,8 +11,8 @@
     "nl": "Deze app laat je connectie maken met de Tuya cloud"
   },
   "category": "lights",
-  "version": "0.1.5",
-  "compatibility": ">=1.5.3",
+  "version": "1.0.0",
+  "compatibility": ">=5.0.0",
   "author": {
     "name": "Jurgen Heine",
     "email": "jurgen2.heine@gmail.com"
@@ -40,6 +40,12 @@
   "images": {
     "large": "/assets/images/large.jpg",
     "small": "/assets/images/small.jpg"
+  },
+  "api": {
+    "connect": {
+      "method": "get",
+      "path": "/connect/"
+    }
   },
   "flow": {
     "triggers": [
@@ -430,7 +436,8 @@
       },
       "class": "socket",
       "capabilities": [
-        "onoff"
+        "onoff",
+        "measure_power"
       ],
       "id": "tuyasocket"
     },
@@ -459,7 +466,8 @@
       },
       "class": "button",
       "capabilities": [
-        "onoff"
+        "onoff",
+        "measure_power"
       ],
       "id": "tuyaswitch"
     }
