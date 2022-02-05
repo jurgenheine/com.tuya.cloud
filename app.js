@@ -204,10 +204,10 @@ class TuyaCloudApp extends Homey.App {
     }
 
     updateCapabilities(driver, devId, status) {
-        console.log("Get device for: " + devId);
+        this.logToHomey("Get device for: " + devId);
         let homeyDevice = driver.getDevice({ id: devId });
         if (homeyDevice instanceof Error) return;
-        console.log("Device found");
+        this.logToHomey("Device found");
         homeyDevice.updateCapabilities(status);
     }
 
@@ -229,10 +229,10 @@ class TuyaCloudApp extends Homey.App {
     }
 
     updateOldCapabilities(driver, tuyaDevice) {
-        console.log("Get device for: " + tuyaDevice.id);
+        this.logToHomey("Get legacy device for: " + tuyaDevice.id);
         let homeyDevice = driver.getDevice({ id: tuyaDevice.id });
         if (homeyDevice instanceof Error) return;
-        console.log("Device found");
+        this.logToHomey("Legacy device found");
         homeyDevice.updateData(tuyaDevice.data);
         homeyDevice.updateCapabilities();
     }

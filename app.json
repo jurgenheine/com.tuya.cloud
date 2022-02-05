@@ -11,7 +11,7 @@
     "nl": "Deze app laat je connectie maken met de Tuya cloud"
   },
   "category": "lights",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "compatibility": ">=1.5.3",
   "author": {
     "name": "Jurgen Heine",
@@ -400,7 +400,8 @@
         "dim",
         "light_temperature",
         "light_hue",
-        "light_saturation"
+        "light_saturation",
+        "light_mode"
       ],
       "id": "tuyalight"
     },

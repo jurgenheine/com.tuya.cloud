@@ -62,7 +62,7 @@ class TuyaBaseDriver extends Homey.Driver {
         for (let categorytype of Object.values(TuyaBaseDriver.categorietypes)) {
             for (let typecategory of categorytype.category) {
                 if (typecategory === category) {
-                    Homey.app.logger.debug(categorytype.type);
+                    Homey.app.logger.debug(categorytype.type + "driver found for category " + category);
                     return categorytype.type;
                 }
             }
@@ -74,7 +74,7 @@ class TuyaBaseDriver extends Homey.Driver {
     static get_categories_by_type(type) {
         for (let categorytype of Object.values(TuyaBaseDriver.categorietypes)) {
             if (categorytype.type === type) {
-                Homey.app.logger.debug(categorytype.category);
+                Homey.app.logger.debug("Following categories "+ categorytype.category + "found for type " + type);
                 return categorytype.category;
             }
         }
