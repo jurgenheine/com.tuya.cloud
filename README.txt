@@ -1,4 +1,4 @@
-Homey App for the Tuya cloud. This app is currently in beta status.
+Homey App for the Tuya cloud.
 
 This app connects with a Tuya API to control your devices. This app needs an internet connection to function, 
 if there is no internet then you can only control your devices with the mobile app. 
