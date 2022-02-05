@@ -58,5 +58,8 @@
   },
   "0.1.5": {
     "en": "Fix light color update and extra logging"
+  },
+  "1.0.1": {
+    "en": "Upgrade to Homey SDK V3 and several bugs fixed"
   }
 }
