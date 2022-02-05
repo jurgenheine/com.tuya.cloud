@@ -50,7 +50,11 @@ class TuyaSwitchDriver extends TuyaBaseDriver {
                     }
                     capabilities.push(name);
                 }
-
+                for (let func of tuyaDevice.status) {
+                    if (func.code === "cur_power") {
+                        capabilities.push("measure_power");
+                    }
+                }
                 devices.push({
                     data: {
                         id: tuyaDevice.id

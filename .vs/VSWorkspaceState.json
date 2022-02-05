@@ -2,12 +2,9 @@
   "ExpandedNodes": [
     "",
     "\\drivers",
-    "\\drivers\\cover",
-    "\\drivers\\switch\\assets\\images",
     "\\drivers\\tuyalight",
-    "\\drivers\\tuyaswitch\\assets",
-    "\\settings"
+    "\\drivers\\tuyasocket"
   ],
-  "SelectedNode": "\\drivers\\tuyalight\\driver.compose.json",
+  "SelectedNode": "\\README.txt",
   "PreviewInSolutionExplorer": false
 }
