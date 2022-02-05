@@ -1,6 +1,5 @@
 'use strict';
 
-const Homey = require('homey');
 const TuyaBaseDevice = require('../tuyabasedevice');
 const DataUtil = require('../../util/datautil');
 
@@ -49,7 +48,7 @@ class TuyaSocketDevice extends TuyaBaseDevice {
                 this.sendCommand(key, value);
             }
         } catch (ex) {
-            Homey.app.logToHomey(ex);
+            this.homey.app.logToHomey(ex);
         }
     }
 
@@ -90,12 +89,12 @@ class TuyaSocketDevice extends TuyaBaseDevice {
             socketid: name,
             state: value ? "On" : "Off"
         };
-        this.getDriver().triggerSocketChanged(this, tokens, state);
+        this.driver.triggerSocketChanged(this, tokens, state);
     }
 
     sendCommand(name, value) {
         var param = this.getSendParam(name, value);
-        Homey.app.tuyaOpenApi.sendCommand(this.id, param).catch((error) => {
+        this.homey.app.tuyaOpenApi.sendCommand(this.id, param).catch((error) => {
             this.log.error('[SET][%s] capabilities Error: %s', this.id, error);
         });
     }

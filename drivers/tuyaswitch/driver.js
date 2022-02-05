@@ -1,17 +1,15 @@
 'use strict';
 
-const Homey = require('homey');
 const TuyaBaseDriver = require('../tuyabasedriver');
 const DataUtil = require('../../util/datautil');
 
 class TuyaSwitchDriver extends TuyaBaseDriver {
 
     onInit() {
-        this._flowTriggerbuttonPressed = new Homey.FlowCardTriggerDevice('buttonPressed')
-            .register()
+        this._flowTriggerbuttonPressed = this.homey.flow.getDeviceTriggerCard('buttonPressed')
             .registerRunListener((args, state) => { return Promise.resolve(args.buttonid.instanceId === state.buttonid && args.buttonstate === state.buttonstate); });
         this._flowTriggerbuttonPressed.getArgument('buttonid')
-            .registerAutocompleteListener(this._onButtonIdAutoComplete.bind(this));
+            .registerAutocompleteListener(async (query, args) => this.this._onButtonIdAutoComplete(query, args));
 
         this.log('Tuya switch driver has been initialized');
     }
@@ -30,10 +28,10 @@ class TuyaSwitchDriver extends TuyaBaseDriver {
             .catch(this.error);
     }
 
-    async onPairListDevices(data, callback) {
+    async onPairListDevices() {
         let devices = [];
-        if (!Homey.app.isConnected()) {
-            callback(new Error("Please configure the app first."));
+        if (!this.homey.app.isConnected()) {
+            throw new Error("Please configure the app first.");
         }
         else {
             let switches = this.get_devices_by_type("switch");
@@ -64,7 +62,7 @@ class TuyaSwitchDriver extends TuyaBaseDriver {
                 });
             }
         }
-        callback(null, devices.sort(TuyaBaseDriver._compareHomeyDevice));
+        return devices.sort(TuyaBaseDriver._compareHomeyDevice);
     }
 }
 

@@ -1,6 +1,5 @@
 'use strict';
 
-const Homey = require('homey');
 const BaseDevice = require('../basedevice');
 
 const CAPABILITIES_SET_DEBOUNCE = 1000;
@@ -43,7 +42,7 @@ class SwitchDevice extends BaseDevice {
                 }
             }
         } catch (ex) {
-            Homey.app.logToHomey(ex);
+            this.homey.app.logToHomey(ex);
             this.updateInprogess = false;
         }
     }

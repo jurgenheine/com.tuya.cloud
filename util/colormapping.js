@@ -6,7 +6,7 @@ const linear = require('everpolate').linear;
 class Colormapping {
     setColorMap() {
         try {
-            let colormap = Homey.ManagerSettings.get('huecolormap');
+            let colormap = this.homey.settings.get('huecolormap');
             if (colormap != null && colormap != "") {
                 let maps = colormap.split(',');
                 this.colormapinput = [];

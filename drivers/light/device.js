@@ -1,6 +1,5 @@
 'use strict';
 
-const Homey = require('homey');
 const BaseDevice = require('../basedevice');
 
 const CAPABILITIES_SET_DEBOUNCE = 1000;
@@ -78,7 +77,7 @@ class LightDevice extends BaseDevice {
                 await this.set_color(null, valueObj.light_saturation);
             }
         } catch (ex) {
-            Homey.app.logToHomey(ex);
+            this.homey.app.logToHomey(ex);
             this.updateInprogess = false;
         }
     }
@@ -112,7 +111,7 @@ class LightDevice extends BaseDevice {
 
     get_hue() {
         var input = this._get_hue();
-        var value = Homey.app.colormapping.getReverseColorMap(input) / 360;
+        var value = this.homey.app.colormapping.getReverseColorMap(input) / 360;
         if (value < 0.0)
             return 0.0;
         if (value > 1.0)
@@ -153,7 +152,7 @@ class LightDevice extends BaseDevice {
         //Set the color of light.
         let hsv_color = {};
         // hue 0 -360
-        hsv_color.hue = hue != null ? Math.round(Homey.app.colormapping.getColorMap(hue * 360)) : this._get_hue();
+        hsv_color.hue = hue != null ? Math.round(this.homey.app.colormapping.getColorMap(hue * 360)) : this._get_hue();
         // saturation 0-1( but status 0-100)
         hsv_color.saturation = saturation != null ? saturation : this.get_saturation();
 

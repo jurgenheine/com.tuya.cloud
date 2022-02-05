@@ -1,6 +1,5 @@
 'use strict';
 
-const Homey = require('homey');
 const TuyaBaseDevice = require('../tuyabasedevice');
 
 const CAPABILITIES_SET_DEBOUNCE = 1000;
@@ -44,7 +43,7 @@ class TuyaLightDevice extends TuyaBaseDevice {
                 this.set_color(valueObj.light_hue, valueObj.light_saturation);
             }
         } catch (ex) {
-            Homey.app.logToHomey(ex);
+            this.homey.app.logToHomey(ex);
         }
     }
 
@@ -111,7 +110,7 @@ class TuyaLightDevice extends TuyaBaseDevice {
 
     sendCommand(name, value, value2) {
         var param = this.getSendParam(name, value, value2);
-        Homey.app.tuyaOpenApi.sendCommand(this.id, param).catch((error) => {
+        this.homey.app.tuyaOpenApi.sendCommand(this.id, param).catch((error) => {
             this.log.error('[SET][%s] capabilities Error: %s', this.id, error);
         });
     }

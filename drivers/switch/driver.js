@@ -8,13 +8,13 @@ class SwitchDriver extends Homey.Driver {
         this.log('Tuya legacy switch driver has been initialized');
     }
 
-    async onPairListDevices(data, callback) {
+    async onPairListDevices() {
         let devices = [];
-        if (!Homey.app.isOldConnected()) {
-            callback(new Error("Please configure the app first."));
+        if (!this.homey.app.isOldConnected()) {
+            throw new Error("Please configure the app first.");
         }
         else {
-            let switches = await Homey.app.oldclient.get_devices_by_type('switch');
+            let switches = await this.homey.app.oldclient.get_devices_by_type('switch');
             for (let tuyaDevice of Object.values(switches)) {
 
                 let capabilities = [];
@@ -28,7 +28,7 @@ class SwitchDriver extends Homey.Driver {
                 });
             }
         }
-        callback(null, devices.sort(SwitchDriver._compareHomeyDevice));
+        return devices.sort(CoverDriver._compareHomeyDevice);
     }
 
     static _compareHomeyDevice(a, b) {
