@@ -28,7 +28,7 @@ class SwitchDriver extends Homey.Driver {
                 });
             }
         }
-        return devices.sort(CoverDriver._compareHomeyDevice);
+        return devices.sort(SwitchDriver._compareHomeyDevice);
     }
 
     static _compareHomeyDevice(a, b) {

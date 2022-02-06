@@ -55,7 +55,7 @@ class TuyaCloudApp extends Homey.App {
         let countrycode = this.homey.settings.get('countrycode');
         let biz = this.homey.settings.get('biztype') === 'smart_life' ? 'smartlife' : 'tuyaSmart';
 
-        this.tuyaOpenApi =  new TuyaSHOpenAPI( appid, appsecret, username, password, countrycode, biz, this.logger);
+        this.tuyaOpenApi = new TuyaSHOpenAPI(appid, appsecret, username, password, countrycode, biz, this.logger);
 
         try {
             this.devices = await this.tuyaOpenApi.getDevices();
@@ -70,19 +70,23 @@ class TuyaCloudApp extends Homey.App {
             return;
         }
 
+        if (this.tuyaOpenMQ) {
+            this.tuyaOpenMQ.stop();
+        }
+
         let mq = new TuyaOpenMQ(this.tuyaOpenApi, "1.0", this.logger);
         this.tuyaOpenMQ = mq;
         this.tuyaOpenMQ.start();
         this.tuyaOpenMQ.addMessageListener(this.onMQTTMessage.bind(this));
         this._connected = true;
     }
-    
+
     async connect() {
         this.oldclient.init(
             this.homey.settings.get('username'),
             this.homey.settings.get('password'),
             this.homey.settings.get('countrycode'),
-            Homeythis.homey.settings.get('biztype'));
+            this.homey.settings.get('biztype'));
         this.oldclient
             .on("device_updated", this._olddeviceUpdated.bind(this))
             .on("device_removed", this._olddeviceRemoved.bind(this));
@@ -181,29 +185,44 @@ class TuyaCloudApp extends Homey.App {
     }
 
     _olddeviceUpdated(tuyaDevice) {
-        switch (tuyaDevice.dev_type) {
-            case "cover":
-                this.updateOldCapabilities(this.homey.drivers.getDriver('cover'), tuyaDevice);
-                break;
-            case "light":
-                this.updateOldCapabilities(this.homey.drivers.getDriver('light'), tuyaDevice);
-                break;
-            case "switch":
-                this.updateOldCapabilities(this.homey.drivers.getDriver('switch'), tuyaDevice);
-                break;
-            default:
-                break;
+        if (this.homey.drivers !== null || this.homey.drivers !== undefined) {
+            switch (tuyaDevice.dev_type) {
+                case "cover":
+                    this.updateOldCapabilities(this.getOldTypeDriver('cover'), tuyaDevice);
+                    break;
+                case "light":
+                    this.updateOldCapabilities(this.getOldTypeDriver('light'), tuyaDevice);
+                    break;
+                case "switch":
+                    this.updateOldCapabilities(this.getOldTypeDriver('switch'), tuyaDevice);
+                    break;
+                default:
+                    break;
+            }
+            this.logToHomey(`${tuyaDevice.name} updated`);
         }
-        this.logToHomey(`${tuyaDevice.name} updated`);
     }
 
+    getOldTypeDriver(type) {
+        try {
+            if (this.initialized)
+                return this.homey.drivers.getDriver(type);
+            return null;
+        }
+        catch{
+            return null;
+        }
+    }
+    
     updateOldCapabilities(driver, tuyaDevice) {
-        this.logToHomey("Get legacy device for: " + tuyaDevice.id);
-        let homeyDevice = driver.getDevice({ id: tuyaDevice.id });
-        if (homeyDevice instanceof Error) return;
-        this.logToHomey("Legacy device found");
-        homeyDevice.updateData(tuyaDevice.data);
-        homeyDevice.updateCapabilities();
+        if (driver!== null && driver !== undefined) {
+            this.logToHomey("Get legacy device for: " + tuyaDevice.id);
+            let homeyDevice = driver.getDevice({ id: tuyaDevice.id });
+            if (homeyDevice instanceof Error) return;
+            this.logToHomey("Legacy device found");
+            homeyDevice.updateData(tuyaDevice.data);
+            homeyDevice.updateCapabilities();
+        }
     }
 
     _olddeviceRemoved(acc) {
@@ -219,7 +238,7 @@ class TuyaCloudApp extends Homey.App {
         }
     }
 
-    async _onSceneAutoComplete( query, args ) {
+    async _onSceneAutoComplete(query, args) {
         let scenes = await this.oldclient.get_devices_by_type('scene');
         return Object.values(scenes).map(s => {
             return { instanceId: s.id, name: s.name };

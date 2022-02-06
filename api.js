@@ -1,12 +1,12 @@
-module.exports = [
-    {
-        async connect (homey, args, callback) {
+module.exports = {
+    async connect({ homey, query }) {
             try {
+                homey.app.log("Connect from settings received.");
                 await homey.app.connectToTuyaApi();
-                return callback(null);
+                return null;
             } catch (err) {
-                return callback(err);
+                homey.app.log("Connect from settings received.");
+                return err;
             }
         }
-    }
-];
+};

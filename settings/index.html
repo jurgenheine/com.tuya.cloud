@@ -187,7 +187,7 @@
 
                 Homey.alert(Homey.__("settings.saved"));
 
-                Homey.api('GET', '/connect', null, function (err) {
+                Homey.api('GET', '/', null, function (err) {
                     if (err) return Homey.alert(err);
                 });
 

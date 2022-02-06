@@ -43,8 +43,8 @@
   },
   "api": {
     "connect": {
-      "method": "get",
-      "path": "/connect/"
+      "method": "GET",
+      "path": "/"
     }
   },
   "flow": {

@@ -41,7 +41,7 @@ class TuyaLightDevice extends TuyaBaseDevice {
                         this.addCapability("light_mode");
                     }
             }
-        }  
+        }
     }
 
     _onMultipleCapabilityListener(valueObj, optsObj) {
@@ -136,7 +136,7 @@ class TuyaLightDevice extends TuyaBaseDevice {
     getDefaultDPRange(statusArr) {
         this.isHaveDPCodeOfBrightValue = false;
         let defaultBrightRange = { 'min': 10, 'max': 1000 };
-        let defaultTempRange = { 'min': 0, 'max': 1000 };;
+        let defaultTempRange = { 'min': 0, 'max': 1000 };
         let defaultSaturationRange = { 'min': 0, 'max': 1000 };
         for (var statusMap of statusArr) {
             switch (statusMap.code) {

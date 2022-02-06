@@ -59,7 +59,7 @@ class TuyaSocketDriver extends TuyaBaseDriver {
 
     async onPairListDevices() {
         let devices = [];
-        if (!his.homey.app.isConnected()) {
+        if (!this.homey.app.isConnected()) {
             throw new Error("Please configure the app first.");
         }
         else {

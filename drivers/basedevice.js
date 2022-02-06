@@ -7,6 +7,11 @@ class BaseDevice extends Homey.Device {
         this.updateInprogess = false;
         this.data = {};
         this.id = id;
+        if (this.homey.app.oldclient !== null && this.homey.app.oldclient !== undefined) {
+            var device = this.homey.app.oldclient.get_device_by_id(id);
+            if (device !== null && device !== undefined)
+                this.data = device.data;
+        }
     }
 
     async update() {

@@ -137,10 +137,10 @@ class LightDevice extends BaseDevice {
 
     async set_brightness(brightness) {
         // brigthness 0-100 for color else 0-255, 10 and below is off
-        let value = Math.round(10 + (this.data.color_mode === 'colour' && device.data.color != null && device.data.color.brightness != null ?
+        let value = Math.round(10 + (this.data.color_mode === 'colour' && this.data.color != null && this.data.color.brightness != null ?
             brightness * 90 :
             brightness * 254));
-        if (this.data.color_mode === 'colour' && his.data.color != null && this.data.color.brightness != null) {
+        if (this.data.color_mode === 'colour' && this.data.color != null && this.data.color.brightness != null) {
             this.data.color.brightness = value;
         } else {
             this.data.brightness = value;

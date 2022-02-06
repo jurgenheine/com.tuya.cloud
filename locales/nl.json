@@ -13,7 +13,7 @@
     "colormap": "Kleurtoon mapping",
     "save": "Opslaan",
     "reconnect": "Opnieuw verbinden",
-    "saved": "Instellingen opgeslagen",
+    "saved": "Instellingen opgeslagen, herstart de app om actief te maken",
     "isrequired": "is verplicht"
   }
 }

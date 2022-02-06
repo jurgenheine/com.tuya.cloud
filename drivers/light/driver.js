@@ -37,7 +37,7 @@ class LightDriver extends Homey.Driver {
                 });
             }
         }
-        return devices.sort(CoverDriver._compareHomeyDevice);
+        return devices.sort(LightDriver._compareHomeyDevice);
     }
 
     static _compareHomeyDevice(a, b) {
