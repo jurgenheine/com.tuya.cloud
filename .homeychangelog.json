@@ -61,5 +61,8 @@
   },
   "1.0.1": {
     "en": "Upgrade to Homey SDK V3 and several bugs fixed"
+  },
+  "1.0.2": {
+    "en": "Fix legacy API issues fro SDK 3"
   }
 }
