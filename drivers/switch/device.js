@@ -6,8 +6,8 @@ const CAPABILITIES_SET_DEBOUNCE = 1000;
 
 class SwitchDevice extends BaseDevice {
 
-    onInit() {
-        this.initDevice(this.getData().id);
+    async onInit() {
+        await this.initDevice(this.getData().id);
         this.updateCapabilities();
         this.registerMultipleCapabilityListener(this.getCapabilities(), async (values, options) => { return this._onMultipleCapabilityListener(values, options); }, CAPABILITIES_SET_DEBOUNCE);
         this.log(`Tuya switch ${this.getName()} has been initialized`);
