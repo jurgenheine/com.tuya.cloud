@@ -36,6 +36,7 @@ class TuyaSwitchDriver extends TuyaBaseDriver {
             let switches = this.get_devices_by_type("switch");
             for (let tuyaDevice of Object.values(switches)) {
                 let capabilities = [];
+                let capabilitiesOptions = {};
                 let subcodes = DataUtil.getSubService(tuyaDevice.status);
 
                 for (var code of subcodes) {
@@ -44,6 +45,7 @@ class TuyaSwitchDriver extends TuyaBaseDriver {
                         name = "onoff";
                     } else {
                         name = "onoff." + code;
+                        capabilitiesOptions[name] = { 'title': { 'en': `Power ${code.replace('switch_', 'Socket ')}` } };
                     }
                     capabilities.push(name);
                 }
@@ -57,6 +59,7 @@ class TuyaSwitchDriver extends TuyaBaseDriver {
                         id: tuyaDevice.id
                     },
                     capabilities: capabilities,
+                    capabilitiesOptions: capabilitiesOptions,
                     name: tuyaDevice.name
                 });
             }
