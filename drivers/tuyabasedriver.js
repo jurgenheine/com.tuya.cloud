@@ -83,16 +83,18 @@ class TuyaBaseDriver extends Homey.Driver {
     }
 
     get_devices_by_categories(categories) {
-        let devices = Homey.app.devices;
-        let device_list = [];
-        devices.forEach((device) => {
-            categories.forEach((category) => {
-                if (device.category === category) {
-                    device_list.push(device);
-                }
-            });
-        });
-        return device_list;
+        let devices = this.homey.app.devices;
+        return devices.filter( device => categories.find(category => category === device.category));
+
+        // let device_list = [];
+        // devices.forEach((device) => {
+        //     categories.forEach((category) => {
+        //         if (device.category === category) {
+        //             device_list.push(device);
+        //         }
+        //     });
+        // });
+        // return device_list;
     }
 }
 

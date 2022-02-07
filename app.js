@@ -1,5 +1,10 @@
 'use strict';
 
+if (process.env.DEBUG === '1')
+{
+    require('inspector').open(9222, '0.0.0.0', true);
+}
+
 const Homey = require('homey');
 const TuyaApi = require("./lib/cloudtuya");
 const TuyaSHOpenAPI = require("./lib/tuyashopenapi");
@@ -217,11 +222,16 @@ class TuyaCloudApp extends Homey.App {
     updateOldCapabilities(driver, tuyaDevice) {
         if (driver!== null && driver !== undefined) {
             this.logToHomey("Get legacy device for: " + tuyaDevice.id);
-            let homeyDevice = driver.getDevice({ id: tuyaDevice.id });
-            if (homeyDevice instanceof Error) return;
-            this.logToHomey("Legacy device found");
-            homeyDevice.updateData(tuyaDevice.data);
-            homeyDevice.updateCapabilities();
+            try{
+                let homeyDevice = driver.getDevice({ id: tuyaDevice.id });
+                if (homeyDevice instanceof Error) return;
+                this.logToHomey("Legacy device found");
+                homeyDevice.updateData(tuyaDevice.data);
+                homeyDevice.updateCapabilities();
+            }
+            catch(err){
+                return;
+            }
         }
     }
 
