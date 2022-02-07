@@ -64,5 +64,8 @@
   },
   "1.0.2": {
     "en": "Fix legacy API issues fro SDK 3"
+  },
+  "1.0.3": {
+    "en": "Bug fixes for SDK 3"
   }
 }
