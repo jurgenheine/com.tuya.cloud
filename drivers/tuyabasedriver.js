@@ -26,7 +26,7 @@ class TuyaBaseDriver extends Homey.Driver {
         },
         {
             "type": "fan",
-            "category": ['fs','fskg']
+            "category": ['fs', 'fskg']
         },
         {
             "type": "smokeSensor",
@@ -46,7 +46,11 @@ class TuyaBaseDriver extends Homey.Driver {
         },
         {
             "type": "leakSensor",
-            "category": ['rqbj','jwbj']
+            "category": ['rqbj', 'jwbj']
+        },
+        {
+            "type": "pir",
+            "category":['pir']
         }
     ];
 

@@ -158,7 +158,9 @@ class TuyaCloudApp extends Homey.App {
             case 'switch':
                 return this.homey.drivers.getDriver('tuyaswitch');
             case 'cover':
-                break;
+                return this.homey.drivers.getDriver('tuyacover');
+            case 'pir':
+                return this.homey.drivers.getDriver('tuyapir');
             case 'airPurifier':
                 break;
             case 'fan':
@@ -175,6 +177,7 @@ class TuyaCloudApp extends Homey.App {
             case 'leakSensor':
                 //leak sensor
                 break;
+
             default:
                 break;
         }
