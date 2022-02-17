@@ -8,9 +8,7 @@ class TuyaBaseDevice extends Homey.Device {
     }
 
     get_deviceConfig() {
-        if (Homey.app != null) {
-            return Homey.app.get_device_by_devid(this.id);
-        }
+        return this.homey.app.get_device_by_devid(this.id);
     }
 
     getOnline() {

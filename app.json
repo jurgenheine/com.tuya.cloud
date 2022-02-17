@@ -1,7 +1,7 @@
 {
   "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
   "id": "com.tuya.cloud",
-  "sdk": 2,
+  "sdk": 3,
   "name": {
     "en": "Tuya cloud"
   },
@@ -11,8 +11,8 @@
     "nl": "Deze app laat je connectie maken met de Tuya cloud"
   },
   "category": "lights",
-  "version": "0.1.5",
-  "compatibility": ">=1.5.3",
+  "version": "1.0.3",
+  "compatibility": ">=5.0.0",
   "author": {
     "name": "Jurgen Heine",
     "email": "jurgen2.heine@gmail.com"
@@ -27,6 +27,9 @@
       },
       {
         "name": "Peter Keuter"
+      },
+      {
+        "name": "Adrian Rockall"
       }
     ]
   },
@@ -40,6 +43,12 @@
   "images": {
     "large": "/assets/images/large.jpg",
     "small": "/assets/images/small.jpg"
+  },
+  "api": {
+    "connect": {
+      "method": "GET",
+      "path": "/"
+    }
   },
   "flow": {
     "triggers": [
@@ -430,7 +439,8 @@
       },
       "class": "socket",
       "capabilities": [
-        "onoff"
+        "onoff",
+        "measure_power"
       ],
       "id": "tuyasocket"
     },
@@ -459,7 +469,8 @@
       },
       "class": "button",
       "capabilities": [
-        "onoff"
+        "onoff",
+        "measure_power"
       ],
       "id": "tuyaswitch"
     }

@@ -8,13 +8,13 @@ class LightDriver extends Homey.Driver {
         this.log('Tuya legacy light driver has been initialized');
     }
 
-    async onPairListDevices(data, callback) {
+    async onPairListDevices() {
         let devices = [];
-        if (!Homey.app.isOldConnected()) {
-            callback(new Error("Please configure the app first."));
+        if (!this.homey.app.isOldConnected()) {
+            throw new Error("Please configure the app first.");
         }
         else {
-            let lights = await Homey.app.oldclient.get_devices_by_type('light');
+            let lights = await this.homey.app.oldclient.get_devices_by_type('light');
             for (let tuyaDevice of Object.values(lights)) {
 
                 let capabilities = [];
@@ -37,7 +37,7 @@ class LightDriver extends Homey.Driver {
                 });
             }
         }
-        callback(null, devices.sort(LightDriver._compareHomeyDevice));
+        return devices.sort(LightDriver._compareHomeyDevice);
     }
 
     static _compareHomeyDevice(a, b) {

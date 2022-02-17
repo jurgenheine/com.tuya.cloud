@@ -1,6 +1,5 @@
 'use strict';
 
-const Homey = require('homey');
 const TuyaBaseDevice = require('../tuyabasedevice');
 const DataUtil = require('../../util/datautil');
 
@@ -18,9 +17,23 @@ class TuyaSocketDevice extends TuyaBaseDevice {
         if (deviceConfig != null) {
             console.log("set socket device config: " + JSON.stringify(deviceConfig));
             let statusArr = deviceConfig.status ? deviceConfig.status : [];
+            this.correctMeasurePowerCapability(statusArr);
             let capabilities = this.getCustomCapabilities(DataUtil.getSubService(statusArr));
             this.updateCapabilities(statusArr);
             this.registerMultipleCapabilityListener(capabilities, async (values, options) => { return this._onMultipleCapabilityListener(values, options); }, CAPABILITIES_SET_DEBOUNCE);
+        }
+    }
+
+    correctMeasurePowerCapability(statusArr) {
+        for (var statusMap of statusArr) {
+            switch (statusMap.code) {
+                case "cur_power":
+                    if (!this.hasCapability("measure_power")) {
+                        this.homey.app.logToHomey("addCapability measure_power");
+                        this.addCapability("measure_power");
+                    }
+                    break;
+            }
         }
     }
 
@@ -49,7 +62,7 @@ class TuyaSocketDevice extends TuyaBaseDevice {
                 this.sendCommand(key, value);
             }
         } catch (ex) {
-            Homey.app.logToHomey(ex);
+            this.homey.app.logToHomey(ex);
         }
     }
 
@@ -90,12 +103,12 @@ class TuyaSocketDevice extends TuyaBaseDevice {
             socketid: name,
             state: value ? "On" : "Off"
         };
-        this.getDriver().triggerSocketChanged(this, tokens, state);
+        this.driver.triggerSocketChanged(this, tokens, state);
     }
 
     sendCommand(name, value) {
         var param = this.getSendParam(name, value);
-        Homey.app.tuyaOpenApi.sendCommand(this.id, param).catch((error) => {
+        this.homey.app.tuyaOpenApi.sendCommand(this.id, param).catch((error) => {
             this.log.error('[SET][%s] capabilities Error: %s', this.id, error);
         });
     }

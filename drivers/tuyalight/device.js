@@ -1,6 +1,5 @@
 'use strict';
 
-const Homey = require('homey');
 const TuyaBaseDevice = require('../tuyabasedevice');
 
 const CAPABILITIES_SET_DEBOUNCE = 1000;
@@ -21,10 +20,27 @@ class TuyaLightDevice extends TuyaBaseDevice {
 
             //Distinguish Tuya different devices under the same HomeBridge Service
             this.deviceCategorie = deviceConfig.category;
+            this.correctLightModeCapability(statusArr);
 
             //get Lightbulb dp range
             this.function_dp_range = this.getDefaultDPRange(statusArr);
             this.updateCapabilities(statusArr);
+        }
+        else {
+            this.homey.app.logToHomey("No device config found");
+        }
+    }
+
+    correctLightModeCapability(statusArr) {
+        for (var statusMap of statusArr) {
+            switch (statusMap.code) {
+                case "colour_data":
+                case "colour_data_v2":
+                    if (!this.hasCapability("light_mode")) {
+                        this.homey.app.logToHomey("addCapability light_mode");
+                        this.addCapability("light_mode");
+                    }
+            }
         }
     }
 
@@ -44,7 +60,7 @@ class TuyaLightDevice extends TuyaBaseDevice {
                 this.set_color(valueObj.light_hue, valueObj.light_saturation);
             }
         } catch (ex) {
-            Homey.app.logToHomey(ex);
+            this.homey.app.logToHomey(ex);
         }
     }
 
@@ -111,8 +127,8 @@ class TuyaLightDevice extends TuyaBaseDevice {
 
     sendCommand(name, value, value2) {
         var param = this.getSendParam(name, value, value2);
-        Homey.app.tuyaOpenApi.sendCommand(this.id, param).catch((error) => {
-            this.log.error('[SET][%s] capabilities Error: %s', this.id, error);
+        this.homey.app.tuyaOpenApi.sendCommand(this.id, param).catch((error) => {
+            this.error('[SET][%s] capabilities Error: %s', this.id, error);
         });
     }
 
@@ -120,7 +136,7 @@ class TuyaLightDevice extends TuyaBaseDevice {
     getDefaultDPRange(statusArr) {
         this.isHaveDPCodeOfBrightValue = false;
         let defaultBrightRange = { 'min': 10, 'max': 1000 };
-        let defaultTempRange = { 'min': 0, 'max': 1000 };;
+        let defaultTempRange = { 'min': 0, 'max': 1000 };
         let defaultSaturationRange = { 'min': 0, 'max': 1000 };
         for (var statusMap of statusArr) {
             switch (statusMap.code) {

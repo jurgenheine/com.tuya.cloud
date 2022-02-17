@@ -1,17 +1,15 @@
 'use strict';
 
-const Homey = require('homey');
 const TuyaBaseDriver = require('../tuyabasedriver');
 const DataUtil = require('../../util/datautil');
 
 class TuyaSwitchDriver extends TuyaBaseDriver {
 
     onInit() {
-        this._flowTriggerbuttonPressed = new Homey.FlowCardTriggerDevice('buttonPressed')
-            .register()
+        this._flowTriggerbuttonPressed = this.homey.flow.getDeviceTriggerCard('buttonPressed')
             .registerRunListener((args, state) => { return Promise.resolve(args.buttonid.instanceId === state.buttonid && args.buttonstate === state.buttonstate); });
         this._flowTriggerbuttonPressed.getArgument('buttonid')
-            .registerAutocompleteListener(this._onButtonIdAutoComplete.bind(this));
+            .registerAutocompleteListener(async (query, args) => this.this._onButtonIdAutoComplete(query, args));
 
         this.log('Tuya switch driver has been initialized');
     }
@@ -26,19 +24,19 @@ class TuyaSwitchDriver extends TuyaBaseDriver {
     triggerButtonPressed(device, tokens, state) {
         this._flowTriggerbuttonPressed
             .trigger(device, tokens, state)
-            .then(this.log)
             .catch(this.error);
     }
 
-    async onPairListDevices(data, callback) {
+    async onPairListDevices() {
         let devices = [];
-        if (!Homey.app.isConnected()) {
-            callback(new Error("Please configure the app first."));
+        if (!this.homey.app.isConnected()) {
+            throw new Error("Please configure the app first.");
         }
         else {
             let switches = this.get_devices_by_type("switch");
             for (let tuyaDevice of Object.values(switches)) {
                 let capabilities = [];
+                let capabilitiesOptions = {};
                 let subcodes = DataUtil.getSubService(tuyaDevice.status);
 
                 for (var code of subcodes) {
@@ -47,6 +45,7 @@ class TuyaSwitchDriver extends TuyaBaseDriver {
                         name = "onoff";
                     } else {
                         name = "onoff." + code;
+                        capabilitiesOptions[name] = { 'title': { 'en': `Power ${code.replace('switch_', 'Socket ')}` } };
                     }
                     capabilities.push(name);
                 }
@@ -60,11 +59,12 @@ class TuyaSwitchDriver extends TuyaBaseDriver {
                         id: tuyaDevice.id
                     },
                     capabilities: capabilities,
+                    capabilitiesOptions: capabilitiesOptions,
                     name: tuyaDevice.name
                 });
             }
         }
-        callback(null, devices.sort(TuyaBaseDriver._compareHomeyDevice));
+        return devices.sort(TuyaBaseDriver._compareHomeyDevice);
     }
 }
 

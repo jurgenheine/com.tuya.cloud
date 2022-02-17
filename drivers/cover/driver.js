@@ -8,13 +8,13 @@ class CoverDriver extends Homey.Driver {
         this.log('Tuya legacy cover driver has been initialized');
     }
 
-    async onPairListDevices(data, callback) {
+    async onPairListDevices() {
         let devices = [];
-        if (!Homey.app.isOldConnected()) {
-            callback(new Error("Please configure the app first."));
+        if (!this.homey.app.isOldConnected()) {
+            throw new Error("Please configure the app first.");
         }
         else {
-            let covers = await Homey.app.oldclient.get_devices_by_type('cover');
+            let covers = await this.homey.app.oldclient.get_devices_by_type('cover');
             for (let tuyaDevice of Object.values(covers)) {
 
                 let capabilities = [];
@@ -32,7 +32,7 @@ class CoverDriver extends Homey.Driver {
                 });
             }
         }
-        callback(null, devices.sort(CoverDriver._compareHomeyDevice));
+        return devices.sort(CoverDriver._compareHomeyDevice);
     }
 
     static _compareHomeyDevice(a, b) {

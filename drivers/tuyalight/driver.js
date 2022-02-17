@@ -1,6 +1,5 @@
 'use strict';
 
-const Homey = require('homey');
 const TuyaBaseDriver = require('../tuyabasedriver');
 
 class TuyaLightDriver extends TuyaBaseDriver {
@@ -9,10 +8,10 @@ class TuyaLightDriver extends TuyaBaseDriver {
         this.log('Tuya light driver has been initialized');
     }
 
-    async onPairListDevices(data, callback) {
+    async onPairListDevices() {
         let devices = [];
-        if (!Homey.app.isConnected()) {
-            callback(new Error("Please configure the app first."));
+        if (!this.homey.app.isConnected()) {
+            throw new Error("Please configure the app first.");
         }
         else {
             let lights = this.get_devices_by_type("light");
@@ -50,7 +49,7 @@ class TuyaLightDriver extends TuyaBaseDriver {
 
             }
         }
-        callback(null, devices.sort(TuyaBaseDriver._compareHomeyDevice));
+        return devices.sort(TuyaBaseDriver._compareHomeyDevice);
     }
 }
 

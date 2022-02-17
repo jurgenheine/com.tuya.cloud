@@ -1,6 +1,6 @@
 {
   "id": "com.tuya.cloud",
-  "sdk": 2,
+  "sdk": 3,
   "name": {
     "en": "Tuya cloud"
   },
@@ -10,8 +10,8 @@
     "nl": "Deze app laat je connectie maken met de Tuya cloud"
   },
   "category": "lights",
-  "version": "0.1.5",
-  "compatibility": ">=1.5.3",
+  "version": "1.0.3",
+  "compatibility": ">=5.0.0",
   "author": {
     "name": "Jurgen Heine",
     "email": "jurgen2.heine@gmail.com"
@@ -26,6 +26,9 @@
       },
       {
         "name": "Peter Keuter"
+      },
+      {
+        "name": "Adrian Rockall"
       }
     ]
   },
@@ -39,5 +42,11 @@
   "images": {
     "large": "/assets/images/large.jpg",
     "small": "/assets/images/small.jpg"
+  },
+  "api": {
+    "connect": {
+      "method": "GET",
+      "path": "/"
+    }
   }
 }

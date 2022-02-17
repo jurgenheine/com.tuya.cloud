@@ -3,10 +3,15 @@
 const Homey = require('homey');
 
 class BaseDevice extends Homey.Device {
-    initDevice(id) {
+    async initDevice(id) {
         this.updateInprogess = false;
         this.data = {};
         this.id = id;
+        if (this.homey.app.oldclient !== null && this.homey.app.oldclient !== undefined) {
+            var device = await this.homey.app.oldclient.get_device_by_id(id);
+            if (device !== null && device !== undefined)
+                this.data = device.data;
+        }
     }
 
     async update() {
@@ -24,7 +29,7 @@ class BaseDevice extends Homey.Device {
 
     operateDevice(devId, action, param = null, namespace = 'control') {
         try {
-            return Homey.app.oldclient.device_control(devId, action, param, namespace);
+            return this.homey.app.oldclient.device_control(devId, action, param, namespace);
         } catch (ex) {
             this.logToHomey(ex);
         }

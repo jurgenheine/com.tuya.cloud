@@ -1,36 +1,32 @@
 'use strict';
 
-const Homey = require('homey');
 const TuyaBaseDriver = require('../tuyabasedriver');
 const DataUtil = require('../../util/datautil');
 
 class TuyaSocketDriver extends TuyaBaseDriver {
 
     onInit() {
-        this._flowTriggerSocketChanged = new Homey.FlowCardTriggerDevice('socketChanged')
-            .register()
+        this._flowTriggerSocketChanged = this.homey.flow.getDeviceTriggerCard('socketChanged')
             .registerRunListener((args, state) => { return Promise.resolve(args.socketid.instanceId === state.socketid && args.state === state.state); });
         this._flowTriggerSocketChanged.getArgument('socketid')
-            .registerAutocompleteListener(this._onSocketIdTriggerAutoComplete.bind(this));
-            
+            .registerAutocompleteListener(async (query, args) => this._onSocketIdTriggerAutoComplete(query, args));
 
-        this._flowSetSocket = new Homey.FlowCardAction('setSocket')
+
+        this._flowSetSocket = this.homey.flow.getActionCard('setSocket')
             .registerRunListener((args, state) => {
                 this.log(`Flow set capability ${args.socketid.instanceId} to ${args.state}`);
                 return args.my_device.setCapabilityValue(args.socketid.instanceId, args.state === "On" ? true : false).catch(this.error);
-            })
-            .register();
+            });
         this._flowSetSocket.getArgument('socketid')
-            .registerAutocompleteListener(this._onSocketIdAutoComplete.bind(this));
+            .registerAutocompleteListener(async (query, args) => this._onSocketIdAutoComplete(query, args));
 
-        this._flowIsSocketOnOff = new Homey.FlowCardCondition('isSocketOnOff')
+        this._flowIsSocketOnOff = this.homey.flow.getConditionCard('isSocketOnOff')
             .registerRunListener((args, state) => {
                 this.log(`Flow check capability: ${args.socketid.instanceId}`);
                 return args.my_device.getCapabilityValue(args.socketid.instanceId);
-            })
-            .register();
+            });
         this._flowIsSocketOnOff.getArgument('socketid')
-            .registerAutocompleteListener(this._onSocketIdAutoComplete.bind(this));
+            .registerAutocompleteListener(async (query, args) => this._onSocketIdAutoComplete(query, args));
 
         this.log('Tuya socket driver has been initialized');
     }
@@ -58,27 +54,28 @@ class TuyaSocketDriver extends TuyaBaseDriver {
     triggerSocketChanged(device, tokens, state) {
         this._flowTriggerSocketChanged
             .trigger(device, tokens, state)
-            .then(this.log)
             .catch(this.error);
     }
 
-    async onPairListDevices(data, callback) {
+    async onPairListDevices() {
         let devices = [];
-        if (!Homey.app.isConnected()) {
-            callback(new Error("Please configure the app first."));
+        if (!this.homey.app.isConnected()) {
+            throw new Error("Please configure the app first.");
         }
         else {
             let sockets = this.get_devices_by_type("socket");
             for (let tuyaDevice of Object.values(sockets)) {
                 let capabilities = [];
+                let capabilitiesOptions = {};
                 let subcodes = DataUtil.getSubService(tuyaDevice.status);
-                
+
                 for (var code of subcodes) {
                     let name;
                     if (subcodes.length === 1) {
                         name = "onoff";
                     } else {
                         name = "onoff." + code;
+                        capabilitiesOptions[name] = {'title': {'en': `Power ${code.replace('switch_', 'Socket ')}`}};
                     }
                     capabilities.push(name);
                 }
@@ -93,11 +90,12 @@ class TuyaSocketDriver extends TuyaBaseDriver {
                         id: tuyaDevice.id
                     },
                     capabilities: capabilities,
+                    capabilitiesOptions: capabilitiesOptions,
                     name: tuyaDevice.name
                 });
             }
         }
-        callback(null, devices.sort(TuyaBaseDriver._compareHomeyDevice));
+        return devices.sort(TuyaBaseDriver._compareHomeyDevice);
     }
 }
 

@@ -1,12 +1,11 @@
 'use strict';
 
-const Homey = require('homey');
 const linear = require('everpolate').linear;
 
 class Colormapping {
     setColorMap() {
         try {
-            let colormap = Homey.ManagerSettings.get('huecolormap');
+            let colormap = this.homey.settings.get('huecolormap');
             if (colormap != null && colormap != "") {
                 let maps = colormap.split(',');
                 this.colormapinput = [];
@@ -21,7 +20,7 @@ class Colormapping {
             }
         }
         catch (ex) {
-            this.logToHomey(ex);
+            //ignore, color mapping is invalid format
         }
     }
 
@@ -56,10 +55,9 @@ class Colormapping {
     interpolate(x, x0, x1, y0, y1) {
         let yrange = y1 - y0;
         let xrange = x1 - x0;
-        let xoffset = x = x0;
+        let xoffset = x + x0;
 
-        let value = y0 + xoffset * yrange / xrange;
-        return value;
+        return y0 + xoffset * yrange / xrange;
     }
 
     // Array check.

@@ -62,23 +62,19 @@ class TuyaBaseDriver extends Homey.Driver {
         for (let categorytype of Object.values(TuyaBaseDriver.categorietypes)) {
             for (let typecategory of categorytype.category) {
                 if (typecategory === category) {
-                    Homey.app.logger.debug(categorytype.type + "driver found for category " + category);
                     return categorytype.type;
                 }
             }
         }
-        Homey.app.logger.debug("No type found for category: " + category);
         return "";
     }
 
     static get_categories_by_type(type) {
         for (let categorytype of Object.values(TuyaBaseDriver.categorietypes)) {
             if (categorytype.type === type) {
-                Homey.app.logger.debug("Following categories "+ categorytype.category + "found for type " + type);
                 return categorytype.category;
             }
         }
-        Homey.app.logger.debug("No categories found for type: "+type);
         return [];
     }
 
@@ -87,16 +83,18 @@ class TuyaBaseDriver extends Homey.Driver {
     }
 
     get_devices_by_categories(categories) {
-        let devices = Homey.app.devices;
-        let device_list = [];
-        devices.forEach((device) => {
-            categories.forEach((category) => {
-                if (device.category === category) {
-                    device_list.push(device);
-                }
-            });
-        });
-        return device_list;
+        let devices = this.homey.app.devices;
+        return devices.filter( device => categories.find(category => category === device.category));
+
+        // let device_list = [];
+        // devices.forEach((device) => {
+        //     categories.forEach((category) => {
+        //         if (device.category === category) {
+        //             device_list.push(device);
+        //         }
+        //     });
+        // });
+        // return device_list;
     }
 }
 

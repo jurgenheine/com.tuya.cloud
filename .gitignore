@@ -399,4 +399,3 @@ FodyWeavers.xsd
 
 # Added by Homey CLI
 /.homeybuild/
-/build/

@@ -1,16 +1,12 @@
-'use strict';
-const Homey = require('homey');
-module.exports = [
-    {
-        method: 'GET',
-        path: '/connect/',
-        fn: async (args, callback) => {
+module.exports = {
+    async connect({ homey, query }) {
             try {
-                await Homey.app.connectToTuyaApi();
-                return callback(null);
+                homey.app.log("Connect from settings received.");
+                await homey.app.connectToTuyaApi();
+                return null;
             } catch (err) {
-                return callback(err);
+                homey.app.log("Connect from settings received.");
+                return err;
             }
         }
-    }
-];
+};
