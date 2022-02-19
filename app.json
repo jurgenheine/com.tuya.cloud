@@ -11,7 +11,7 @@
     "nl": "Deze app laat je connectie maken met de Tuya cloud"
   },
   "category": "lights",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "compatibility": ">=5.0.0",
   "author": {
     "name": "Jurgen Heine",
@@ -472,6 +472,11 @@
         "measure_battery",
         "alarm_battery"
       ],
+      "energy": {
+        "batteries": [
+          "OTHER"
+        ]
+      },
       "id": "tuyapir",
       "settings": [
         {

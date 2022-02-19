@@ -67,5 +67,8 @@
   },
   "1.0.3": {
     "en": "Bug fixes for SDK 3"
+  },
+  "1.0.4": {
+    "en": "Adde windowscover, pir and bugfixes"
   }
 }
