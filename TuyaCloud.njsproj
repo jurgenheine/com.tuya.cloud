@@ -1,0 +1,173 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{1b3f4fbc-6763-4af7-85d5-5263d348ad0a}</ProjectGuid>
+    <ProjectHome>.</ProjectHome>
+    <ProjectView>ShowAllFiles</ProjectView>
+    <StartupFile>app.js</StartupFile>
+    <WorkingDirectory>.</WorkingDirectory>
+    <OutputPath>.</OutputPath>
+    <ProjectTypeGuids>{3AF33F2E-1136-4D97-BBB7-1795711AC8B8};{349c5851-65df-11da-9384-00065b846f21};{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}</ProjectTypeGuids>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">16.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+    <StartWebBrowser>False</StartWebBrowser>
+    <SaveNodeJsSettingsInProjectFile>True</SaveNodeJsSettingsInProjectFile>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
+  <ItemGroup>
+    <Content Include=".gitattributes" />
+    <Content Include=".gitignore" />
+    <Content Include="README.txt" />
+    <Content Include=".homeychangelog.json" />
+    <Content Include="app.json" />
+    <Content Include="package.json" />
+    <Content Include="README.md" />
+    <Content Include="api.js" />
+    <Content Include="app.js" />
+    <Content Include="assets\icon.svg" />
+    <Content Include="drivers\basedevice.js" />
+    <Content Include="drivers\tuyabasedevice.js" />
+    <Content Include="drivers\tuyabasedriver.js" />
+    <Content Include="lib\cloudtuya.js" />
+    <Content Include="lib\tuyamqttapi.js" />
+    <Content Include="lib\tuyaopenapi.js" />
+    <Content Include="lib\tuyashopenapi.js" />
+    <Content Include="locales\en.json" />
+    <Content Include="locales\nl.json" />
+    <Content Include="settings\index.html" />
+    <Content Include="util\colormapping.js" />
+    <Content Include="util\countryutil.js" />
+    <Content Include="util\datautil.js" />
+    <Content Include="util\logutil.js" />
+    <Content Include="assets\images\large.jpg" />
+    <Content Include="assets\images\small.jpg" />
+    <Content Include="drivers\cover\driver.compose.json" />
+    <Content Include="drivers\cover\driver.settings.compose.json" />
+    <Content Include="drivers\cover\device.js" />
+    <Content Include="drivers\cover\driver.js" />
+    <Content Include="drivers\light\driver.compose.json" />
+    <Content Include="drivers\light\device.js" />
+    <Content Include="drivers\light\driver.js" />
+    <Content Include="drivers\switch\driver.compose.json" />
+    <Content Include="drivers\switch\device.js" />
+    <Content Include="drivers\switch\driver.js" />
+    <Content Include="drivers\tuyacover\driver.compose.json" />
+    <Content Include="drivers\tuyacover\device.js" />
+    <Content Include="drivers\tuyacover\driver.js" />
+    <Content Include="drivers\tuyalight\driver.compose.json" />
+    <Content Include="drivers\tuyalight\device.js" />
+    <Content Include="drivers\tuyalight\driver.js" />
+    <Content Include="drivers\tuyapir\driver.compose.json" />
+    <Content Include="drivers\tuyapir\driver.settings.compose.json" />
+    <Content Include="drivers\tuyapir\device.js" />
+    <Content Include="drivers\tuyapir\driver.js" />
+    <Content Include="drivers\tuyasocket\driver.compose.json" />
+    <Content Include="drivers\tuyasocket\device.js" />
+    <Content Include="drivers\tuyasocket\driver.js" />
+    <Content Include="drivers\tuyaswitch\driver.compose.json" />
+    <Content Include="drivers\tuyaswitch\device.js" />
+    <Content Include="drivers\tuyaswitch\driver.js" />
+    <Content Include="drivers\cover\assets\icon.svg" />
+    <Content Include="drivers\cover\assets\images\large.png" />
+    <Content Include="drivers\cover\assets\images\small.png" />
+    <Content Include="drivers\light\assets\icon.svg" />
+    <Content Include="drivers\light\assets\images\large.png" />
+    <Content Include="drivers\light\assets\images\small.png" />
+    <Content Include="drivers\switch\assets\icon.svg" />
+    <Content Include="drivers\switch\assets\images\large.png" />
+    <Content Include="drivers\switch\assets\images\small.png" />
+    <Content Include="drivers\tuyacover\assets\icon.svg" />
+    <Content Include="drivers\tuyacover\assets\images\large.png" />
+    <Content Include="drivers\tuyacover\assets\images\small.png" />
+    <Content Include="drivers\tuyalight\assets\icon.svg" />
+    <Content Include="drivers\tuyalight\assets\images\large.png" />
+    <Content Include="drivers\tuyalight\assets\images\small.png" />
+    <Content Include="drivers\tuyapir\assets\icon.svg" />
+    <Content Include="drivers\tuyapir\assets\images\large.png" />
+    <Content Include="drivers\tuyapir\assets\images\small.png" />
+    <Content Include="drivers\tuyasocket\assets\icon.svg" />
+    <Content Include="drivers\tuyasocket\assets\images\large.png" />
+    <Content Include="drivers\tuyasocket\assets\images\small.png" />
+    <Content Include="drivers\tuyaswitch\assets\icon.svg" />
+    <Content Include="drivers\tuyaswitch\assets\images\large.png" />
+    <Content Include="drivers\tuyaswitch\assets\images\small.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="assets" />
+    <Folder Include="assets\images" />
+    <Folder Include="drivers" />
+    <Folder Include="drivers\cover" />
+    <Folder Include="drivers\cover\assets" />
+    <Folder Include="drivers\cover\assets\images" />
+    <Folder Include="drivers\light" />
+    <Folder Include="drivers\light\assets" />
+    <Folder Include="drivers\light\assets\images" />
+    <Folder Include="drivers\switch" />
+    <Folder Include="drivers\switch\assets" />
+    <Folder Include="drivers\switch\assets\images" />
+    <Folder Include="drivers\tuyacover" />
+    <Folder Include="drivers\tuyacover\assets" />
+    <Folder Include="drivers\tuyacover\assets\images" />
+    <Folder Include="drivers\tuyalight" />
+    <Folder Include="drivers\tuyalight\assets" />
+    <Folder Include="drivers\tuyalight\assets\images" />
+    <Folder Include="drivers\tuyapir" />
+    <Folder Include="drivers\tuyapir\assets" />
+    <Folder Include="drivers\tuyapir\assets\images" />
+    <Folder Include="drivers\tuyasocket" />
+    <Folder Include="drivers\tuyasocket\assets" />
+    <Folder Include="drivers\tuyasocket\assets\images" />
+    <Folder Include="drivers\tuyaswitch" />
+    <Folder Include="drivers\tuyaswitch\assets" />
+    <Folder Include="drivers\tuyaswitch\assets\images" />
+    <Folder Include="lib" />
+    <Folder Include="locales" />
+    <Folder Include="settings" />
+    <Folder Include="TuyaCloud" />
+    <Folder Include="TuyaCloud\TuyaCloud" />
+    <Folder Include="util" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <Import Project="$(VSToolsPath)\Node.js Tools\Microsoft.NodejsToolsV2.targets" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>0</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:48022/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>True</UseCustomServer>
+          <CustomServerUrl>http://localhost:1337</CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}" User="">
+        <WebProjectProperties>
+          <StartPageUrl>
+          </StartPageUrl>
+          <StartAction>CurrentPage</StartAction>
+          <AspNetDebugging>True</AspNetDebugging>
+          <SilverlightDebugging>False</SilverlightDebugging>
+          <NativeDebugging>False</NativeDebugging>
+          <SQLDebugging>False</SQLDebugging>
+          <ExternalProgram>
+          </ExternalProgram>
+          <StartExternalURL>
+          </StartExternalURL>
+          <StartCmdLineArguments>
+          </StartCmdLineArguments>
+          <StartWorkingDirectory>
+          </StartWorkingDirectory>
+          <EnableENC>False</EnableENC>
+          <AlwaysStartWebServerOnDebug>False</AlwaysStartWebServerOnDebug>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>

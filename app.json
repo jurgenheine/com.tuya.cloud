@@ -382,6 +382,35 @@
     },
     {
       "images": {
+        "large": "/drivers/tuyacover/assets/images/large.png",
+        "small": "/drivers/tuyacover/assets/images/small.png"
+      },
+      "icon": "/drivers/tuyacover/assets/icon.svg",
+      "pair": [
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ],
+      "name": {
+        "en": "Windowscovering",
+        "nl": "Raambekleding"
+      },
+      "class": "windowcoverings",
+      "capabilities": [
+        "windowcoverings_set"
+      ],
+      "id": "tuyacover"
+    },
+    {
+      "images": {
         "large": "/drivers/tuyalight/assets/images/large.png",
         "small": "/drivers/tuyalight/assets/images/small.png"
       },
@@ -413,6 +442,53 @@
         "light_mode"
       ],
       "id": "tuyalight"
+    },
+    {
+      "images": {
+        "large": "/drivers/tuyapir/assets/images/large.png",
+        "small": "/drivers/tuyapir/assets/images/small.png"
+      },
+      "icon": "/drivers/tuyapir/assets/icon.svg",
+      "pair": [
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ],
+      "name": {
+        "en": "Motionsensor",
+        "nl": "Bewegingsmelder"
+      },
+      "class": "sensor",
+      "capabilities": [
+        "alarm_motion",
+        "measure_battery",
+        "alarm_battery"
+      ],
+      "id": "tuyapir",
+      "settings": [
+        {
+          "id": "motionTimeoutInSeconds",
+          "type": "number",
+          "value": 300,
+          "min": 60,
+          "label": {
+            "en": "Motion reset after",
+            "nl": "Beweging reset na"
+          },
+          "units": {
+            "en": "seconds",
+            "nl": "seconden"
+          }
+        }
+      ]
     },
     {
       "images": {
