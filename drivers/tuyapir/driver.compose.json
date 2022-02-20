@@ -9,5 +9,8 @@
     "measure_battery",
     "alarm_battery"
   ],
+  "energy": {
+    "batteries": [ "OTHER" ]
+  },
   "$extends": [ "defaults" ]
 }

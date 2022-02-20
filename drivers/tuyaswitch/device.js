@@ -78,7 +78,7 @@ class TuyaSwitchDevice extends TuyaBaseDevice {
         }
         for (var statusMap of statusArr) {
             if (statusMap.code === 'cur_power') {
-                this.setCapabilityValue("measure_power", statusMap.value).catch(this.error);
+                this.setCapabilityValue("measure_power", statusMap.value/10).catch(this.error);
             }
         }
     }
