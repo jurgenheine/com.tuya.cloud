@@ -73,5 +73,8 @@
   },
   "1.0.5": {
     "en": "Fix app crash"
+  },
+  "1.0.6": {
+    "en": "fix undefined variable"
   }
 }
