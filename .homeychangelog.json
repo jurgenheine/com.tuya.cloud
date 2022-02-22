@@ -70,5 +70,8 @@
   },
   "1.0.4": {
     "en": "Adde windowscover, pir and bugfixes"
+  },
+  "1.0.5": {
+    "en": "Fix app crash"
   }
 }
