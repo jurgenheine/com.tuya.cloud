@@ -22,8 +22,12 @@ class TuyaCloudApp extends Homey.App {
         this.initialized = false;
         this._oldconnected = false;
         this._connected = false;
-
-        await this.connectToTuyaApi();
+        
+        try {
+            await this.connectToTuyaApi();
+        }catch(err) {
+            console.error(err.message);
+        }
 
         this.logToHomey(`Tuya cloud App has been initialized`);
         this.initialized = true;

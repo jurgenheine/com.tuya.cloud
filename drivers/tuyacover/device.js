@@ -38,7 +38,7 @@ class TuyaCoverDevice extends TuyaBaseDevice {
     //init Or refresh AccessoryService
     updateCapabilities(statusArr) {
         this.log("Update windowscovering capabilities from Tuya: " + JSON.stringify(statusArr));
-        for (const statusMap of stateArr) {
+        for (const statusMap of statusArr) {
 
             //Check whether 100% is fully on or fully off. If there is no dp point, 100% is fully off by default
             if (statusMap.code === 'situation_set') {

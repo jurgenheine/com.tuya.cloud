@@ -24,7 +24,7 @@ class TuyaPirDevice extends TuyaBaseDevice {
     //init Or refresh AccessoryService
     updateCapabilities(statusArr) {
         this.log("Update pir capabilities from Tuya: " + JSON.stringify(statusArr));
-        for (const statusMap of stateArr) {
+        for (const statusMap of statusArr) {
             if (statusMap.code === "pir") {
                 this.sensorStatus = statusMap;
                 var rawStatus = this.sensorStatus.value;
