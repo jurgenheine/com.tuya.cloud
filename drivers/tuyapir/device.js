@@ -30,7 +30,7 @@ class TuyaPirDevice extends TuyaBaseDevice {
                 var rawStatus = this.sensorStatus.value;
                 switch (rawStatus) {
                     case "pir":
-                        this.setCapabilityValue("alarm_motion", status).catch(this.error);
+                        this.setCapabilityValue("alarm_motion", true).catch(this.error);
                         // reset timeout when new trigger
                         if (this.timeoutObj !== null && this.timeoutObj !== undefined) {
                             clearTimeout(this.timeoutObj);

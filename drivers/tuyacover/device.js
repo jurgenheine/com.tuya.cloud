@@ -28,7 +28,7 @@ class TuyaCoverDevice extends TuyaBaseDevice {
         this.log("Windowscovering capabilities changed by Homey: " + JSON.stringify(valueObj));
         try {
             if (valueObj.windowcoverings_set != null) {
-                this.sendCommand(valueObj.windowcoverings_set * 100);
+                this.sendCommand("windowcoverings_set",valueObj.windowcoverings_set * 100);
             }
         } catch (ex) {
             this.homey.app.logToHomey(ex);
@@ -93,7 +93,7 @@ class TuyaCoverDevice extends TuyaBaseDevice {
     //get Command SendData
     getSendParam(name, hbParam) {
         let code = this.percentControlMap.code;
-        let value = this._getCorrectPercent(hbValue);
+        let value = this._getCorrectPercent(hbParam);
         if (code === 'position') {
             value = "" + hbParam;
         }
