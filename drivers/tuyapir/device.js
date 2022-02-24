@@ -50,15 +50,15 @@ class TuyaPirDevice extends TuyaBaseDevice {
                 var rawStatus = this.batteryStatus.value;
                 switch (rawStatus) {
                     case "low":
-                        this.setCapabilityValue("measure_battery", 0.1).catch(this.error);
+                        this.setCapabilityValue("measure_battery", 10).catch(this.error);
                         this.setCapabilityValue("alarm_battery", true).catch(this.error);
                         break;
                     case "middle":
-                        this.setCapabilityValue("measure_battery", 0.5).catch(this.error);
+                        this.setCapabilityValue("measure_battery", 50).catch(this.error);
                         this.setCapabilityValue("alarm_battery", false).catch(this.error);
                         break;
                     case "high":
-                        this.setCapabilityValue("measure_battery", 1).catch(this.error);
+                        this.setCapabilityValue("measure_battery", 100).catch(this.error);
                         this.setCapabilityValue("alarm_battery", false).catch(this.error);
                         break;
                     default:
