@@ -79,5 +79,8 @@
   },
   "1.0.7": {
     "en": "Fix cover and PIR errors"
+  },
+  "1.0.8": {
+    "en": "Fix batery value"
   }
 }
