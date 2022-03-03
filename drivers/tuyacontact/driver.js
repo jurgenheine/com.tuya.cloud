@@ -2,10 +2,10 @@
 
 const TuyaBaseDriver = require('../tuyabasedriver');
 
-class TuyaPirDriver extends TuyaBaseDriver {
+class TuyaCoverDriver extends TuyaBaseDriver {
 
     onInit() {
-        this.log('Tuya pir driver has been initialized');
+        this.log('Tuya contactsensor driver has been initialized');
     }
 
     async onPairListDevices() {
@@ -14,10 +14,10 @@ class TuyaPirDriver extends TuyaBaseDriver {
             throw new Error("Please configure the app first.");
         }
         else {
-            let covers = this.get_devices_by_type("pir");
+            let covers = this.get_devices_by_type("smokeSensor");
             for (let tuyaDevice of Object.values(covers)) {
                 let capabilities = [];
-                capabilities.push("alarm_motion");
+                capabilities.push("alarm_contact");
                 capabilities.push("measure_battery");
                 capabilities.push("alarm_battery");
                 devices.push({
@@ -34,4 +34,4 @@ class TuyaPirDriver extends TuyaBaseDriver {
     }
 }
 
-module.exports = TuyaPirDriver;
+module.exports = TuyaCoverDriver;

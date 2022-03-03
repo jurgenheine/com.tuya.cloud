@@ -14,12 +14,25 @@
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
     <StartWebBrowser>False</StartWebBrowser>
     <SaveNodeJsSettingsInProjectFile>True</SaveNodeJsSettingsInProjectFile>
+    <NodeExePath>C:\Program Files\nodejs\node.exe</NodeExePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
   <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
   <ItemGroup>
     <Content Include=".gitattributes" />
     <Content Include=".gitignore" />
+    <Content Include="drivers\tuyacontact\assets\icon.svg" />
+    <Content Include="drivers\tuyacontact\assets\images\large.png" />
+    <Content Include="drivers\tuyacontact\assets\images\small.png" />
+    <Content Include="drivers\tuyacontact\device.js" />
+    <Content Include="drivers\tuyacontact\driver.compose.json" />
+    <Content Include="drivers\tuyacontact\driver.js" />
+    <Content Include="drivers\tuyasmoke\assets\icon.svg" />
+    <Content Include="drivers\tuyasmoke\assets\images\large.png" />
+    <Content Include="drivers\tuyasmoke\assets\images\small.png" />
+    <Content Include="drivers\tuyasmoke\device.js" />
+    <Content Include="drivers\tuyasmoke\driver.compose.json" />
+    <Content Include="drivers\tuyasmoke\driver.js" />
     <Content Include="README.txt" />
     <Content Include=".homeychangelog.json" />
     <Content Include="app.json" />
@@ -115,6 +128,12 @@
     <Folder Include="drivers\tuyalight\assets" />
     <Folder Include="drivers\tuyalight\assets\images" />
     <Folder Include="drivers\tuyapir" />
+    <Folder Include="drivers\tuyacontact\" />
+    <Folder Include="drivers\tuyacontact\assets\" />
+    <Folder Include="drivers\tuyacontact\assets\images\" />
+    <Folder Include="drivers\tuyasmoke\" />
+    <Folder Include="drivers\tuyasmoke\assets\" />
+    <Folder Include="drivers\tuyasmoke\assets\images\" />
     <Folder Include="drivers\tuyapir\assets" />
     <Folder Include="drivers\tuyapir\assets\images" />
     <Folder Include="drivers\tuyasocket" />
