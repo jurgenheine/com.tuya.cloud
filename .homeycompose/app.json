@@ -47,6 +47,10 @@
     "connect": {
       "method": "GET",
       "path": "/"
+    },
+    "refreshScenes": {
+      "method": "GET",
+      "path": "/refreshScenes/"
     }
   }
 }

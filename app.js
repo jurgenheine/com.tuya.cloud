@@ -78,7 +78,7 @@ class TuyaCloudApp extends Homey.App {
             this.logToHomey(e);
             return;
         }
-
+        
         if (this.tuyaOpenMQ) {
             this.tuyaOpenMQ.stop();
         }
@@ -88,6 +88,11 @@ class TuyaCloudApp extends Homey.App {
         this.tuyaOpenMQ.start();
         this.tuyaOpenMQ.addMessageListener(this.onMQTTMessage.bind(this));
         this._connected = true;
+    }
+
+    async refreshScenes() {
+        this.logToHomey("Refresh scenes");
+        this.scenes = await this.tuyaOpenApi.getScenes();
     }
 
     async connect() {

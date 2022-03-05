@@ -19,7 +19,7 @@
         "request": "attach",
         "restart": true,
         "name": "Attach to Homey",
-        "address": "192.168.1.47",
+        "address": "192.168.2.20",
         "port": 9222,
         "localRoot": "${workspaceFolder}",
         "remoteRoot": "/"

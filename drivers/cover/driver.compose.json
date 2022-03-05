@@ -7,5 +7,6 @@
   "capabilities": [
     "windowcoverings_state"
   ],
+  "deprecated": true,
   "$extends": [ "defaults" ]
 }

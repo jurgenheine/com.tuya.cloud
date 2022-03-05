@@ -36,7 +36,7 @@
             <input id="password" type="password" value="" />
         </div>
         <div class="field row">
-            <label for="appid"><span data-i18n="settings.appid"></label>
+            <label for="appid"><span data-i18n="settings.appid"><a target="_blank" href="https://community.homey.app/t/app-pro-tuya-cloud/21313">https://community.homey.app/t/app-pro-tuya-cloud/21313</a></label>
             <input id="appid" type="text" value="" />
         </div>
         <div class="field row">
@@ -58,6 +58,7 @@
         </div>
         <div class="field row">
             <button id="save" class="left"><span data-i18n="settings.save"></button>
+            <button id="refreshScenes" class="left"><span data-i18n="settings.refreshScenes"></button>
         </div>
     </fieldset>
     <script type="text/javascript">
@@ -73,6 +74,7 @@
             var apiToUseElement = document.getElementById('apiToUse');
             var colormapElement = document.getElementById('colormap'); 
             var saveElement = document.getElementById('save');
+            var refreshscenesElement = document.getElementById('refreshScenes');
 
             fillDropdown(businessElement, businessCodes);
             fillDropdown(apiToUseElement, apiToUse);
@@ -119,6 +121,13 @@
                 if (err) return Homey.alert(err);
                 if (huecolormap != null)
                     colormapElement.value = huecolormap;
+            });
+
+            refreshscenesElement.addEventListener('click', function (e) {
+                Homey.api('GET', '/refreshScenes/', null, function (err) {
+                    if (err) return Homey.alert(err);
+                    else Homey.alert(Homey.__("settings.scenesRefreshed"));
+                });               
             });
 
             saveElement.addEventListener('click', function (e) {
@@ -185,10 +194,9 @@
                     if (err) return Homey.alert(err);
                 });
 
-                Homey.alert(Homey.__("settings.saved"));
-
                 Homey.api('GET', '/', null, function (err) {
                     if (err) return Homey.alert(err);
+                    else Homey.alert(Homey.__("settings.saved"));
                 });
 
             });

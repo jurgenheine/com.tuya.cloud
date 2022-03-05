@@ -48,6 +48,10 @@
     "connect": {
       "method": "GET",
       "path": "/"
+    },
+    "refreshScenes": {
+      "method": "GET",
+      "path": "/refreshScenes/"
     }
   },
   "flow": {
@@ -275,6 +279,12 @@
         "small": "/drivers/cover/assets/images/small.png"
       },
       "icon": "/drivers/cover/assets/icon.svg",
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
       "pair": [
         {
           "id": "list_devices",
@@ -296,6 +306,7 @@
       "capabilities": [
         "windowcoverings_state"
       ],
+      "deprecated": true,
       "id": "cover",
       "settings": [
         {
@@ -324,6 +335,12 @@
         "small": "/drivers/light/assets/images/small.png"
       },
       "icon": "/drivers/light/assets/icon.svg",
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
       "pair": [
         {
           "id": "list_devices",
@@ -349,6 +366,7 @@
         "light_hue",
         "light_saturation"
       ],
+      "deprecated": true,
       "id": "light"
     },
     {
@@ -357,6 +375,12 @@
         "small": "/drivers/switch/assets/images/small.png"
       },
       "icon": "/drivers/switch/assets/icon.svg",
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
       "pair": [
         {
           "id": "list_devices",
@@ -378,7 +402,50 @@
       "capabilities": [
         "onoff"
       ],
+      "deprecated": true,
       "id": "switch"
+    },
+    {
+      "images": {
+        "large": "/drivers/tuyacontact/assets/images/large.png",
+        "small": "/drivers/tuyacontact/assets/images/small.png"
+      },
+      "icon": "/drivers/tuyacontact/assets/icon.svg",
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
+      "pair": [
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ],
+      "name": {
+        "en": "Contactsensor",
+        "nl": "Contactmelder"
+      },
+      "class": "sensor",
+      "capabilities": [
+        "alarm_contact",
+        "measure_battery",
+        "alarm_battery"
+      ],
+      "energy": {
+        "batteries": [
+          "OTHER"
+        ]
+      },
+      "id": "tuyacontact"
     },
     {
       "images": {
@@ -386,6 +453,12 @@
         "small": "/drivers/tuyacover/assets/images/small.png"
       },
       "icon": "/drivers/tuyacover/assets/icon.svg",
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
       "pair": [
         {
           "id": "list_devices",
@@ -415,6 +488,12 @@
         "small": "/drivers/tuyalight/assets/images/small.png"
       },
       "icon": "/drivers/tuyalight/assets/icon.svg",
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
       "pair": [
         {
           "id": "list_devices",
@@ -449,6 +528,12 @@
         "small": "/drivers/tuyapir/assets/images/small.png"
       },
       "icon": "/drivers/tuyapir/assets/icon.svg",
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
       "pair": [
         {
           "id": "list_devices",
@@ -497,10 +582,58 @@
     },
     {
       "images": {
+        "large": "/drivers/tuyasmoke/assets/images/large.png",
+        "small": "/drivers/tuyasmoke/assets/images/small.png"
+      },
+      "icon": "/drivers/tuyasmoke/assets/icon.svg",
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
+      "pair": [
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ],
+      "name": {
+        "en": "Smokesensor",
+        "nl": "Rookmelder"
+      },
+      "class": "sensor",
+      "capabilities": [
+        "alarm_smoke",
+        "measure_battery",
+        "alarm_battery"
+      ],
+      "energy": {
+        "batteries": [
+          "OTHER"
+        ]
+      },
+      "id": "tuyasmoke"
+    },
+    {
+      "images": {
         "large": "/drivers/tuyasocket/assets/images/large.png",
         "small": "/drivers/tuyasocket/assets/images/small.png"
       },
       "icon": "/drivers/tuyasocket/assets/icon.svg",
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
       "pair": [
         {
           "id": "list_devices",
@@ -531,6 +664,12 @@
         "small": "/drivers/tuyaswitch/assets/images/small.png"
       },
       "icon": "/drivers/tuyaswitch/assets/icon.svg",
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
       "pair": [
         {
           "id": "list_devices",
