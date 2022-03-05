@@ -82,5 +82,8 @@
   },
   "1.0.8": {
     "en": "Fix batery value"
+  },
+  "1.0.9": {
+    "en": "New senosrs and bug fixes"
   }
 }
