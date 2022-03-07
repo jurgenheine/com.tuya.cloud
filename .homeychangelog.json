@@ -85,5 +85,8 @@
   },
   "1.0.9": {
     "en": "New senosrs and bug fixes"
+  },
+  "1.0.10": {
+    "en": "Fix contactsenor not found"
   }
 }
