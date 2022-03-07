@@ -3,14 +3,14 @@ module.exports = {
             try {
                 homey.app.log("Connect from settings received.");
                 await homey.app.connectToTuyaApi();
-                if(homey.app.logger.lastConnectionError!=null){
-                    return homey.app.logger.lastConnectionError;
-                }
-                return null;
             } catch (err) {
                 homey.app.log(err);
                 return err;
             }
+            if(homey.app.logger.lastConnectionError!=null){
+                throw new Error(homey.app.logger.lastConnectionError);
+            }
+            return null;
         },
 
     async refreshScenes({ homey, query }) {

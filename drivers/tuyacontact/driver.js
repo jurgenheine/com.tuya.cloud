@@ -14,7 +14,7 @@ class TuyaCoverDriver extends TuyaBaseDriver {
             throw new Error("Please configure the app first.");
         }
         else {
-            let covers = this.get_devices_by_type("smokeSensor");
+            let covers = this.get_devices_by_type("contactSensor");
             for (let tuyaDevice of Object.values(covers)) {
                 let capabilities = [];
                 capabilities.push("alarm_contact");
