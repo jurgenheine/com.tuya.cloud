@@ -88,5 +88,8 @@
   },
   "1.0.10": {
     "en": "Fix contactsenor not found"
+  },
+  "1.0.11": {
+    "en": "Fix sensor bugs"
   }
 }
