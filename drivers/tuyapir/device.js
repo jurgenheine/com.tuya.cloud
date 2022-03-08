@@ -44,8 +44,11 @@ class TuyaPirDevice extends TuyaBaseDevice {
                         break;
                 }
             }
-
-            if (statusMap.code === "battery_state") {
+            if (statusMap.code === "battery_percentage") {
+                this.batteryStatus = statusMap;
+                this.setCapabilityValue("measure_battery", this.batteryStatus.value).catch(this.error);
+                this.setCapabilityValue("alarm_battery", this.batteryStatus.value < 20).catch(this.error);
+            }else if (statusMap.code === "battery_state") {
                 this.batteryStatus = statusMap;
                 var rawStatus = this.batteryStatus.value;
                 switch (rawStatus) {

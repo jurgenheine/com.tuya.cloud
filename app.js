@@ -175,12 +175,14 @@ class TuyaCloudApp extends Homey.App {
             case 'fan':
                 break;
             case 'smokeSensor':
+                return this.homey.drivers.getDriver('tuyasmoke');
                 break;
             case 'heater':
                 break;
             case 'garageDoorOpener':
                 break;
             case 'contactSensor':
+                return this.homey.drivers.getDriver('tuyacontact');
                 //contact sensor
                 break;
             case 'leakSensor':

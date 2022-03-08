@@ -42,7 +42,7 @@ class TuyaBaseDriver extends Homey.Driver {
         },
         {
             "type": "contactSensor",
-            "category": ['mcs']
+            "category": ['mc','mcs']
         },
         {
             "type": "leakSensor",

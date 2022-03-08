@@ -34,6 +34,25 @@ class TuyaContactDevice extends TuyaBaseDevice {
                 this.batteryStatus = statusMap;
                 this.setCapabilityValue("measure_battery", this.batteryStatus.value).catch(this.error);
                 this.setCapabilityValue("alarm_battery", this.batteryStatus.value < 20).catch(this.error);
+            }else if (statusMap.code === "battery_state") {
+                this.batteryStatus = statusMap;
+                var rawStatus = this.batteryStatus.value;
+                switch (rawStatus) {
+                    case "low":
+                        this.setCapabilityValue("measure_battery", 10).catch(this.error);
+                        this.setCapabilityValue("alarm_battery", true).catch(this.error);
+                        break;
+                    case "middle":
+                        this.setCapabilityValue("measure_battery", 50).catch(this.error);
+                        this.setCapabilityValue("alarm_battery", false).catch(this.error);
+                        break;
+                    case "high":
+                        this.setCapabilityValue("measure_battery", 100).catch(this.error);
+                        this.setCapabilityValue("alarm_battery", false).catch(this.error);
+                        break;
+                    default:
+                        break;
+                }
             }
         }
     }
