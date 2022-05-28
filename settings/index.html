@@ -79,6 +79,7 @@
 
             fillDropdown(businessElement, businessCodes);
             fillDropdown(apiToUseElement, apiToUse);
+            apiToUseElement.value = 'both';
             
             Homey.get('username', function (err, username) {
                 if (err) return Homey.alert(err);

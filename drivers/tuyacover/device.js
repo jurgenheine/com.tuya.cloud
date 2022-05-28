@@ -56,13 +56,6 @@ class TuyaCoverDevice extends TuyaBaseDevice {
                 const percent = this._getCorrectPercent(parseInt(this.percentControlMap.value))
                 this.normalAsync("windowcoverings_set", percent);
             }
-
-            // We don't handle percent-state, we only have set value and not a seperate current position in homey
-            //if (statusMap.code === 'percent_state') {
-            //    // Characteristic.CurrentPosition
-            //    this.positionMap = statusMap
-            //    this.normalAsync(Characteristic.CurrentPosition, this._getCorrectPercent(this.positionMap.value));
-            //}
         }
     }
 

@@ -6,7 +6,7 @@ class TuyaBaseDriver extends Homey.Driver {
     static categorietypes = [
         {
             "type": "light",
-            "category": ['dj', 'dd', 'fwd', 'tgq', 'xdd', 'dc', 'tgkg']
+            "category": ['dj', 'dd', 'fwd', 'tgq', 'xdd', 'dc', 'tgkg','sxd','tyndj']
         },
         {
             "type": "switch",
@@ -18,7 +18,7 @@ class TuyaBaseDriver extends Homey.Driver {
         },
         {
             "type": "cover",
-            "category": ['cl']
+            "category": ['cl','clkg']
         },
         {
             "type": "airPurifier",
@@ -89,16 +89,91 @@ class TuyaBaseDriver extends Homey.Driver {
     get_devices_by_categories(categories) {
         let devices = this.homey.app.devices;
         return devices.filter( device => categories.find(category => category === device.category));
+    }
 
-        // let device_list = [];
-        // devices.forEach((device) => {
-        //     categories.forEach((category) => {
-        //         if (device.category === category) {
-        //             device_list.push(device);
-        //         }
-        //     });
-        // });
-        // return device_list;
+    get_device_capabilities(tuyaDevice){
+        let capabilities = [];
+        let capabilitiesOptions = {};
+        let subcodes = DataUtil.getSubService(tuyaDevice.status);
+        let deviceType =TuyaBaseDriver.get_type_by_category(tuyaDevice.category);
+        for (var code of subcodes) {
+            let name;
+            if (subcodes.length === 1) {
+                name = "onoff";
+            } else {
+                name = "onoff." + code;
+                if(deviceType ==='socket'){
+                    capabilitiesOptions[name] = {'title': {'en': `Power ${code.replace('switch_', 'Socket ')}`}};
+                }else{
+                    capabilitiesOptions[name] = { 'title': { 'en': `Power ${code.replace('switch_', 'Switch ')}` } };
+                }
+            }
+            capabilities.push(name);
+        }
+
+        for (let func of tuyaDevice.status) {
+            switch (func.code) {
+                case "bright_value":
+                case "bright_value_v2":
+                case "bright_value_1":
+                    capabilities.push("dim");
+                    break;
+                case "bright_value_2":
+                    capabilities.push("dim.bright_value_2");
+                    capabilitiesOptions["dim.bright_value_2"] = {'title': {'en': 'Dim 2'}};
+                    break;
+                case "temp_value":
+                case "temp_value_v2":
+                    capabilities.push("light_temperature");
+                    break;
+                case "colour_data":
+                case "colour_data_v2":
+                    capabilities.push("light_hue");
+                    capabilities.push("light_saturation");
+                    capabilities.push("light_mode");
+                    break;
+                case "pir":    
+                case "pir_state":    
+                    capabilities.push("alarm_motion");
+                    break;
+                case "smoke_sensor_status":    
+                    capabilities.push("alarm_smoke");
+                    break;
+                case "doorcontact_state":    
+                    capabilities.push("alarm_contact");
+                    break;                    
+                case "temper_alarm":    
+                    capabilities.push("alarm_tamper");
+                    break;
+                case "battery_percentage":
+                case "battery_state":
+                    capabilities.push("measure_battery");
+                    capabilities.push("alarm_battery");
+                    break;
+                case "cur_power":
+                    capabilities.push("measure_power");
+                    break;
+                case "percent_control":
+                    if(deviceType ==='cover'){
+                        capabilities.push("windowcoverings_set");
+                    }
+                    break;
+                case "percent_control_2":
+                    if(deviceType ==='cover'){
+                        capabilities.push("windowcoverings_set.percent_control_2");
+                        capabilitiesOptions["windowcoverings_set.percent_control_2"] = {'title': {'en': 'Control 2'}};
+                    }
+                    break;
+                    
+                case "position":
+                    if(deviceType ==='cover'){
+                        capabilities.push("windowcoverings_set");
+                    }
+                    break;                    
+                default:
+                    break;
+            }
+        }
     }
 }
 
