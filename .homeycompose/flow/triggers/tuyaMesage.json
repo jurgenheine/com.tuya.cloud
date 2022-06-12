@@ -1,0 +1,36 @@
+{
+	"title": {
+		"en": "Tyua event received",
+		"nl": "Tyua bericht ontvangen"
+	},
+	"titleFormatted": {
+		"en": "Event received",
+		"nl": "Bericht ontvangen"
+	},
+	"tokens": [
+		{
+			"name": "tuyaDeviceId",
+			"type": "string",
+			"title": {
+				"en": "Tuya Device id",
+				"nl": "Tuya apparaat id"
+			}
+		},
+		{
+			"name": "functionname",
+			"type": "string",
+			"title": {
+				"en": "Functioname",
+				"nl": "Functienaam"
+			}
+		},
+		{
+			"name": "functionValue",
+			"type": "string",
+			"title": {
+				"en": "Functionvalue",
+				"nl": "Functiewaarde"
+			}
+		}
+	]
+}
