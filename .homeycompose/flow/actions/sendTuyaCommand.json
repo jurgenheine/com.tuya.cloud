@@ -1,0 +1,36 @@
+{
+	"title": {
+		"en": "Send command to Tuya",
+		"nl": "Vertuur commando naar Tuya"
+	},
+	"titleFormatted": {
+		"en": "Send [[scene]] scene",
+		"nl": "Uitvoeren [[scene]] scene"
+	},
+	"args": [
+		{
+			"name": "tuyaDeviceId",
+			"type": "text",
+			"title": {
+				"en": "Tuya Device id",
+				"nl": "Tuya apparaat id"
+			}
+		},
+		{
+			"name": "functionname",
+			"type": "text",
+			"title": {
+				"en": "Functioname",
+				"nl": "Functienaam"
+			}
+		},
+		{
+			"name": "functionValue",
+			"type": "text",
+			"title": {
+				"en": "Functionvalue",
+				"nl": "Functiewaarde"
+			}
+		}
+	]
+}
