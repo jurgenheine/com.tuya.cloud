@@ -53,6 +53,9 @@ class TuyaCloudApp extends Homey.App {
                 .registerRunListener(async (args) => this._onFlowActionSetTuyaScene(args))
                 .getArgument('scene')
                 .registerAutocompleteListener(async (query, args) => this._onTuyaSceneAutoComplete(query, args));
+            this.homey.flow.getActionCard('sendTuyaCommand')
+                .registerRunListener(async (args) => this._onFlowActionSendTuyaCommand(args));
+            this.tuyaMessagetrigger = this.homey.flow.getTriggerCard("tuyaMesage");
         }
     }
 
@@ -132,6 +135,7 @@ class TuyaCloudApp extends Homey.App {
             }
         } else {
             this.refreshDeviceStates(message);
+            this.triggerTuyaMessageFlow(message);
         }
     }
 
@@ -203,6 +207,19 @@ class TuyaCloudApp extends Homey.App {
         homeyDevice.updateCapabilities(status);
     }
 
+    async triggerTuyaMessageFlow(message) {
+        message.status.forEach(func => {
+            const tokens = {
+                tuyaDeviceId: message.devId,
+                functionname: func.code,
+                functionValue: func.value
+              };
+            this.tuyaMessagetrigger
+            .trigger(tokens)
+            .catch(this.logger.log);
+        });
+    }
+
     _olddeviceUpdated(tuyaDevice) {
         if (this.homey.drivers !== null || this.homey.drivers !== undefined) {
             switch (tuyaDevice.dev_type) {
@@ -272,6 +289,22 @@ class TuyaCloudApp extends Homey.App {
     async _onFlowActionSetTuyaScene(args) {
         try {
             return this.tuyaOpenApi.executeScene(args.scene.instanceId);
+        } catch (ex) {
+            this.logToHomey(ex);
+        }
+    }
+
+    async _onFlowActionSendTuyaCommand(args) {
+        try {
+            var param = {
+                "commands": [
+                    {
+                        "code": args.functionname,
+                        "value": args.functionValue
+                    }
+                ]
+            };
+            this.tuyaOpenApi.sendCommand(args.tuyaDeviceId,param);
         } catch (ex) {
             this.logToHomey(ex);
         }
