@@ -1,11 +1,11 @@
 {
 	"title": {
-		"en": "Tyua event received",
-		"nl": "Tyua bericht ontvangen"
+		"en": "Tyua number event received",
+		"nl": "Tyua numeriek bericht ontvangen"
 	},
 	"titleFormatted": {
-		"en": "Event received",
-		"nl": "Bericht ontvangen"
+		"en": "Number event received",
+		"nl": "Nummeriek bericht ontvangen"
 	},
 	"tokens": [
 		{
@@ -26,7 +26,7 @@
 		},
 		{
 			"name": "functionValue",
-			"type": "string",
+			"type": "number",
 			"title": {
 				"en": "Functionvalue",
 				"nl": "Functiewaarde"

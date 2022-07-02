@@ -2,7 +2,7 @@
 
 if (process.env.DEBUG === '1')
 {
-    require('inspector').open(9222, '0.0.0.0', true);
+    require('inspector').open(9223, '0.0.0.0', true);
 }
 
 const Homey = require('homey');
@@ -49,14 +49,26 @@ class TuyaCloudApp extends Homey.App {
             this.UseOfficialApi = true;
             await this.initTuyaSDK();
 
-            this.homey.flow.getActionCard('setTuyaScene')
-                .registerRunListener(async (args) => this._onFlowActionSetTuyaScene(args))
-                .getArgument('scene')
-                .registerAutocompleteListener(async (query, args) => this._onTuyaSceneAutoComplete(query, args));
-            this.homey.flow.getActionCard('sendTuyaCommand')
-                .registerRunListener(async (args) => this._onFlowActionSendTuyaCommand(args));
-            this.tuyaMessagetrigger = this.homey.flow.getTriggerCard("tuyaMesage");
+            await this.registerFlows();                        
         }
+    }
+
+    async registerFlows() {
+        this.homey.flow.getActionCard('setTuyaScene')
+            .registerRunListener(async (args) => this._onFlowActionSetTuyaScene(args))
+            .getArgument('scene')
+            .registerAutocompleteListener(async (query, args) => this._onTuyaSceneAutoComplete(query, args));
+        this.homey.flow.getActionCard('sendTuyaTextCommand')
+            .registerRunListener(async (args) => this._onFlowActionSendTuyaCommand(args));
+        this.homey.flow.getActionCard('sendTuyaNumberCommand')
+            .registerRunListener(async (args) => this._onFlowActionSendTuyaCommand(args));
+        this.homey.flow.getActionCard('sendTuyaFalseCommand')
+            .registerRunListener(async (args) => this._onFlowActionSendFalseTuyaCommand(args));
+        this.homey.flow.getActionCard('sendTuyaTrueCommand')
+            .registerRunListener(async (args) => this._onFlowActionSendTrueTuyaCommand(args));
+        this.tuyaTextMessagetrigger = this.homey.flow.getTriggerCard("tuyaTextMesage");
+        this.tuyaNumberMessagetrigger = this.homey.flow.getTriggerCard("tuyaNumberMesage");
+        this.tuyaBoolMessagetrigger = this.homey.flow.getTriggerCard("tuyaBoolMesage");
     }
 
     async initTuyaSDK() {
@@ -209,12 +221,34 @@ class TuyaCloudApp extends Homey.App {
 
     async triggerTuyaMessageFlow(message) {
         message.status.forEach(func => {
+            if(typeof func.value === 'boolean'){ 
+                const booltokens = {
+                    tuyaDeviceId: message.devId,
+                    functionname: func.code,
+                    functionValue: func.value
+                  };
+
+                this.tuyaBoolMessagetrigger
+                .trigger(booltokens)
+                .catch(this.logger.log);
+            }
+            if(typeof func.value == 'number'){ 
+                const numtokens = {
+                    tuyaDeviceId: message.devId,
+                    functionname: func.code,
+                    functionValue: func.value
+                  };
+                this.tuyaNumberMessagetrigger
+                .trigger(numtokens)
+                .catch(this.logger.log);
+            }
+
             const tokens = {
                 tuyaDeviceId: message.devId,
                 functionname: func.code,
-                functionValue: func.value
+                functionValue: String(func.value)
               };
-            this.tuyaMessagetrigger
+            this.tuyaTextMessagetrigger
             .trigger(tokens)
             .catch(this.logger.log);
         });
@@ -294,6 +328,42 @@ class TuyaCloudApp extends Homey.App {
         }
     }
 
+    async _onFlowActionSendFalseTuyaCommand(args) {
+        try {
+            var param = {
+                "commands": [
+                    {
+                        "code": args.functionname,
+                        "value": false
+                    }
+                ]
+            };
+            this.tuyaOpenApi.sendCommand(args.tuyaDeviceId, param).catch((error) => {
+                this.log.error('[SET][%s] capabilities Error: %s', args.tuyaDeviceId, error);
+            });
+        } catch (ex) {
+            this.logToHomey(ex);
+        }
+    }
+
+    async _onFlowActionSendTrueTuyaCommand(args) {
+        try {
+            var param = {
+                "commands": [
+                    {
+                        "code": args.functionname,
+                        "value": true
+                    }
+                ]
+            };
+            this.tuyaOpenApi.sendCommand(args.tuyaDeviceId, param).catch((error) => {
+                this.log.error('[SET][%s] capabilities Error: %s', args.tuyaDeviceId, error);
+            });
+        } catch (ex) {
+            this.logToHomey(ex);
+        }
+    }
+
     async _onFlowActionSendTuyaCommand(args) {
         try {
             var param = {
@@ -304,7 +374,9 @@ class TuyaCloudApp extends Homey.App {
                     }
                 ]
             };
-            this.tuyaOpenApi.sendCommand(args.tuyaDeviceId,param);
+            this.tuyaOpenApi.sendCommand(args.tuyaDeviceId, param).catch((error) => {
+                this.log.error('[SET][%s] capabilities Error: %s', args.tuyaDeviceId, error);
+            });
         } catch (ex) {
             this.logToHomey(ex);
         }

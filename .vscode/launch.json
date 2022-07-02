@@ -8,19 +8,9 @@
         "type": "node",
         "request": "attach",
         "restart": true,
-        "name": "Attach to Docker Homey",
-        "address": "0.0.0.0",
-        "port": 9229,
-        "localRoot": "${workspaceFolder}",
-        "remoteRoot": "/"
-    },
-    {
-        "type": "node",
-        "request": "attach",
-        "restart": true,
         "name": "Attach to Homey",
         "address": "192.168.2.20",
-        "port": 9222,
+        "port": 9223,
         "localRoot": "${workspaceFolder}",
         "remoteRoot": "/"
     }]

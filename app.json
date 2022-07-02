@@ -155,6 +155,117 @@
           }
         ],
         "id": "socketChanged"
+      },
+      {
+        "title": {
+          "en": "Tyua boolean event received",
+          "nl": "Tyua boolean bericht ontvangen"
+        },
+        "titleFormatted": {
+          "en": "Boolean event received",
+          "nl": "Boolean bericht ontvangen"
+        },
+        "tokens": [
+          {
+            "name": "tuyaDeviceId",
+            "type": "string",
+            "title": {
+              "en": "Tuya Device id",
+              "nl": "Tuya apparaat id"
+            }
+          },
+          {
+            "name": "functionname",
+            "type": "string",
+            "title": {
+              "en": "Functioname",
+              "nl": "Functienaam"
+            }
+          },
+          {
+            "name": "functionValue",
+            "type": "boolean",
+            "title": {
+              "en": "Functionvalue",
+              "nl": "Functiewaarde"
+            }
+          }
+        ],
+        "id": "tuyaBoolMesage"
+      },
+      {
+        "title": {
+          "en": "Tyua number event received",
+          "nl": "Tyua numeriek bericht ontvangen"
+        },
+        "titleFormatted": {
+          "en": "Number event received",
+          "nl": "Nummeriek bericht ontvangen"
+        },
+        "tokens": [
+          {
+            "name": "tuyaDeviceId",
+            "type": "string",
+            "title": {
+              "en": "Tuya Device id",
+              "nl": "Tuya apparaat id"
+            }
+          },
+          {
+            "name": "functionname",
+            "type": "string",
+            "title": {
+              "en": "Functioname",
+              "nl": "Functienaam"
+            }
+          },
+          {
+            "name": "functionValue",
+            "type": "number",
+            "title": {
+              "en": "Functionvalue",
+              "nl": "Functiewaarde"
+            }
+          }
+        ],
+        "id": "tuyaNumberMesage"
+      },
+      {
+        "title": {
+          "en": "Tyua text event received",
+          "nl": "Tyua tekst bericht ontvangen"
+        },
+        "titleFormatted": {
+          "en": "Text event received",
+          "nl": "Tekst bericht ontvangen"
+        },
+        "tokens": [
+          {
+            "name": "tuyaDeviceId",
+            "type": "string",
+            "title": {
+              "en": "Tuya Device id",
+              "nl": "Tuya apparaat id"
+            }
+          },
+          {
+            "name": "functionname",
+            "type": "string",
+            "title": {
+              "en": "Functioname",
+              "nl": "Functienaam"
+            }
+          },
+          {
+            "name": "functionValue",
+            "type": "string",
+            "title": {
+              "en": "Functionvalue",
+              "nl": "Functiewaarde"
+            }
+          }
+        ],
+        "id": "tuyaTextMesage"
       }
     ],
     "conditions": [
@@ -186,6 +297,138 @@
       }
     ],
     "actions": [
+      {
+        "title": {
+          "en": "Send false command to Tuya",
+          "nl": "Vertuur niet waar commando naar Tuya"
+        },
+        "titleFormatted": {
+          "en": "Send [[functionname]] command with value \"false\" to Tuya device [[tuyaDeviceId]]",
+          "nl": "Vertuur [[functionname]] commando met waarde \"niet\" waar naar Tuya apparaat [[tuyaDeviceId]]"
+        },
+        "args": [
+          {
+            "name": "tuyaDeviceId",
+            "type": "text",
+            "title": {
+              "en": "Tuya Device id",
+              "nl": "Tuya apparaat id"
+            }
+          },
+          {
+            "name": "functionname",
+            "type": "text",
+            "title": {
+              "en": "Functioname",
+              "nl": "Functienaam"
+            }
+          }
+        ],
+        "id": "sendTuyaFalseCommand"
+      },
+      {
+        "title": {
+          "en": "Send number command to Tuya",
+          "nl": "Vertuur numerieke commando naar Tuya"
+        },
+        "titleFormatted": {
+          "en": "Send [[functionname]] command with number value [[functionValue]] to Tuya device [[tuyaDeviceId]]",
+          "nl": "Vertuur [[functionname]] commando met numerieke waarde [[functionValue]] naar Tuya apparaat [[tuyaDeviceId]]"
+        },
+        "args": [
+          {
+            "name": "tuyaDeviceId",
+            "type": "text",
+            "title": {
+              "en": "Tuya Device id",
+              "nl": "Tuya apparaat id"
+            }
+          },
+          {
+            "name": "functionname",
+            "type": "text",
+            "title": {
+              "en": "Functioname",
+              "nl": "Functienaam"
+            }
+          },
+          {
+            "name": "functionValue",
+            "type": "number",
+            "title": {
+              "en": "Functionvalue",
+              "nl": "Functiewaarde"
+            }
+          }
+        ],
+        "id": "sendTuyaNumberCommand"
+      },
+      {
+        "title": {
+          "en": "Send text command to Tuya",
+          "nl": "Vertuur tekst commando naar Tuya"
+        },
+        "titleFormatted": {
+          "en": "Send [[functionname]] command with text value [[functionValue]] to Tuya device [[tuyaDeviceId]]",
+          "nl": "Vertuur [[functionname]] commando met tekst waarde [[functionValue]] naar Tuya apparaat [[tuyaDeviceId]]"
+        },
+        "args": [
+          {
+            "name": "tuyaDeviceId",
+            "type": "text",
+            "title": {
+              "en": "Tuya Device id",
+              "nl": "Tuya apparaat id"
+            }
+          },
+          {
+            "name": "functionname",
+            "type": "text",
+            "title": {
+              "en": "Functioname",
+              "nl": "Functienaam"
+            }
+          },
+          {
+            "name": "functionValue",
+            "type": "text",
+            "title": {
+              "en": "Functionvalue",
+              "nl": "Functiewaarde"
+            }
+          }
+        ],
+        "id": "sendTuyaTextCommand"
+      },
+      {
+        "title": {
+          "en": "Send true command to Tuya",
+          "nl": "Vertuur waafr commando naar Tuya"
+        },
+        "titleFormatted": {
+          "en": "Send [[functionname]] command with \"true\" to Tuya device [[tuyaDeviceId]]",
+          "nl": "Vertuur [[functionname]] commando met waarde \"waar\" naar Tuya apparaat [[tuyaDeviceId]]"
+        },
+        "args": [
+          {
+            "name": "tuyaDeviceId",
+            "type": "text",
+            "title": {
+              "en": "Tuya Device id",
+              "nl": "Tuya apparaat id"
+            }
+          },
+          {
+            "name": "functionname",
+            "type": "text",
+            "title": {
+              "en": "Functioname",
+              "nl": "Functienaam"
+            }
+          }
+        ],
+        "id": "sendTuyaTrueCommand"
+      },
       {
         "title": {
           "en": "Trigger a legacy scene",

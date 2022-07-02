@@ -1,0 +1,36 @@
+{
+	"title": {
+		"en": "Send number command to Tuya",
+		"nl": "Vertuur numerieke commando naar Tuya"
+	},
+	"titleFormatted": {
+		"en": "Send [[functionname]] command with number value [[functionValue]] to Tuya device [[tuyaDeviceId]]",
+		"nl": "Vertuur [[functionname]] commando met numerieke waarde [[functionValue]] naar Tuya apparaat [[tuyaDeviceId]]"
+	},
+	"args": [
+		{
+			"name": "tuyaDeviceId",
+			"type": "text",
+			"title": {
+				"en": "Tuya Device id",
+				"nl": "Tuya apparaat id"
+			}
+		},
+		{
+			"name": "functionname",
+			"type": "text",
+			"title": {
+				"en": "Functioname",
+				"nl": "Functienaam"
+			}
+		},
+		{
+			"name": "functionValue",
+			"type": "number",
+			"title": {
+				"en": "Functionvalue",
+				"nl": "Functiewaarde"
+			}
+		}
+	]
+}

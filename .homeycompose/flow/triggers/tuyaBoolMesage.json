@@ -1,16 +1,16 @@
 {
 	"title": {
-		"en": "Send command to Tuya",
-		"nl": "Vertuur commando naar Tuya"
+		"en": "Tyua boolean event received",
+		"nl": "Tyua boolean bericht ontvangen"
 	},
 	"titleFormatted": {
-		"en": "Send [[scene]] scene",
-		"nl": "Uitvoeren [[scene]] scene"
+		"en": "Boolean event received",
+		"nl": "Boolean bericht ontvangen"
 	},
-	"args": [
+	"tokens": [
 		{
 			"name": "tuyaDeviceId",
-			"type": "text",
+			"type": "string",
 			"title": {
 				"en": "Tuya Device id",
 				"nl": "Tuya apparaat id"
@@ -18,7 +18,7 @@
 		},
 		{
 			"name": "functionname",
-			"type": "text",
+			"type": "string",
 			"title": {
 				"en": "Functioname",
 				"nl": "Functienaam"
@@ -26,7 +26,7 @@
 		},
 		{
 			"name": "functionValue",
-			"type": "text",
+			"type": "boolean",
 			"title": {
 				"en": "Functionvalue",
 				"nl": "Functiewaarde"
