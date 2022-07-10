@@ -17,7 +17,7 @@ class TuyaContactDevice extends TuyaBaseDevice {
             this.updateCapabilities(statusArr);
         }
         else {
-            this.homey.app.logToHomey("No device config found");
+            this.homey.log("No device config found");
         }
     }
 

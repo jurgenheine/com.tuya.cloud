@@ -20,7 +20,7 @@ class TuyaCoverDevice extends TuyaBaseDevice {
             this.updateCapabilities(statusArr);
         }
         else {
-            this.homey.app.logToHomey("No device config found");
+            this.homey.log("No device config found");
         }
     }
 
@@ -31,7 +31,7 @@ class TuyaCoverDevice extends TuyaBaseDevice {
                 this.sendCommand("windowcoverings_set",valueObj.windowcoverings_set * 100);
             }
         } catch (ex) {
-            this.homey.app.logToHomey(ex);
+            this.homey.log(ex);
         }
     }
 

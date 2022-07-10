@@ -48,7 +48,7 @@ class TuyaSwitchDevice extends TuyaBaseDevice {
                 this.sendCommand(key, value);
             }
         } catch (ex) {
-            this.homey.app.logToHomey(ex);
+            this.homey.error(ex);
         }
     }
 

@@ -27,7 +27,7 @@ class TuyaLightDevice extends TuyaBaseDevice {
             this.updateCapabilities(statusArr);
         }
         else {
-            this.homey.app.logToHomey("No device config found");
+            this.homey.log("No device config found");
         }
     }
 
@@ -37,7 +37,7 @@ class TuyaLightDevice extends TuyaBaseDevice {
                 case "colour_data":
                 case "colour_data_v2":
                     if (!this.hasCapability("light_mode")) {
-                        this.homey.app.logToHomey("addCapability light_mode");
+                        this.homey.log("addCapability light_mode");
                         this.addCapability("light_mode");
                     }
             }
@@ -60,7 +60,7 @@ class TuyaLightDevice extends TuyaBaseDevice {
                 this.set_color(valueObj.light_hue, valueObj.light_saturation);
             }
         } catch (ex) {
-            this.homey.app.logToHomey(ex);
+            this.homey.error(ex);
         }
     }
 

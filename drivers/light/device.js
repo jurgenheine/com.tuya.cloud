@@ -77,7 +77,7 @@ class LightDevice extends BaseDevice {
                 await this.set_color(null, valueObj.light_saturation);
             }
         } catch (ex) {
-            this.homey.app.logToHomey(ex);
+            this.homey.error(ex);
             this.updateInprogess = false;
         }
     }

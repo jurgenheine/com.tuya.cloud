@@ -42,7 +42,7 @@ class SwitchDevice extends BaseDevice {
                 }
             }
         } catch (ex) {
-            this.homey.app.logToHomey(ex);
+            this.homey.error(ex);
             this.updateInprogess = false;
         }
     }
