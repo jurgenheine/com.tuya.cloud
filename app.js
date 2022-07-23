@@ -204,7 +204,11 @@ class TuyaCloudApp extends Homey.App {
             case 'leakSensor':
                 //leak sensor
                 break;
-
+            case 'presenceSensor':
+                return this.homey.drivers.getDriver('tuyapresence');
+                //contact sensor
+                break;
+    
             default:
                 break;
         }
@@ -213,14 +217,22 @@ class TuyaCloudApp extends Homey.App {
 
     updateCapabilities(driver, devId, status) {
         this.log("Get device for: " + devId);
-        let homeyDevice = driver.getDevice({ id: devId });
-        if (homeyDevice instanceof Error) return;
-        this.log("Device found");
-        homeyDevice.updateCapabilities(status);
+        try{
+            let homeyDevice = driver.getDevice({ id: devId });
+            if (homeyDevice instanceof Error) return;
+            this.log("Device found");
+            homeyDevice.updateCapabilities(status);
+        }
+        catch( err){
+            return;
+        }
     }
 
     async triggerTuyaMessageFlow(message) {
         message.status.forEach(func => {
+            if(typeof func.value === 'undefined'){
+                return; 
+            }
             if(typeof func.value === 'boolean'){ 
                 const booltokens = {
                     tuyaDeviceId: message.devId,

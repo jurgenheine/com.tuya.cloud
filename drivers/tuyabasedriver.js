@@ -51,6 +51,10 @@ class TuyaBaseDriver extends Homey.Driver {
         {
             "type": "pir",
             "category":['pir']
+        },
+        {
+            "type": "presenceSensor",
+            "category":['hps']
         }
     ];
 
@@ -133,7 +137,9 @@ class TuyaBaseDriver extends Homey.Driver {
                     capabilities.push("light_mode");
                     break;
                 case "pir":    
-                case "pir_state":    
+                case "pir_state":
+                case "presence":
+                case "presence_state":
                     capabilities.push("alarm_motion");
                     break;
                 case "smoke_sensor_status":    
