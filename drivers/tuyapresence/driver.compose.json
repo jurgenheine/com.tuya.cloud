@@ -1,0 +1,11 @@
+{
+  "name": {
+    "en": "Presence Sensor",
+    "nl": "Aanwezigheidssensor"
+  },
+  "class": "sensor",
+  "capabilities": [
+    "alarm_motion"
+  ],
+  "$extends": [ "defaults" ]
+}
