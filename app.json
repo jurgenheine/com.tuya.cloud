@@ -825,6 +825,41 @@
     },
     {
       "images": {
+        "large": "/drivers/tuyapresence/assets/images/large.png",
+        "small": "/drivers/tuyapresence/assets/images/small.png"
+      },
+      "icon": "/drivers/tuyapresence/assets/icon.svg",
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
+      "pair": [
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ],
+      "name": {
+        "en": "Presence Sensor",
+        "nl": "Aanwezigheidssensor"
+      },
+      "class": "sensor",
+      "capabilities": [
+        "alarm_motion"
+      ],
+      "id": "tuyapresence"
+    },
+    {
+      "images": {
         "large": "/drivers/tuyasmoke/assets/images/large.png",
         "small": "/drivers/tuyasmoke/assets/images/small.png"
       },
