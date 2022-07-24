@@ -8,7 +8,7 @@ const NumberAllocator = require('..').NumberAllocator
 const assert = require('chai').assert
 
 describe('number-allocator', function () {
-  it('should create without newr', function (done) {
+  it('should create without number', function (done) {
     const a = NumberAllocator(0, 0)
     assert.equal(a.intervalCount(), 1)
     done()

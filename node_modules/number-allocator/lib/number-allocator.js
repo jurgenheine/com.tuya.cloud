@@ -4,7 +4,7 @@
 
 'use strict'
 
-const SortedSet = require('collections/sorted-set')
+const SortedSet = require('js-sdsl').Set
 const debugTrace = require('debug')('number-allocator:trace')
 const debugError = require('debug')('number-allocator:error')
 /**
@@ -43,7 +43,13 @@ function NumberAllocator (min, max) {
 
   this.min = min
   this.max = max
-  this.ss = new SortedSet()
+
+  this.ss = new SortedSet(
+    [],
+    (lhs, rhs) => {
+      return lhs.compare(rhs)
+    }
+  )
   debugTrace('Create')
   this.clear()
 }
@@ -55,8 +61,8 @@ function NumberAllocator (min, max) {
  *                    When alloc() is called then the same value will be allocated.
  */
 NumberAllocator.prototype.firstVacant = function () {
-  if (this.ss.length === 0) return null
-  return this.ss.min().low
+  if (this.ss.size() === 0) return null
+  return this.ss.front().low
 }
 
 /**
@@ -65,11 +71,11 @@ NumberAllocator.prototype.firstVacant = function () {
  * @return {Number} - The first vacant number. If all numbers are occupied, return null.
  */
 NumberAllocator.prototype.alloc = function () {
-  if (this.ss.length === 0) {
+  if (this.ss.size() === 0) {
     debugTrace('alloc():empty')
     return null
   }
-  const it = this.ss.min()
+  const it = this.ss.front()
   const num = it.low
   if (num + 1 <= it.high) {
     // Overwrite the interval in the ss but it is safe,
@@ -77,7 +83,7 @@ NumberAllocator.prototype.alloc = function () {
     // x|----|
     ++it.low
   } else {
-    this.ss.shift()
+    this.ss.eraseElementByPos(0)
   }
   debugTrace('alloc():' + num)
   return num
@@ -92,48 +98,48 @@ NumberAllocator.prototype.alloc = function () {
  */
 NumberAllocator.prototype.use = function (num) {
   const key = new Interval(num, num)
-  const it = this.ss.findLeastGreaterThanOrEqual(key)
+  const it = this.ss.lowerBound(key)
   if (it) {
-    if (it.value.equals(key)) {
+    if (it.equals(key)) {
       // |x|
-      this.ss.delete(it.value)
+      this.ss.eraseElementByValue(it)
       debugTrace('use():' + num)
       return true
     }
 
     // x |-----|
-    if (it.value.low > num) return false
+    if (it.low > num) return false
 
     // |x----|
-    if (it.value.low === num) {
+    if (it.low === num) {
       // Overwrite the interval in the ss but it is safe,
       // because no order violation is happened.
       // x|----|
-      ++it.value.low
+      ++it.low
       debugTrace('use():' + num)
       return true
     }
 
     // |----x|
-    if (it.value.high === num) {
+    if (it.high === num) {
       // Overwrite the interval in the ss but it is safe,
       // because no order violation is happened.
       // |----|x
-      --it.value.high
+      --it.high
       debugTrace('use():' + num)
       return true
     }
 
-    const low = it.value.low
+    const low = it.low
 
     // |--x--|
     // Overwrite the interval in the ss but it is safe,
     // because no order violation is happened.
     // x|--|
-    it.value.low = num + 1
+    it.low = num + 1
 
     // |--|x|--|
-    this.ss.push(new Interval(low, num - 1))
+    this.ss.insert(new Interval(low, num - 1))
     debugTrace('use():' + num)
     return true
   }
@@ -154,67 +160,67 @@ NumberAllocator.prototype.free = function (num) {
     return
   }
   const key = new Interval(num, num)
-  const it = this.ss.findLeastGreaterThanOrEqual(key)
+  const it = this.ss.lowerBound(key)
   if (it) {
-    if (it.value.low <= num && num <= it.value.high) {
+    if (it.low <= num && num <= it.high) {
       debugError('free():' + num + ' has already been vacant')
       return
     }
-    if (it === this.ss.findLeast()) {
+    if (it === this.ss.front()) {
       // v....
-      if (num + 1 === it.value.low) {
+      if (num + 1 === it.low) {
         // Concat to right
         // Overwrite the interval in the ss but it is safe,
         // because no order violation is happened.
-        --it.value.low
+        --it.low
       } else {
         // Insert new interval
-        this.ss.push(key)
+        this.ss.insert(key)
       }
     } else {
       // ..v..
-      const itl = this.ss.findGreatestLessThan(key)
-      if (itl.value.high + 1 === num) {
-        if (num + 1 === it.value.low) {
+      const itl = this.ss.reverseLowerBound(key)
+      if (itl.high + 1 === num) {
+        if (num + 1 === it.low) {
           // Concat to left and right
-          this.ss.delete(itl.value)
+          this.ss.eraseElementByValue(itl)
           // Overwrite the interval in the ss but it is safe,
           // because no order violation is happened.
-          it.value.low = itl.value.low
+          it.low = itl.low
         } else {
           // Concat to left
           // Overwrite the interval in the ss but it is safe,
           // because no order violation is happened.
-          itl.value.high = num
+          itl.high = num
         }
       } else {
-        if (num + 1 === it.value.low) {
+        if (num + 1 === it.low) {
           // Concat to right
           // Overwrite the interval in the ss but it is safe,
           // because no order violation is happened.
-          it.value.low = num
+          it.low = num
         } else {
           // Insert new interval
-          this.ss.push(key)
+          this.ss.insert(key)
         }
       }
     }
   } else {
     // ....v
-    if (it === this.ss.findLeast()) {
+    if (it === this.ss.front()) {
       // Insert new interval
-      this.ss.push(key)
+      this.ss.insert(key)
       return
     }
-    const itl = this.ss.findGreatestLessThan(key)
-    if (itl.value.high + 1 === num) {
+    const itl = this.ss.reverseLowerBound(key)
+    if (itl.high + 1 === num) {
       // Concat to left
       // Overwrite the interval in the ss but it is safe,
       // because no order violation is happened.
-      itl.value.high = num
+      itl.high = num
     } else {
       // Insert new interval
-      this.ss.push(key)
+      this.ss.insert(key)
     }
   }
   debugTrace('free():' + num)
@@ -228,7 +234,7 @@ NumberAllocator.prototype.free = function (num) {
 NumberAllocator.prototype.clear = function () {
   debugTrace('clear()')
   this.ss.clear()
-  this.ss.push(new Interval(this.min, this.max))
+  this.ss.insert(new Interval(this.min, this.max))
 }
 
 /**
@@ -238,7 +244,7 @@ NumberAllocator.prototype.clear = function () {
  * @return {Number} - The number of intervals.
  */
 NumberAllocator.prototype.intervalCount = function () {
-  return this.ss.length
+  return this.ss.size()
 }
 
 /**
@@ -247,12 +253,9 @@ NumberAllocator.prototype.intervalCount = function () {
  * Time Complexity O(N) : N is the number of intervals (not numbers)
  */
 NumberAllocator.prototype.dump = function () {
-  console.log('length:' + this.ss.length)
-  const it = this.ss.iterator()
-  let v = it.next()
-  while (v.value) {
-    console.log(v.value)
-    v = it.next()
+  console.log('length:' + this.ss.size())
+  for (const element of this.ss) {
+    console.log(element)
   }
 }
 

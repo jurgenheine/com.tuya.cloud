@@ -97,5 +97,8 @@
   },
   "1.1.1": {
     "en": "fix and update logging"
+  },
+  "1.1.2": {
+    "en": "Pressence sensor added by Adrian Rockall"
   }
 }
