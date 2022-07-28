@@ -100,5 +100,8 @@
   },
   "1.1.2": {
     "en": "Pressence sensor added by Adrian Rockall"
+  },
+  "1.1.3": {
+    "en": "Added new light device"
   }
 }
