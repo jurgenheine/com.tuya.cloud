@@ -1,0 +1,20 @@
+{
+  "type": "number",
+  "min": 16,
+  "max": 31,
+  "title": {
+    "en": "Target temperature",
+    "nl": "Ingestelde temperatuur",
+    "pl": "Temperatura docelowa"
+  },
+  "units": {
+    "en": "°C",
+    "pl": "°C"
+  },
+  "chartType": "stepLine",
+  "decimals": 1,
+  "insights": true,
+  "getable": true,
+  "setable": true,
+  "uiComponent": "thermostat"
+}

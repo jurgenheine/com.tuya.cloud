@@ -5,6 +5,10 @@ const Homey = require('homey');
 class TuyaBaseDriver extends Homey.Driver {
     static categorietypes = [
         {
+            type: "airConditioner",
+            category: ["kt"]
+        },
+        {
             "type": "light",
             "category": ['dj', 'dd', 'fwd', 'tgq', 'xdd', 'dc', 'tgkg']
         },
