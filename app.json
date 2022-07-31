@@ -640,6 +640,22 @@
             "ru": "Сухой",
             "pl": "Osuszanie"
           }
+        },
+        {
+          "id": "off",
+          "title": {
+            "en": "Off",
+            "nl": "Uit",
+            "de": "Aus",
+            "fr": "Désactivé",
+            "it": "Disattivata",
+            "sv": "Av",
+            "no": "Av",
+            "es": "Desactivado",
+            "da": "Deaktiveret",
+            "ru": "Выкл",
+            "pl": "Wył"
+          }
         }
       ]
     }

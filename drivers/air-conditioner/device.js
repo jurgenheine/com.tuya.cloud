@@ -9,14 +9,16 @@ const tuyaToHomeyModeMap =  new Map([
     ['hot','heat'],
     ['wet','dry'],
     ['wind','fan'],
-    ['auto','auto']
+    ['auto','auto'],
+    ['off','off']
 ]);
 const homeyToTuyaModeMap = new Map([
     ['cool', 'cold'],
     ['heat', 'hot'],
     ['dry', 'wet'],
     ['fan', 'wind'],
-    ['auto', 'auto']
+    ['auto', 'auto'],
+    ['off','off']
 ]);
 
 class TuyaAirConditionerDevice extends TuyaBaseDevice {
@@ -93,6 +95,8 @@ class TuyaAirConditionerDevice extends TuyaBaseDevice {
 
     set_thermostat_mode(mode) {
         const tuyaMode = homeyToTuyaModeMap.get(mode);
+        if(tuyaMode==='off')
+            this.sendCommand("switch", false);
         this.sendCommand("mode", tuyaMode);
     }
 
