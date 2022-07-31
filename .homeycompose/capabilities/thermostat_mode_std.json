@@ -1,0 +1,47 @@
+{
+  "type": "enum",
+  "title": {
+    "en": "Operation Mode",
+    "nl": "Bedrijfsmodus",
+    "pl": "Tryb pracy"
+  },
+  "getable": true,
+  "setable": true,
+  "uiComponent": "picker",
+  "values": [{
+    "id": "cold",
+    "title": {
+      "en": "Cooling",
+      "nl": "Koelen",
+      "pl": "Chłodzenie"
+    }
+  }, {
+    "id": "hot",
+    "title": {
+      "en": "Heating",
+      "nl": "Verwarmen",
+      "pl": "Ogrzewanie"
+    }
+  }, {
+    "id": "auto",
+    "title": {
+      "en": "Auto",
+      "nl": "Auto",
+      "pl": "Auto"
+    }
+  }, {
+    "id": "wind",
+    "title": {
+      "en": "Fan",
+      "nl": "Ventilator",
+      "pl": "Wentylacja"
+    }
+  }, {
+    "id": "wet",
+    "title": {
+      "en": "Dry",
+      "nl": "Drogen",
+      "pl": "Osuszanie"
+    }
+  }]
+}

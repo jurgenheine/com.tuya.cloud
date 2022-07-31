@@ -1,0 +1,15 @@
+{
+  "name": {
+    "en": "Air conditioning",
+    "pl": "Klimatyzacja",
+    "nl": "Airconditioning"
+  },
+  "class": "thermostat",
+  "capabilities": [
+    "onoff",
+    "thermostat_mode_std",
+    "measure_temperature",
+    "target_temperature"
+  ],
+  "$extends": [ "defaults" ]
+}

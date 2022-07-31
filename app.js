@@ -186,6 +186,9 @@ class TuyaCloudApp extends Homey.App {
                 return this.homey.drivers.getDriver('tuyacover');
             case 'pir':
                 return this.homey.drivers.getDriver('tuyapir');
+                break;
+            case 'airConditioner':
+                return this.homey.drivers.getDriver('air-conditioner');
             case 'airPurifier':
                 break;
             case 'fan':
@@ -216,16 +219,19 @@ class TuyaCloudApp extends Homey.App {
     }
 
     updateCapabilities(driver, devId, status) {
-        this.log("Get device for: " + devId);
-        try{
-            let homeyDevice = driver.getDevice({ id: devId });
-            if (homeyDevice instanceof Error) return;
-            this.log("Device found");
-            homeyDevice.updateCapabilities(status);
-        }
-        catch( err){
+        let homeyDevice
+        try {
+            homeyDevice = driver.getDevice({ id: devId })
+        } catch (e) {
+            // this is not an error, it just means that the device is not registered
+            console.log(`device ${devId} not added to Homey`);
             return;
         }
+        this.logToHomey("Device found");
+        homeyDevice.updateCapabilities(status);
+
+
+
     }
 
     async triggerTuyaMessageFlow(message) {
@@ -295,7 +301,7 @@ class TuyaCloudApp extends Homey.App {
             return null;
         }
     }
-    
+
     updateOldCapabilities(driver, tuyaDevice) {
         if (driver!== null && driver !== undefined) {
             this.log("Get legacy device for: " + tuyaDevice.id);
@@ -307,7 +313,7 @@ class TuyaCloudApp extends Homey.App {
                 homeyDevice.updateCapabilities();
             }
             catch(err){
-                return;
+
             }
         }
     }

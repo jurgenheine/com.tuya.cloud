@@ -518,6 +518,39 @@
   "drivers": [
     {
       "images": {
+        "large": "/drivers/air-conditioner/assets/images/large.png",
+        "small": "/drivers/air-conditioner/assets/images/small.png"
+      },
+      "icon": "/drivers/air-conditioner/assets/icon.svg",
+      "pair": [
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ],
+      "name": {
+        "en": "Air conditioning",
+        "pl": "Klimatyzacja",
+        "nl": "Airconditioning"
+      },
+      "class": "thermostat",
+      "capabilities": [
+        "onoff",
+        "thermostat_mode_std",
+        "measure_temperature",
+        "target_temperature"
+      ],
+      "id": "air-conditioner"
+    },
+    {
+      "images": {
         "large": "/drivers/cover/assets/images/large.png",
         "small": "/drivers/cover/assets/images/small.png"
       },
@@ -972,5 +1005,80 @@
       ],
       "id": "tuyaswitch"
     }
-  ]
+  ],
+  "capabilities": {
+    "target_temperature": {
+      "type": "number",
+      "min": 16,
+      "max": 31,
+      "title": {
+        "en": "Target temperature",
+        "nl": "Ingestelde temperatuur",
+        "pl": "Temperatura docelowa"
+      },
+      "units": {
+        "en": "°C",
+        "pl": "°C"
+      },
+      "chartType": "stepLine",
+      "decimals": 1,
+      "insights": true,
+      "getable": true,
+      "setable": true,
+      "uiComponent": "thermostat"
+    },
+    "thermostat_mode_std": {
+      "type": "enum",
+      "title": {
+        "en": "Operation Mode",
+        "nl": "Bedrijfsmodus",
+        "pl": "Tryb pracy"
+      },
+      "getable": true,
+      "setable": true,
+      "uiComponent": "picker",
+      "values": [
+        {
+          "id": "cold",
+          "title": {
+            "en": "Cooling",
+            "nl": "Koelen",
+            "pl": "Chłodzenie"
+          }
+        },
+        {
+          "id": "hot",
+          "title": {
+            "en": "Heating",
+            "nl": "Verwarmen",
+            "pl": "Ogrzewanie"
+          }
+        },
+        {
+          "id": "auto",
+          "title": {
+            "en": "Auto",
+            "nl": "Auto",
+            "pl": "Auto"
+          }
+        },
+        {
+          "id": "wind",
+          "title": {
+            "en": "Fan",
+            "nl": "Ventilator",
+            "pl": "Wentylacja"
+          }
+        },
+        {
+          "id": "wet",
+          "title": {
+            "en": "Dry",
+            "nl": "Drogen",
+            "pl": "Osuszanie"
+          }
+        }
+      ]
+    }
+  }
 }
