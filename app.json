@@ -11,7 +11,7 @@
     "nl": "Deze app laat je connectie maken met de Tuya cloud"
   },
   "category": "lights",
-  "version": "1.1.3",
+  "version": "1.1.5",
   "compatibility": ">=5.0.0",
   "author": {
     "name": "Jurgen Heine",
@@ -522,6 +522,12 @@
         "small": "/drivers/air-conditioner/assets/images/small.png"
       },
       "icon": "/drivers/air-conditioner/assets/icon.svg",
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
       "pair": [
         {
           "id": "list_devices",
