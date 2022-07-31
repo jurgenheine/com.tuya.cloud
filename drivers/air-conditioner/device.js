@@ -37,8 +37,8 @@ class TuyaAirConditionerDevice extends TuyaBaseDevice {
             if (valueObj.onoff != null) {
                 this.set_on_off(valueObj.onoff === true || valueObj.onoff === 1);
             }
-            if (valueObj.thermostat_mode_std != null) {
-                this.set_thermostat_mode_std(valueObj.thermostat_mode_std);
+            if (valueObj.thermostat_mode != null) {
+                this.set_thermostat_mode(valueObj.thermostat_mode);
             }
         } catch (ex) {
             this.homey.app.logToHomey(ex);
@@ -61,7 +61,7 @@ class TuyaAirConditionerDevice extends TuyaBaseDevice {
                     break;
                 case 'mode':
                     const homeyMode = tuyaToHomeyModeMap.get(status.value);
-                    this.normalAsync('thermostat_mode_std', homeyMode);
+                    this.normalAsync('thermostat_mode', homeyMode);
             }
 
         });
@@ -91,7 +91,7 @@ class TuyaAirConditionerDevice extends TuyaBaseDevice {
         this.sendCommand("switch", onoff);
     }
 
-    set_thermostat_mode_std(mode) {
+    set_thermostat_mode(mode) {
         const tuyaMode = homeyToTuyaModeMap.get(mode);
         this.sendCommand("mode", tuyaMode);
     }

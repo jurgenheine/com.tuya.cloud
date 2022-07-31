@@ -296,7 +296,7 @@
       "class": "thermostat",
       "capabilities": [
         "onoff",
-        "thermostat_mode_std",
+        "thermostat_mode",
         "measure_temperature",
         "target_temperature"
       ],
@@ -529,7 +529,7 @@
       "setable": true,
       "uiComponent": "thermostat"
     },
-    "thermostat_mode_std": {
+    "thermostat_mode": {
       "type": "enum",
       "title": {
         "en": "Thermostat mode",

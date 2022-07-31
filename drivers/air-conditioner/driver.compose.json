@@ -7,7 +7,7 @@
   "class": "thermostat",
   "capabilities": [
     "onoff",
-    "thermostat_mode_std",
+    "thermostat_mode",
     "measure_temperature",
     "target_temperature"
   ],
