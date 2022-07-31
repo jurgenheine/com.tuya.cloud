@@ -4,6 +4,20 @@ const TuyaBaseDevice = require('../tuyabasedevice');
 const DataUtil = require("../../util/datautil");
 
 const CAPABILITIES_SET_DEBOUNCE = 1000;
+const tuyaToHomeyModeMap =  new Map([
+    ['cold','cool'],
+    ['hot','heat'],
+    ['wet','dry'],
+    ['wind','fan'],
+    ['auto','auto']
+]);
+const homeyToTuyaModeMap = new Map([
+    ['cool', 'cold'],
+    ['heat', 'hot'],
+    ['dry', 'wet'],
+    ['fan', 'wind'],
+    ['auto', 'auto']
+]);
 
 class TuyaAirConditionerDevice extends TuyaBaseDevice {
 
@@ -43,12 +57,11 @@ class TuyaAirConditionerDevice extends TuyaBaseDevice {
                     this.normalAsync('target_temperature', status.value/10);
                     break;
                 case 'temp_current':
-                    // todo: enable this after fixing bug:
-                    // Error: Invalid Capability: measure_temperature
-                    // this.normalAsync('measure_temperature', status.value);
+                    this.normalAsync('measure_temperature', status.value);
                     break;
                 case 'mode':
-                    this.normalAsync('thermostat_mode_std', status.value);
+                    const homeyMode = tuyaToHomeyModeMap.get(status.value);
+                    this.normalAsync('thermostat_mode_std', homeyMode);
             }
 
         });
@@ -79,7 +92,8 @@ class TuyaAirConditionerDevice extends TuyaBaseDevice {
     }
 
     set_thermostat_mode_std(mode) {
-        this.sendCommand("mode", mode);
+        const tuyaMode = homeyToTuyaModeMap.get(mode);
+        this.sendCommand("mode", tuyaMode);
     }
 
     set_target_temperature(targetTemperature) {
