@@ -6,7 +6,7 @@ class TuyaBaseDriver extends Homey.Driver {
     static categorietypes = [
         {
             "type": "light",
-            "category": ['dj', 'dd', 'fwd', 'tgq', 'xdd', 'dc', 'tgkg','sxd','tyndj']
+            "category": ['dj', 'dd', 'fwd', 'tgq', 'xdd', 'dc', 'tgkg','sxd','tyndj','mbd']
         },
         {
             "type": "switch",
