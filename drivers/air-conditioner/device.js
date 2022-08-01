@@ -95,8 +95,7 @@ class TuyaAirConditionerDevice extends TuyaBaseDevice {
 
     set_thermostat_mode(mode) {
         const tuyaMode = homeyToTuyaModeMap.get(mode);
-        if(tuyaMode==='off')
-            this.sendCommand("switch", false);
+        this.sendCommand("switch", tuyaMode!=='off');
         this.sendCommand("mode", tuyaMode);
     }
 
