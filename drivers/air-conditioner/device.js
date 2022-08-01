@@ -64,7 +64,7 @@ class TuyaAirConditionerDevice extends TuyaBaseDevice {
                     break;
                 case 'mode':
                     const homeyMode = tuyaToHomeyModeMap.get(status.value);
-                    if(homeyMode==='off') {
+                    if(homeyMode!=='off') {
                         this.lastKnowHomeyThermostatMode = homeyMode
                     }
                     this.normalAsync('thermostat_mode', homeyMode);
