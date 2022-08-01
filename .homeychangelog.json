@@ -106,5 +106,8 @@
   },
   "1.1.5": {
     "en": "Added airconditionor by Grzegorz Zalewski"
+  },
+  "1.1.6": {
+    "en": "Fix for airconditioner measure temperature"
   }
 }
