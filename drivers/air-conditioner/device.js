@@ -55,6 +55,11 @@ class TuyaAirConditionerDevice extends TuyaBaseDevice {
             switch (status.code) {
                 case 'switch':
                     this.normalAsync('onoff', status.value);
+                    if(status.value) {
+                        this.normalAsync('thermostat_mode', this.lastKnowHomeyThermostatMode);
+                    }else{
+                        this.normalAsync('thermostat_mode', 'off');
+                    }
                     break;
                 case 'temp_set':
                     this.normalAsync('target_temperature', status.value/10);
