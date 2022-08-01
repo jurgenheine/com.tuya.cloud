@@ -186,7 +186,6 @@ class TuyaCloudApp extends Homey.App {
                 return this.homey.drivers.getDriver('tuyacover');
             case 'pir':
                 return this.homey.drivers.getDriver('tuyapir');
-                break;
             case 'airConditioner':
                 return this.homey.drivers.getDriver('air-conditioner');
             case 'airPurifier':
@@ -219,15 +218,16 @@ class TuyaCloudApp extends Homey.App {
     }
 
     updateCapabilities(driver, devId, status) {
-        let homeyDevice
+        this.log("Get device for: " + devId);
+        let homeyDevice;
         try {
-            homeyDevice = driver.getDevice({ id: devId })
+            homeyDevice = driver.getDevice({ id: devId });
         } catch (e) {
             // this is not an error, it just means that the device is not registered
-            console.log(`device ${devId} not added to Homey`);
+            this.log(`device ${devId} not added to Homey`);
             return;
         }
-        this.logToHomey("Device found");
+        this.log("Device found");
         homeyDevice.updateCapabilities(status);
 
 
