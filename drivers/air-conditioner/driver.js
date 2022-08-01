@@ -16,7 +16,7 @@ class TuyaAirConditionerDriver extends TuyaBaseDriver {
         else {
             let airConditioner = this.get_devices_by_type("airConditioner");
             for (let tuyaDevice of Object.values(airConditioner)) {
-                let capabilities = ["onoff","target_temperature","measure_temperature","thermostat_mode_std",
+                let capabilities = ["onoff","target_temperature","measure_temperature","thermostat_mode",
                     ];
 
                 devices.push({

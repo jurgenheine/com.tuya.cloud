@@ -296,7 +296,7 @@
       "class": "thermostat",
       "capabilities": [
         "onoff",
-        "thermostat_mode_std",
+        "thermostat_mode",
         "measure_temperature",
         "target_temperature"
       ],
@@ -529,55 +529,132 @@
       "setable": true,
       "uiComponent": "thermostat"
     },
-    "thermostat_mode_std": {
+    "thermostat_mode": {
       "type": "enum",
       "title": {
-        "en": "Operation Mode",
-        "nl": "Bedrijfsmodus",
+        "en": "Thermostat mode",
+        "nl": "Thermostaat modus",
+        "de": "Thermostat-Modus",
+        "fr": "Mode thermostat",
+        "it": "Modalità termostato",
+        "sv": "Termostatläge",
+        "no": "Termostatmodus",
+        "es": "Modo del termostato",
+        "da": "Termostattilstand",
+        "ru": "Режим термостата",
         "pl": "Tryb pracy"
+      },
+      "desc": {
+        "en": "Mode of the thermostat",
+        "nl": "Modus van de thermostaat",
+        "de": "Modus des Thermostates",
+        "fr": "Mode du thermostat",
+        "it": "Modalità del termostato",
+        "sv": "Läge för termostaten",
+        "no": "Modus for termostaten",
+        "es": "Modo del termostato",
+        "da": "Tilstand for termostat",
+        "ru": "Режим термостата",
+        "pl": "Tryb termostatu"
       },
       "getable": true,
       "setable": true,
       "uiComponent": "picker",
       "values": [
         {
-          "id": "cold",
+          "id": "auto",
           "title": {
-            "en": "Cooling",
-            "nl": "Koelen",
-            "pl": "Chłodzenie"
+            "en": "Automatic",
+            "nl": "Automatisch",
+            "de": "Automatisch",
+            "fr": "Automatique",
+            "it": "Automatica",
+            "sv": "Automatiskt",
+            "no": "Automatisk",
+            "es": "Automático",
+            "da": "Automatisk",
+            "ru": "Автоматически",
+            "pl": "Automatyczny"
           }
         },
         {
-          "id": "hot",
+          "id": "heat",
           "title": {
-            "en": "Heating",
-            "nl": "Verwarmen",
+            "en": "Heat",
+            "nl": "Verhitten",
+            "de": "Heizen",
+            "fr": "Chauffer",
+            "it": "Calore",
+            "sv": "Värme",
+            "no": "Varme",
+            "es": "Calentar",
+            "da": "Opvarm",
+            "ru": "Обогрев",
             "pl": "Ogrzewanie"
           }
         },
         {
-          "id": "auto",
+          "id": "cool",
           "title": {
-            "en": "Auto",
-            "nl": "Auto",
-            "pl": "Auto"
+            "en": "Cool",
+            "nl": "Koelen",
+            "de": "Kühlen",
+            "fr": "Refroidir",
+            "it": "Raffreddamento",
+            "sv": "Kyla",
+            "no": "Avkjøle",
+            "es": "Enfriar",
+            "da": "Køl ned",
+            "ru": "Охлаждение",
+            "pl": "Chłodzenie"
           }
         },
         {
-          "id": "wind",
+          "id": "fan",
           "title": {
             "en": "Fan",
-            "nl": "Ventilator",
+            "nl": "Fan",
+            "de": "Fan",
+            "fr": "Ventilateur",
+            "it": "Fan",
+            "sv": "Fläkt",
+            "no": "Fan",
+            "es": "Admirador",
+            "da": "Ventilator",
+            "ru": "Поклонник",
             "pl": "Wentylacja"
           }
         },
         {
-          "id": "wet",
+          "id": "dry",
           "title": {
             "en": "Dry",
             "nl": "Drogen",
+            "de": "Trocken",
+            "fr": "Sec",
+            "it": "Asciutto",
+            "sv": "Torr",
+            "no": "Tørke",
+            "es": "Seco",
+            "da": "Tør",
+            "ru": "Сухой",
             "pl": "Osuszanie"
+          }
+        },
+        {
+          "id": "off",
+          "title": {
+            "en": "Off",
+            "nl": "Uit",
+            "de": "Aus",
+            "fr": "Désactivé",
+            "it": "Disattivata",
+            "sv": "Av",
+            "no": "Av",
+            "es": "Desactivado",
+            "da": "Deaktiveret",
+            "ru": "Выкл",
+            "pl": "Wył"
           }
         }
       ]
