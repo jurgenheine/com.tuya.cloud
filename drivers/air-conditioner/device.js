@@ -4,10 +4,27 @@ const TuyaBaseDevice = require('../tuyabasedevice');
 const DataUtil = require("../../util/datautil");
 
 const CAPABILITIES_SET_DEBOUNCE = 1000;
+const tuyaToHomeyModeMap =  new Map([
+    ['cold','cool'],
+    ['hot','heat'],
+    ['wet','dry'],
+    ['wind','fan'],
+    ['auto','auto'],
+    ['off','off']
+]);
+const homeyToTuyaModeMap = new Map([
+    ['cool', 'cold'],
+    ['heat', 'hot'],
+    ['dry', 'wet'],
+    ['fan', 'wind'],
+    ['auto', 'auto'],
+    ['off','off']
+]);
+
 
 class TuyaAirConditionerDevice extends TuyaBaseDevice {
-
     onInit() {
+        this.lastKnowHomeyThermostatMode = 'off'
         this.initDevice(this.getData().id);
         this.updateCapabilities(this.get_deviceConfig().status);
         this.registerMultipleCapabilityListener(this.getCapabilities(), async (values, options) => {
@@ -23,8 +40,8 @@ class TuyaAirConditionerDevice extends TuyaBaseDevice {
             if (valueObj.onoff != null) {
                 this.set_on_off(valueObj.onoff === true || valueObj.onoff === 1);
             }
-            if (valueObj.thermostat_mode_std != null) {
-                this.set_thermostat_mode_std(valueObj.thermostat_mode_std);
+            if (valueObj.thermostat_mode != null) {
+                this.set_thermostat_mode(valueObj.thermostat_mode);
             }
         } catch (ex) {
             this.homey.app.logToHomey(ex);
@@ -38,17 +55,24 @@ class TuyaAirConditionerDevice extends TuyaBaseDevice {
             switch (status.code) {
                 case 'switch':
                     this.normalAsync('onoff', status.value);
+                    if(status.value) {
+                        this.normalAsync('thermostat_mode', this.lastKnowHomeyThermostatMode);
+                    }else{
+                        this.normalAsync('thermostat_mode', 'off');
+                    }
                     break;
                 case 'temp_set':
                     this.normalAsync('target_temperature', status.value/10);
                     break;
                 case 'temp_current':
-                    // todo: enable this after fixing bug:
-                    // Error: Invalid Capability: measure_temperature
-                    // this.normalAsync('measure_temperature', status.value);
+                    this.normalAsync('measure_temperature', status.value);
                     break;
                 case 'mode':
-                    this.normalAsync('thermostat_mode_std', status.value);
+                    const homeyMode = tuyaToHomeyModeMap.get(status.value);
+                    if(homeyMode!=='off') {
+                        this.lastKnowHomeyThermostatMode = homeyMode
+                    }
+                    this.normalAsync('thermostat_mode', homeyMode);
             }
 
         });
@@ -76,10 +100,27 @@ class TuyaAirConditionerDevice extends TuyaBaseDevice {
 
     set_on_off(onoff) {
         this.sendCommand("switch", onoff);
+        if(!onoff) {
+            this.normalAsync('thermostat_mode', 'off');
+        }else{
+            this.normalAsync('thermostat_mode', this.lastKnowHomeyThermostatMode);
+        }
+
     }
 
-    set_thermostat_mode_std(mode) {
-        this.sendCommand("mode", mode);
+    set_thermostat_mode(mode) {
+        const tuyaMode = homeyToTuyaModeMap.get(mode);
+        if(tuyaMode==='off') {
+            this.sendCommand("switch", false);
+            this.normalAsync('onoff', false);
+        }
+        else{
+            this.lastKnowHomeyThermostatMode = mode;
+            this.sendCommand("switch", true);
+            this.sendCommand("mode", tuyaMode);
+            this.normalAsync('onoff', true);
+        }
+
     }
 
     set_target_temperature(targetTemperature) {
