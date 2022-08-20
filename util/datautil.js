@@ -1,13 +1,15 @@
 class DataUtil {
-    constructor() {}
-    
+    constructor() { }
+
     static getSubService(status) {
         var subTypeArr = [];
         for (var map of status) {
-            if (map.code.indexOf("switch") !== -1) {
-                if (typeof map.value === 'boolean') {
-                    subTypeArr.push(map.code);
-                } 
+            if (map.code != undefined) {
+                if (map.code.indexOf("switch") !== -1) {
+                    if (typeof map.value === 'boolean') {
+                        subTypeArr.push(map.code);
+                    }
+                }
             }
         }
         return subTypeArr;

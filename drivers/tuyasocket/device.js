@@ -109,7 +109,7 @@ class TuyaSocketDevice extends TuyaBaseDevice {
     sendCommand(name, value) {
         var param = this.getSendParam(name, value);
         this.homey.app.tuyaOpenApi.sendCommand(this.id, param).catch((error) => {
-            this.log.error('[SET][%s] capabilities Error: %s', this.id, error);
+            this.error('[SET][%s] capabilities Error: %s', this.id, error);
         });
     }
 
