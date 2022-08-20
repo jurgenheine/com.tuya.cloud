@@ -11,6 +11,8 @@ class SwitchDevice extends BaseDevice {
         this.updateCapabilities();
         this.registerMultipleCapabilityListener(this.getCapabilities(), async (values, options) => { return this._onMultipleCapabilityListener(values, options); }, CAPABILITIES_SET_DEBOUNCE);
         this.log(`Tuya switch ${this.getName()} has been initialized`);
+        var options = { excerpt: `The driver for ${this.getName()} is deprecated, please switch to new driver. See community forum for details.` }
+        await this.homey.notifications.createNotification(options);
     }
 
     updateCapabilities() {

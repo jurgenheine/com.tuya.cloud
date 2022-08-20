@@ -42,6 +42,8 @@ class TuyaCloudApp extends Homey.App {
                 .registerRunListener(async (args) => this._onFlowActionSetScene(args))
                 .getArgument('scene')
                 .registerAutocompleteListener(async (query, args) => this._onSceneAutoComplete(query, args));
+                var options = {excerpt:`You are still using the old deprecated API and drivers, please switch to new drivers only. See community forum for details. https://community.homey.app/t/app-pro-tuya-cloud/21313` }
+                await this.homey.notifications.createNotification(options);
         }
 
         if (apiToUse != null && apiToUse !== 'legacy') {
