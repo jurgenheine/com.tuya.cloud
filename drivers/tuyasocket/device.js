@@ -29,7 +29,7 @@ class TuyaSocketDevice extends TuyaBaseDevice {
             switch (statusMap.code) {
                 case "cur_power":
                     if (!this.hasCapability("measure_power")) {
-                        this.homey.app.logToHomey("addCapability measure_power");
+                        this.homey.log("addCapability measure_power");
                         this.addCapability("measure_power");
                     }
                     break;
@@ -62,7 +62,7 @@ class TuyaSocketDevice extends TuyaBaseDevice {
                 this.sendCommand(key, value);
             }
         } catch (ex) {
-            this.homey.app.logToHomey(ex);
+            this.homey.error(ex);
         }
     }
 
@@ -92,7 +92,7 @@ class TuyaSocketDevice extends TuyaBaseDevice {
         }
         for (var statusMap of statusArr) {
             if (statusMap.code === 'cur_power') {
-                this.setCapabilityValue("measure_power", statusMap.value).catch(this.error);
+                this.setCapabilityValue("measure_power", statusMap.value/10).catch(this.error);
             }
         }
     }
@@ -109,7 +109,7 @@ class TuyaSocketDevice extends TuyaBaseDevice {
     sendCommand(name, value) {
         var param = this.getSendParam(name, value);
         this.homey.app.tuyaOpenApi.sendCommand(this.id, param).catch((error) => {
-            this.log.error('[SET][%s] capabilities Error: %s', this.id, error);
+            this.error('[SET][%s] capabilities Error: %s', this.id, error);
         });
     }
 

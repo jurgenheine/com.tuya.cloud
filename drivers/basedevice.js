@@ -31,7 +31,7 @@ class BaseDevice extends Homey.Device {
         try {
             return this.homey.app.oldclient.device_control(devId, action, param, namespace);
         } catch (ex) {
-            this.logToHomey(ex);
+            this.homey.error(ex);
         }
     }
 

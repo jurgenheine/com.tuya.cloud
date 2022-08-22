@@ -1,7 +1,7 @@
 {
   "settings": {
     "apiToUse": "Kies de gewenste API(s)",
-    "appid": "Official api acces id",
+    "appid": "Official api acces id, voor meer informatie: ",
     "appsecret": "Official api acces secret",
     "username": "Gebruikersnaam",
     "title": "Tuya cloud instellingen",
@@ -14,6 +14,9 @@
     "save": "Opslaan",
     "reconnect": "Opnieuw verbinden",
     "saved": "Instellingen opgeslagen, herstart de app om actief te maken",
-    "isrequired": "is verplicht"
+    "isrequired": "is verplicht",
+    "message":"Laatste connectie bericht",
+    "refreshScenes":"Herlaad scenes",
+    "scenesRefreshed":"Scenes zijn opnieuw geladen"
   }
 }

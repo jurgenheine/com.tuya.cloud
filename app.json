@@ -11,7 +11,7 @@
     "nl": "Deze app laat je connectie maken met de Tuya cloud"
   },
   "category": "lights",
-  "version": "1.0.3",
+  "version": "1.1.7",
   "compatibility": ">=5.0.0",
   "author": {
     "name": "Jurgen Heine",
@@ -48,6 +48,10 @@
     "connect": {
       "method": "GET",
       "path": "/"
+    },
+    "refreshScenes": {
+      "method": "GET",
+      "path": "/refreshScenes/"
     }
   },
   "flow": {
@@ -151,6 +155,117 @@
           }
         ],
         "id": "socketChanged"
+      },
+      {
+        "title": {
+          "en": "Tyua boolean event received",
+          "nl": "Tyua boolean bericht ontvangen"
+        },
+        "titleFormatted": {
+          "en": "Boolean event received",
+          "nl": "Boolean bericht ontvangen"
+        },
+        "tokens": [
+          {
+            "name": "tuyaDeviceId",
+            "type": "string",
+            "title": {
+              "en": "Tuya Device id",
+              "nl": "Tuya apparaat id"
+            }
+          },
+          {
+            "name": "functionname",
+            "type": "string",
+            "title": {
+              "en": "Functioname",
+              "nl": "Functienaam"
+            }
+          },
+          {
+            "name": "functionValue",
+            "type": "boolean",
+            "title": {
+              "en": "Functionvalue",
+              "nl": "Functiewaarde"
+            }
+          }
+        ],
+        "id": "tuyaBoolMesage"
+      },
+      {
+        "title": {
+          "en": "Tyua number event received",
+          "nl": "Tyua numeriek bericht ontvangen"
+        },
+        "titleFormatted": {
+          "en": "Number event received",
+          "nl": "Nummeriek bericht ontvangen"
+        },
+        "tokens": [
+          {
+            "name": "tuyaDeviceId",
+            "type": "string",
+            "title": {
+              "en": "Tuya Device id",
+              "nl": "Tuya apparaat id"
+            }
+          },
+          {
+            "name": "functionname",
+            "type": "string",
+            "title": {
+              "en": "Functioname",
+              "nl": "Functienaam"
+            }
+          },
+          {
+            "name": "functionValue",
+            "type": "number",
+            "title": {
+              "en": "Functionvalue",
+              "nl": "Functiewaarde"
+            }
+          }
+        ],
+        "id": "tuyaNumberMesage"
+      },
+      {
+        "title": {
+          "en": "Tyua text event received",
+          "nl": "Tyua tekst bericht ontvangen"
+        },
+        "titleFormatted": {
+          "en": "Text event received",
+          "nl": "Tekst bericht ontvangen"
+        },
+        "tokens": [
+          {
+            "name": "tuyaDeviceId",
+            "type": "string",
+            "title": {
+              "en": "Tuya Device id",
+              "nl": "Tuya apparaat id"
+            }
+          },
+          {
+            "name": "functionname",
+            "type": "string",
+            "title": {
+              "en": "Functioname",
+              "nl": "Functienaam"
+            }
+          },
+          {
+            "name": "functionValue",
+            "type": "string",
+            "title": {
+              "en": "Functionvalue",
+              "nl": "Functiewaarde"
+            }
+          }
+        ],
+        "id": "tuyaTextMesage"
       }
     ],
     "conditions": [
@@ -182,6 +297,138 @@
       }
     ],
     "actions": [
+      {
+        "title": {
+          "en": "Send false command to Tuya",
+          "nl": "Vertuur niet waar commando naar Tuya"
+        },
+        "titleFormatted": {
+          "en": "Send [[functionname]] command with value \"false\" to Tuya device [[tuyaDeviceId]]",
+          "nl": "Vertuur [[functionname]] commando met waarde \"niet\" waar naar Tuya apparaat [[tuyaDeviceId]]"
+        },
+        "args": [
+          {
+            "name": "tuyaDeviceId",
+            "type": "text",
+            "title": {
+              "en": "Tuya Device id",
+              "nl": "Tuya apparaat id"
+            }
+          },
+          {
+            "name": "functionname",
+            "type": "text",
+            "title": {
+              "en": "Functioname",
+              "nl": "Functienaam"
+            }
+          }
+        ],
+        "id": "sendTuyaFalseCommand"
+      },
+      {
+        "title": {
+          "en": "Send number command to Tuya",
+          "nl": "Vertuur numerieke commando naar Tuya"
+        },
+        "titleFormatted": {
+          "en": "Send [[functionname]] command with number value [[functionValue]] to Tuya device [[tuyaDeviceId]]",
+          "nl": "Vertuur [[functionname]] commando met numerieke waarde [[functionValue]] naar Tuya apparaat [[tuyaDeviceId]]"
+        },
+        "args": [
+          {
+            "name": "tuyaDeviceId",
+            "type": "text",
+            "title": {
+              "en": "Tuya Device id",
+              "nl": "Tuya apparaat id"
+            }
+          },
+          {
+            "name": "functionname",
+            "type": "text",
+            "title": {
+              "en": "Functioname",
+              "nl": "Functienaam"
+            }
+          },
+          {
+            "name": "functionValue",
+            "type": "number",
+            "title": {
+              "en": "Functionvalue",
+              "nl": "Functiewaarde"
+            }
+          }
+        ],
+        "id": "sendTuyaNumberCommand"
+      },
+      {
+        "title": {
+          "en": "Send text command to Tuya",
+          "nl": "Vertuur tekst commando naar Tuya"
+        },
+        "titleFormatted": {
+          "en": "Send [[functionname]] command with text value [[functionValue]] to Tuya device [[tuyaDeviceId]]",
+          "nl": "Vertuur [[functionname]] commando met tekst waarde [[functionValue]] naar Tuya apparaat [[tuyaDeviceId]]"
+        },
+        "args": [
+          {
+            "name": "tuyaDeviceId",
+            "type": "text",
+            "title": {
+              "en": "Tuya Device id",
+              "nl": "Tuya apparaat id"
+            }
+          },
+          {
+            "name": "functionname",
+            "type": "text",
+            "title": {
+              "en": "Functioname",
+              "nl": "Functienaam"
+            }
+          },
+          {
+            "name": "functionValue",
+            "type": "text",
+            "title": {
+              "en": "Functionvalue",
+              "nl": "Functiewaarde"
+            }
+          }
+        ],
+        "id": "sendTuyaTextCommand"
+      },
+      {
+        "title": {
+          "en": "Send true command to Tuya",
+          "nl": "Vertuur waafr commando naar Tuya"
+        },
+        "titleFormatted": {
+          "en": "Send [[functionname]] command with \"true\" to Tuya device [[tuyaDeviceId]]",
+          "nl": "Vertuur [[functionname]] commando met waarde \"waar\" naar Tuya apparaat [[tuyaDeviceId]]"
+        },
+        "args": [
+          {
+            "name": "tuyaDeviceId",
+            "type": "text",
+            "title": {
+              "en": "Tuya Device id",
+              "nl": "Tuya apparaat id"
+            }
+          },
+          {
+            "name": "functionname",
+            "type": "text",
+            "title": {
+              "en": "Functioname",
+              "nl": "Functienaam"
+            }
+          }
+        ],
+        "id": "sendTuyaTrueCommand"
+      },
       {
         "title": {
           "en": "Trigger a legacy scene",
@@ -275,6 +522,12 @@
         "small": "/drivers/air-conditioner/assets/images/small.png"
       },
       "icon": "/drivers/air-conditioner/assets/icon.svg",
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
       "pair": [
         {
           "id": "list_devices",
@@ -308,6 +561,12 @@
         "small": "/drivers/cover/assets/images/small.png"
       },
       "icon": "/drivers/cover/assets/icon.svg",
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
       "pair": [
         {
           "id": "list_devices",
@@ -329,6 +588,7 @@
       "capabilities": [
         "windowcoverings_state"
       ],
+      "deprecated": true,
       "id": "cover",
       "settings": [
         {
@@ -357,6 +617,12 @@
         "small": "/drivers/light/assets/images/small.png"
       },
       "icon": "/drivers/light/assets/icon.svg",
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
       "pair": [
         {
           "id": "list_devices",
@@ -382,6 +648,7 @@
         "light_hue",
         "light_saturation"
       ],
+      "deprecated": true,
       "id": "light"
     },
     {
@@ -390,6 +657,12 @@
         "small": "/drivers/switch/assets/images/small.png"
       },
       "icon": "/drivers/switch/assets/icon.svg",
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
       "pair": [
         {
           "id": "list_devices",
@@ -411,7 +684,85 @@
       "capabilities": [
         "onoff"
       ],
+      "deprecated": true,
       "id": "switch"
+    },
+    {
+      "images": {
+        "large": "/drivers/tuyacontact/assets/images/large.png",
+        "small": "/drivers/tuyacontact/assets/images/small.png"
+      },
+      "icon": "/drivers/tuyacontact/assets/icon.svg",
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
+      "pair": [
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ],
+      "name": {
+        "en": "Contactsensor",
+        "nl": "Contactmelder"
+      },
+      "class": "sensor",
+      "capabilities": [
+        "alarm_contact",
+        "measure_battery",
+        "alarm_battery"
+      ],
+      "energy": {
+        "batteries": [
+          "OTHER"
+        ]
+      },
+      "id": "tuyacontact"
+    },
+    {
+      "images": {
+        "large": "/drivers/tuyacover/assets/images/large.png",
+        "small": "/drivers/tuyacover/assets/images/small.png"
+      },
+      "icon": "/drivers/tuyacover/assets/icon.svg",
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
+      "pair": [
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ],
+      "name": {
+        "en": "Windowscovering",
+        "nl": "Raambekleding"
+      },
+      "class": "windowcoverings",
+      "capabilities": [
+        "windowcoverings_set"
+      ],
+      "id": "tuyacover"
     },
     {
       "images": {
@@ -419,6 +770,12 @@
         "small": "/drivers/tuyalight/assets/images/small.png"
       },
       "icon": "/drivers/tuyalight/assets/icon.svg",
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
       "pair": [
         {
           "id": "list_devices",
@@ -449,10 +806,151 @@
     },
     {
       "images": {
+        "large": "/drivers/tuyapir/assets/images/large.png",
+        "small": "/drivers/tuyapir/assets/images/small.png"
+      },
+      "icon": "/drivers/tuyapir/assets/icon.svg",
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
+      "pair": [
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ],
+      "name": {
+        "en": "Motionsensor",
+        "nl": "Bewegingsmelder"
+      },
+      "class": "sensor",
+      "capabilities": [
+        "alarm_motion",
+        "measure_battery",
+        "alarm_battery"
+      ],
+      "energy": {
+        "batteries": [
+          "OTHER"
+        ]
+      },
+      "id": "tuyapir",
+      "settings": [
+        {
+          "id": "motionTimeoutInSeconds",
+          "type": "number",
+          "value": 300,
+          "min": 60,
+          "label": {
+            "en": "Motion reset after",
+            "nl": "Beweging reset na"
+          },
+          "units": {
+            "en": "seconds",
+            "nl": "seconden"
+          }
+        }
+      ]
+    },
+    {
+      "images": {
+        "large": "/drivers/tuyapresence/assets/images/large.png",
+        "small": "/drivers/tuyapresence/assets/images/small.png"
+      },
+      "icon": "/drivers/tuyapresence/assets/icon.svg",
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
+      "pair": [
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ],
+      "name": {
+        "en": "Presence Sensor",
+        "nl": "Aanwezigheidssensor"
+      },
+      "class": "sensor",
+      "capabilities": [
+        "alarm_motion"
+      ],
+      "id": "tuyapresence"
+    },
+    {
+      "images": {
+        "large": "/drivers/tuyasmoke/assets/images/large.png",
+        "small": "/drivers/tuyasmoke/assets/images/small.png"
+      },
+      "icon": "/drivers/tuyasmoke/assets/icon.svg",
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
+      "pair": [
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ],
+      "name": {
+        "en": "Smokesensor",
+        "nl": "Rookmelder"
+      },
+      "class": "sensor",
+      "capabilities": [
+        "alarm_smoke",
+        "measure_battery",
+        "alarm_battery"
+      ],
+      "energy": {
+        "batteries": [
+          "OTHER"
+        ]
+      },
+      "id": "tuyasmoke"
+    },
+    {
+      "images": {
         "large": "/drivers/tuyasocket/assets/images/large.png",
         "small": "/drivers/tuyasocket/assets/images/small.png"
       },
       "icon": "/drivers/tuyasocket/assets/icon.svg",
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
       "pair": [
         {
           "id": "list_devices",
@@ -483,6 +981,12 @@
         "small": "/drivers/tuyaswitch/assets/images/small.png"
       },
       "icon": "/drivers/tuyaswitch/assets/icon.svg",
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
       "pair": [
         {
           "id": "list_devices",

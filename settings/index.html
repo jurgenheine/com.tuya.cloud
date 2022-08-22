@@ -36,7 +36,8 @@
             <input id="password" type="password" value="" />
         </div>
         <div class="field row">
-            <label for="appid"><span data-i18n="settings.appid"></label>
+            <label for="appid"><span data-i18n="settings.appid"></span></label>
+            <label for="appid"></label><a target="_blank" href="https://community.homey.app/t/app-pro-tuya-cloud/21313">https://community.homey.app/t/app-pro-tuya-cloud/21313</a></label>
             <input id="appid" type="text" value="" />
         </div>
         <div class="field row">
@@ -58,6 +59,7 @@
         </div>
         <div class="field row">
             <button id="save" class="left"><span data-i18n="settings.save"></button>
+            <button id="refreshScenes" class="left"><span data-i18n="settings.refreshScenes"></button>
         </div>
     </fieldset>
     <script type="text/javascript">
@@ -73,9 +75,11 @@
             var apiToUseElement = document.getElementById('apiToUse');
             var colormapElement = document.getElementById('colormap'); 
             var saveElement = document.getElementById('save');
+            var refreshscenesElement = document.getElementById('refreshScenes');
 
             fillDropdown(businessElement, businessCodes);
             fillDropdown(apiToUseElement, apiToUse);
+            apiToUseElement.value = 'both';
             
             Homey.get('username', function (err, username) {
                 if (err) return Homey.alert(err);
@@ -121,6 +125,13 @@
                     colormapElement.value = huecolormap;
             });
 
+            refreshscenesElement.addEventListener('click', function (e) {
+                Homey.api('GET', '/refreshScenes/', null, function (err) {
+                    if (err) return Homey.alert(err);
+                    else Homey.alert(Homey.__("settings.scenesRefreshed"));
+                });               
+            });
+
             saveElement.addEventListener('click', function (e) {
                 let username = usernameElement.value;
                 let password = passwordElement.value;
@@ -139,20 +150,20 @@
                 if (!password || password.length === 0) {
                     return Homey.alert(Homey.__("settings.password") +" "+ Homey.__("settings.isrequired") );
                 }
-                if(apiToUse !=="legacy")
-                if (!appid || appid.length === 0) {
-                    return Homey.alert(Homey.__("settings.appid") +" "+ Homey.__("settings.isrequired") );
-                }                
-                if (!appsecret || appsecret.length === 0) {
-                    return Homey.alert(Homey.__("settings.appsecret") +" "+ Homey.__("settings.isrequired") );
-                }    
-                if (!countrycode || countrycode.length === 0) {
-                    return Homey.alert(Homey.__("settings.countrycode") +" "+ Homey.__("settings.isrequired") );
-                } 
-                if (!business || business.length === 0) {
-                    return Homey.alert(Homey.__("settings.business") +" "+ Homey.__("settings.isrequired") );
-                } 
-
+                if (apiToUse !== "legacy") {
+                    if (!appid || appid.length === 0) {
+                        return Homey.alert(Homey.__("settings.appid") + " " + Homey.__("settings.isrequired"));
+                    }
+                    if (!appsecret || appsecret.length === 0) {
+                        return Homey.alert(Homey.__("settings.appsecret") + " " + Homey.__("settings.isrequired"));
+                    }
+                    if (!countrycode || countrycode.length === 0) {
+                        return Homey.alert(Homey.__("settings.countrycode") + " " + Homey.__("settings.isrequired"));
+                    }
+                    if (!business || business.length === 0) {
+                        return Homey.alert(Homey.__("settings.business") + " " + Homey.__("settings.isrequired"));
+                    }
+                }
                 Homey.set('username', username, function (err) {
                     if (err) return Homey.alert(err);
                 });
@@ -185,10 +196,9 @@
                     if (err) return Homey.alert(err);
                 });
 
-                Homey.alert(Homey.__("settings.saved"));
-
                 Homey.api('GET', '/', null, function (err) {
                     if (err) return Homey.alert(err);
+                    else Homey.alert(Homey.__("settings.saved"));
                 });
 
             });

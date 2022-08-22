@@ -1,0 +1,16 @@
+{
+  "name": {
+    "en": "Smokesensor",
+    "nl": "Rookmelder"
+  },
+  "class": "sensor",
+  "capabilities": [
+    "alarm_smoke",
+    "measure_battery",
+    "alarm_battery"
+  ],
+  "energy": {
+    "batteries": [ "OTHER" ]
+  },
+  "$extends": [ "defaults" ]
+}

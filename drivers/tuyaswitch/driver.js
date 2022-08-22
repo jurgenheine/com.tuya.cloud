@@ -45,7 +45,7 @@ class TuyaSwitchDriver extends TuyaBaseDriver {
                         name = "onoff";
                     } else {
                         name = "onoff." + code;
-                        capabilitiesOptions[name] = { 'title': { 'en': `Power ${code.replace('switch_', 'Socket ')}` } };
+                        capabilitiesOptions[name] = { 'title': { 'en': `Power ${code.replace('switch_', 'Switch ')}` } };
                     }
                     capabilities.push(name);
                 }

@@ -15,6 +15,7 @@ class TuyaSocketDriver extends TuyaBaseDriver {
         this._flowSetSocket = this.homey.flow.getActionCard('setSocket')
             .registerRunListener((args, state) => {
                 this.log(`Flow set capability ${args.socketid.instanceId} to ${args.state}`);
+                args.my_device.sendCommand(args.socketid.instanceId, args.state === "On" ? true : false);
                 return args.my_device.setCapabilityValue(args.socketid.instanceId, args.state === "On" ? true : false).catch(this.error);
             });
         this._flowSetSocket.getArgument('socketid')

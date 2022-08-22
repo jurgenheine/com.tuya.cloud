@@ -11,5 +11,6 @@
     "light_hue",
     "light_saturation"
   ],
+  "deprecated": true,
   "$extends": [ "defaults" ]
 }

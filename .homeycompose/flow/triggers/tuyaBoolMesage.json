@@ -1,0 +1,36 @@
+{
+	"title": {
+		"en": "Tyua boolean event received",
+		"nl": "Tyua boolean bericht ontvangen"
+	},
+	"titleFormatted": {
+		"en": "Boolean event received",
+		"nl": "Boolean bericht ontvangen"
+	},
+	"tokens": [
+		{
+			"name": "tuyaDeviceId",
+			"type": "string",
+			"title": {
+				"en": "Tuya Device id",
+				"nl": "Tuya apparaat id"
+			}
+		},
+		{
+			"name": "functionname",
+			"type": "string",
+			"title": {
+				"en": "Functioname",
+				"nl": "Functienaam"
+			}
+		},
+		{
+			"name": "functionValue",
+			"type": "boolean",
+			"title": {
+				"en": "Functionvalue",
+				"nl": "Functiewaarde"
+			}
+		}
+	]
+}

@@ -67,5 +67,50 @@
   },
   "1.0.3": {
     "en": "Bug fixes for SDK 3"
+  },
+  "1.0.4": {
+    "en": "Adde windowscover, pir and bugfixes"
+  },
+  "1.0.5": {
+    "en": "Fix app crash"
+  },
+  "1.0.6": {
+    "en": "fix undefined variable"
+  },
+  "1.0.7": {
+    "en": "Fix cover and PIR errors"
+  },
+  "1.0.8": {
+    "en": "Fix batery value"
+  },
+  "1.0.9": {
+    "en": "New senosrs and bug fixes"
+  },
+  "1.0.10": {
+    "en": "Fix contactsenor not found"
+  },
+  "1.0.11": {
+    "en": "Fix sensor bugs"
+  },
+  "1.1.0": {
+    "en": "New generic trigger and action flows"
+  },
+  "1.1.1": {
+    "en": "fix and update logging"
+  },
+  "1.1.2": {
+    "en": "Pressence sensor added by Adrian Rockall"
+  },
+  "1.1.3": {
+    "en": "Added new light device"
+  },
+  "1.1.5": {
+    "en": "Added airconditionor by Grzegorz Zalewski"
+  },
+  "1.1.6": {
+    "en": "Fix for airconditioner measure temperature"
+  },
+  "1.1.7": {
+    "en": "fix errors and added deprecated messages"
   }
 }

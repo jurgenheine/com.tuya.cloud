@@ -1,8 +1,7 @@
 'use strict';
 
-if (process.env.DEBUG === '1')
-{
-    require('inspector').open(9222, '0.0.0.0', true);
+if (process.env.DEBUG === '1') {
+    require('inspector').open(9223, '0.0.0.0', true);
 }
 
 const Homey = require('homey');
@@ -16,16 +15,20 @@ const TuyaBaseDriver = require("./drivers/tuyabasedriver");
 class TuyaCloudApp extends Homey.App {
 
     async onInit() {
-        this.logger = new LogUtil(this.log, true);
+        this.logger = new LogUtil(this.log, this.error, true);
         this.oldclient = TuyaApi;
         this.colormapping = new Colormapping();
         this.initialized = false;
         this._oldconnected = false;
         this._connected = false;
 
-        await this.connectToTuyaApi();
+        try {
+            await this.connectToTuyaApi();
+        } catch (err) {
+            console.error(err.message);
+        }
 
-        this.logToHomey(`Tuya cloud App has been initialized`);
+        this.log(`Tuya cloud App has been initialized`);
         this.initialized = true;
     }
 
@@ -39,17 +42,34 @@ class TuyaCloudApp extends Homey.App {
                 .registerRunListener(async (args) => this._onFlowActionSetScene(args))
                 .getArgument('scene')
                 .registerAutocompleteListener(async (query, args) => this._onSceneAutoComplete(query, args));
+                var options = {excerpt:`You are still using the old deprecated API and drivers, please switch to new drivers only. See community forum for details. https://community.homey.app/t/app-pro-tuya-cloud/21313` }
+                await this.homey.notifications.createNotification(options);
         }
 
         if (apiToUse != null && apiToUse !== 'legacy') {
             this.UseOfficialApi = true;
             await this.initTuyaSDK();
 
-            this.homey.flow.getActionCard('setTuyaScene')
-                .registerRunListener(async (args) => this._onFlowActionSetTuyaScene(args))
-                .getArgument('scene')
-                .registerAutocompleteListener(async (query, args) => this._onTuyaSceneAutoComplete(query, args));
+            await this.registerFlows();
         }
+    }
+
+    async registerFlows() {
+        this.homey.flow.getActionCard('setTuyaScene')
+            .registerRunListener(async (args) => this._onFlowActionSetTuyaScene(args))
+            .getArgument('scene')
+            .registerAutocompleteListener(async (query, args) => this._onTuyaSceneAutoComplete(query, args));
+        this.homey.flow.getActionCard('sendTuyaTextCommand')
+            .registerRunListener(async (args) => this._onFlowActionSendTuyaCommand(args));
+        this.homey.flow.getActionCard('sendTuyaNumberCommand')
+            .registerRunListener(async (args) => this._onFlowActionSendTuyaCommand(args));
+        this.homey.flow.getActionCard('sendTuyaFalseCommand')
+            .registerRunListener(async (args) => this._onFlowActionSendFalseTuyaCommand(args));
+        this.homey.flow.getActionCard('sendTuyaTrueCommand')
+            .registerRunListener(async (args) => this._onFlowActionSendTrueTuyaCommand(args));
+        this.tuyaTextMessagetrigger = this.homey.flow.getTriggerCard("tuyaTextMesage");
+        this.tuyaNumberMessagetrigger = this.homey.flow.getTriggerCard("tuyaNumberMesage");
+        this.tuyaBoolMessagetrigger = this.homey.flow.getTriggerCard("tuyaBoolMesage");
     }
 
     async initTuyaSDK() {
@@ -65,13 +85,13 @@ class TuyaCloudApp extends Homey.App {
         try {
             this.devices = await this.tuyaOpenApi.getDevices();
         } catch (e) {
-            this.logToHomey('Failed to get device information.');
+            this.error('Failed to get device information.');
             return;
         }
         try {
             this.scenes = await this.tuyaOpenApi.getScenes();
         } catch (e) {
-            this.logToHomey(e);
+            this.error(e);
             return;
         }
 
@@ -86,6 +106,11 @@ class TuyaCloudApp extends Homey.App {
         this._connected = true;
     }
 
+    async refreshScenes() {
+        this.log("Refresh scenes");
+        this.scenes = await this.tuyaOpenApi.getScenes();
+    }
+
     async connect() {
         this.oldclient.init(
             this.homey.settings.get('username'),
@@ -95,9 +120,9 @@ class TuyaCloudApp extends Homey.App {
         this.oldclient
             .on("device_updated", this._olddeviceUpdated.bind(this))
             .on("device_removed", this._olddeviceRemoved.bind(this));
-        this.logToHomey("Start connection to cloud.");
+        this.log("Start connection to cloud.");
         await this.oldclient.connect();
-        this.logToHomey("Connected to cloud.");
+        this.log("Connected to cloud.");
         this._oldconnected = true;
         this.colormapping.setColorMap();
     }
@@ -113,16 +138,19 @@ class TuyaCloudApp extends Homey.App {
     async onMQTTMessage(message) {
         if (message.bizCode) {
             if (message.bizCode === 'delete') {
-                this.logToHomey(message.devId + ' removed');
+                this.log(message.devId + ' removed');
                 // TODO: remove from devices list or rebuild device array
             } else if (message.bizCode === 'bindUser') {
                 let deviceInfo = await this.tuyaOpenApi.getDeviceInfo(message.bizData.devId);
                 let functions = await this.tuyaOpenApi.getDeviceFunctions(message.bizData.devId);
-                let device = Object.assign(deviceInfo, functions);
-                this.devices.push(device);
+                if (deviceInfo != null) {
+                    let device = Object.assign(deviceInfo, functions);
+                    this.devices.push(device);
+                }
             }
         } else {
             this.refreshDeviceStates(message);
+            this.triggerTuyaMessageFlow(message);
         }
     }
 
@@ -134,7 +162,7 @@ class TuyaCloudApp extends Homey.App {
                 }
             }
         } else {
-            this.logToHomey("No devices found");
+            this.log("No devices found");
         }
         return null;
     }
@@ -142,6 +170,9 @@ class TuyaCloudApp extends Homey.App {
     //refresh Accessorie status
     async refreshDeviceStates(message) {
         let device = this.get_device_by_devid(message.devId);
+        if (device == null) {
+            return;
+        }
         let type = TuyaBaseDriver.get_type_by_category(device.category);
         let driver = this.getTypeDriver(type);
         if (driver != null) {
@@ -158,7 +189,9 @@ class TuyaCloudApp extends Homey.App {
             case 'switch':
                 return this.homey.drivers.getDriver('tuyaswitch');
             case 'cover':
-                break;
+                return this.homey.drivers.getDriver('tuyacover');
+            case 'pir':
+                return this.homey.drivers.getDriver('tuyapir');
             case 'airConditioner':
                 return this.homey.drivers.getDriver('air-conditioner');
             case 'airPurifier':
@@ -166,17 +199,24 @@ class TuyaCloudApp extends Homey.App {
             case 'fan':
                 break;
             case 'smokeSensor':
+                return this.homey.drivers.getDriver('tuyasmoke');
                 break;
             case 'heater':
                 break;
             case 'garageDoorOpener':
                 break;
             case 'contactSensor':
+                return this.homey.drivers.getDriver('tuyacontact');
                 //contact sensor
                 break;
             case 'leakSensor':
                 //leak sensor
                 break;
+            case 'presenceSensor':
+                return this.homey.drivers.getDriver('tuyapresence');
+                //contact sensor
+                break;
+
             default:
                 break;
         }
@@ -184,17 +224,58 @@ class TuyaCloudApp extends Homey.App {
     }
 
     updateCapabilities(driver, devId, status) {
-        this.logToHomey("Get device for: " + devId);
-        let homeyDevice
-        try{
-            homeyDevice = driver.getDevice({ id: devId })
-        }catch (e) {
+        this.log("Get device for: " + devId);
+        let homeyDevice;
+        try {
+            homeyDevice = driver.getDevice({ id: devId });
+        } catch (e) {
             // this is not an error, it just means that the device is not registered
-            console.log(`device ${devId} not added to Homey` );
+            this.log(`device ${devId} not added to Homey`);
             return;
         }
-        this.logToHomey("Device found");
+        this.log("Device found");
         homeyDevice.updateCapabilities(status);
+
+
+
+    }
+
+    async triggerTuyaMessageFlow(message) {
+        message.status.forEach(func => {
+            if (typeof func.value === 'undefined') {
+                return;
+            }
+            if (typeof func.value === 'boolean') {
+                const booltokens = {
+                    tuyaDeviceId: message.devId,
+                    functionname: func.code,
+                    functionValue: func.value
+                };
+
+                this.tuyaBoolMessagetrigger
+                    .trigger(booltokens)
+                    .catch(this.error);
+            }
+            if (typeof func.value == 'number') {
+                const numtokens = {
+                    tuyaDeviceId: message.devId,
+                    functionname: func.code,
+                    functionValue: func.value
+                };
+                this.tuyaNumberMessagetrigger
+                    .trigger(numtokens)
+                    .catch(this.error);
+            }
+
+            const tokens = {
+                tuyaDeviceId: message.devId,
+                functionname: func.code,
+                functionValue: String(func.value)
+            };
+            this.tuyaTextMessagetrigger
+                .trigger(tokens)
+                .catch(this.error);
+        });
     }
 
     _olddeviceUpdated(tuyaDevice) {
@@ -212,7 +293,7 @@ class TuyaCloudApp extends Homey.App {
                 default:
                     break;
             }
-            this.logToHomey(`${tuyaDevice.name} updated`);
+            this.log(`${tuyaDevice.name} updated`);
         }
     }
 
@@ -222,22 +303,22 @@ class TuyaCloudApp extends Homey.App {
                 return this.homey.drivers.getDriver(type);
             return null;
         }
-        catch{
+        catch {
             return null;
         }
     }
 
     updateOldCapabilities(driver, tuyaDevice) {
-        if (driver!== null && driver !== undefined) {
-            this.logToHomey("Get legacy device for: " + tuyaDevice.id);
-            try{
+        if (driver !== null && driver !== undefined) {
+            this.log("Get legacy device for: " + tuyaDevice.id);
+            try {
                 let homeyDevice = driver.getDevice({ id: tuyaDevice.id });
                 if (homeyDevice instanceof Error) return;
-                this.logToHomey("Legacy device found");
+                this.log("Legacy device found");
                 homeyDevice.updateData(tuyaDevice.data);
                 homeyDevice.updateCapabilities();
             }
-            catch(err){
+            catch (err) {
 
             }
         }
@@ -245,14 +326,14 @@ class TuyaCloudApp extends Homey.App {
 
     _olddeviceRemoved(acc) {
         if (acc != null)
-            this.logToHomey(acc.name + ' removed');
+            this.log(acc.name + ' removed');
     }
 
     async _onFlowActionSetScene(args) {
         try {
             return this.oldclient.device_control(args.scene.instanceId, 'turnOnOff', { value: '1' }, 'control');
         } catch (ex) {
-            this.logToHomey(ex);
+            this.error(ex);
         }
     }
 
@@ -267,7 +348,61 @@ class TuyaCloudApp extends Homey.App {
         try {
             return this.tuyaOpenApi.executeScene(args.scene.instanceId);
         } catch (ex) {
-            this.logToHomey(ex);
+            this.error(ex);
+        }
+    }
+
+    async _onFlowActionSendFalseTuyaCommand(args) {
+        try {
+            var param = {
+                "commands": [
+                    {
+                        "code": args.functionname,
+                        "value": false
+                    }
+                ]
+            };
+            this.tuyaOpenApi.sendCommand(args.tuyaDeviceId, param).catch((error) => {
+                this.error('[SET][%s] capabilities Error: %s', args.tuyaDeviceId, error);
+            });
+        } catch (ex) {
+            this.error(ex);
+        }
+    }
+
+    async _onFlowActionSendTrueTuyaCommand(args) {
+        try {
+            var param = {
+                "commands": [
+                    {
+                        "code": args.functionname,
+                        "value": true
+                    }
+                ]
+            };
+            this.tuyaOpenApi.sendCommand(args.tuyaDeviceId, param).catch((error) => {
+                this.log.error('[SET][%s] capabilities Error: %s', args.tuyaDeviceId, error);
+            });
+        } catch (ex) {
+            this.error(ex);
+        }
+    }
+
+    async _onFlowActionSendTuyaCommand(args) {
+        try {
+            var param = {
+                "commands": [
+                    {
+                        "code": args.functionname,
+                        "value": args.functionValue
+                    }
+                ]
+            };
+            this.tuyaOpenApi.sendCommand(args.tuyaDeviceId, param).catch((error) => {
+                this.log.error('[SET][%s] capabilities Error: %s', args.tuyaDeviceId, error);
+            });
+        } catch (ex) {
+            this.error(ex);
         }
     }
 
@@ -275,10 +410,6 @@ class TuyaCloudApp extends Homey.App {
         return this.scenes.map(s => {
             return { instanceId: s.scene_id, name: s.name };
         });
-    }
-
-    logToHomey(data) {
-        this.logger.log(data);
     }
 }
 module.exports = TuyaCloudApp;
