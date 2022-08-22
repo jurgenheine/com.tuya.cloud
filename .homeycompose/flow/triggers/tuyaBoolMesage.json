@@ -1,7 +1,7 @@
 {
 	"title": {
-		"en": "Tyua boolean event received",
-		"nl": "Tyua boolean bericht ontvangen"
+		"en": "Boolean event received",
+		"nl": "Boolean bericht ontvangen"
 	},
 	"titleFormatted": {
 		"en": "Boolean event received",
@@ -12,8 +12,8 @@
 			"name": "tuyaDeviceId",
 			"type": "string",
 			"title": {
-				"en": "Tuya Device id",
-				"nl": "Tuya apparaat id"
+				"en": "Device id",
+				"nl": "Apparaat id"
 			}
 		},
 		{

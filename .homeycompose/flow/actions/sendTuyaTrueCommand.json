@@ -1,19 +1,19 @@
 {
 	"title": {
-		"en": "Send true command to Tuya",
+		"en": "Send true command",
 		"nl": "Vertuur waafr commando naar Tuya"
 	},
 	"titleFormatted": {
-		"en": "Send [[functionname]] command with \"true\" to Tuya device [[tuyaDeviceId]]",
-		"nl": "Vertuur [[functionname]] commando met waarde \"waar\" naar Tuya apparaat [[tuyaDeviceId]]"
+		"en": "Send [[functionname]] command with \"true\" to device [[tuyaDeviceId]]",
+		"nl": "Vertuur [[functionname]] commando met waarde \"waar\" naar apparaat [[tuyaDeviceId]]"
 	},
 	"args": [
 		{
 			"name": "tuyaDeviceId",
 			"type": "text",
 			"title": {
-				"en": "Tuya Device id",
-				"nl": "Tuya apparaat id"
+				"en": "Device id",
+				"nl": "Apparaat id"
 			}
 		},
 		{

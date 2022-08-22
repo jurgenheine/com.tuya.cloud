@@ -6,8 +6,16 @@ class TuyaPirDevice extends TuyaBaseDevice {
 
     onInit() {
         this.initDevice(this.getData().id);
+        this.fixCapabilities();
         this.setDeviceConfig(this.get_deviceConfig());
         this.log(`Tuya pir ${this.getName()} has been initialized`);
+    }
+
+    fixCapabilities() {
+        if (this.hasCapability("alarm_battery")) {
+            this.homey.log("remove double capabality alarm_battery");
+            this.removeCapability("alarm_battery");
+        }
     }
 
     setDeviceConfig(deviceConfig) {
@@ -20,7 +28,7 @@ class TuyaPirDevice extends TuyaBaseDevice {
             this.homey.log("No device config found");
         }
     }
-
+    
     //init Or refresh AccessoryService
     updateCapabilities(statusArr) {
         this.log("Update pir capabilities from Tuya: " + JSON.stringify(statusArr));
@@ -47,22 +55,18 @@ class TuyaPirDevice extends TuyaBaseDevice {
             if (statusMap.code === "battery_percentage") {
                 this.batteryStatus = statusMap;
                 this.setCapabilityValue("measure_battery", this.batteryStatus.value).catch(this.error);
-                this.setCapabilityValue("alarm_battery", this.batteryStatus.value < 20).catch(this.error);
             }else if (statusMap.code === "battery_state") {
                 this.batteryStatus = statusMap;
                 var rawStatus = this.batteryStatus.value;
                 switch (rawStatus) {
                     case "low":
                         this.setCapabilityValue("measure_battery", 10).catch(this.error);
-                        this.setCapabilityValue("alarm_battery", true).catch(this.error);
                         break;
                     case "middle":
                         this.setCapabilityValue("measure_battery", 50).catch(this.error);
-                        this.setCapabilityValue("alarm_battery", false).catch(this.error);
                         break;
                     case "high":
                         this.setCapabilityValue("measure_battery", 100).catch(this.error);
-                        this.setCapabilityValue("alarm_battery", false).catch(this.error);
                         break;
                     default:
                         break;
