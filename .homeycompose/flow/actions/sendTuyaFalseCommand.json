@@ -1,11 +1,11 @@
 {
 	"title": {
 		"en": "Send false command",
-		"nl": "Vertuur niet waar commando"
+		"nl": "Verstuur niet waar commando"
 	},
 	"titleFormatted": {
 		"en": "Send [[functionname]] command with value \"false\" to device [[tuyaDeviceId]]",
-		"nl": "Vertuur [[functionname]] commando met waarde \"niet\" waar naar apparaat [[tuyaDeviceId]]"
+		"nl": "Verstuur [[functionname]] commando met waarde \"niet\" waar naar apparaat [[tuyaDeviceId]]"
 	},
 	"args": [
 		{

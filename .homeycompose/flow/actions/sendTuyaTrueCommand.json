@@ -1,11 +1,11 @@
 {
 	"title": {
 		"en": "Send true command",
-		"nl": "Vertuur waafr commando naar Tuya"
+		"nl": "Verstuur waafr commando naar Tuya"
 	},
 	"titleFormatted": {
 		"en": "Send [[functionname]] command with \"true\" to device [[tuyaDeviceId]]",
-		"nl": "Vertuur [[functionname]] commando met waarde \"waar\" naar apparaat [[tuyaDeviceId]]"
+		"nl": "Verstuur [[functionname]] commando met waarde \"waar\" naar apparaat [[tuyaDeviceId]]"
 	},
 	"args": [
 		{
