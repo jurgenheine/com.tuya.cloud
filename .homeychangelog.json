@@ -112,5 +112,8 @@
   },
   "1.1.7": {
     "en": "fix errors and added deprecated messages"
+  },
+  "1.1.8": {
+    "en": "Fix naming and titles flows, fixed battery status"
   }
 }
