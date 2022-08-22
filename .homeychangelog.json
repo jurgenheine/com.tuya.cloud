@@ -115,5 +115,8 @@
   },
   "1.1.8": {
     "en": "Fix naming and titles flows, fixed battery status"
+  },
+  "1.1.9": {
+    "en": "language errors corrected"
   }
 }
