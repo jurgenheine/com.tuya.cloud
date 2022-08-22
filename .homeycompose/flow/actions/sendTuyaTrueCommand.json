@@ -1,7 +1,7 @@
 {
 	"title": {
 		"en": "Send true command",
-		"nl": "Verstuur waafr commando naar Tuya"
+		"nl": "Verstuur waar commando naar Tuya"
 	},
 	"titleFormatted": {
 		"en": "Send [[functionname]] command with \"true\" to device [[tuyaDeviceId]]",
