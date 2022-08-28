@@ -6,17 +6,6 @@
   },
   "class": "thermostat",
   "capabilities": [
-    "onoff",
-    "thermostat_heater_mode",
-    "measure_temperature",
-    "target_temperature"
   ],
-  "capabilitiesOptions": {
-    "target_temperature": {
-      "min": 18,
-      "max": 30,
-      "step": 1
-    }
-  },
   "$extends": [ "defaults" ]
 }
