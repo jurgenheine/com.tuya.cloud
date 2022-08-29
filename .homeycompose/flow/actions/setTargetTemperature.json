@@ -1,0 +1,28 @@
+{
+    "title": {
+        "en": "Set target temperature",
+        "de": "Setze die Zieltemperatur",
+        "nl": "Stel de doeltemperatuur in"
+},
+    "titleFormatted": {
+        "en": "Set target temperature to [[target_temperature]]",
+        "de": "Setze die Zieltemperatur auf [[target_temperature]]",
+        "nl": "Stel de doeltemperatuur in [[target_temperature]]"
+    },
+    "args": [
+        {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=heater"
+        },
+        {
+            "name": "target_temperature",
+            "type": "number",
+            "title": {
+                "en": "Target temperature",
+                "de": "Zieltemperatur",
+                "nl": "Doeltemperatuur"
+                }
+        }
+    ]
+}

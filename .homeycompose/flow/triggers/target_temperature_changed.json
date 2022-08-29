@@ -1,0 +1,28 @@
+{
+    "title": {
+        "en": "Target temperature has changed",
+        "de": "Zieltemperatur hat sich geändert",
+        "nl": "Doeltemperatuur is veranderd"
+    },
+    "hint": {
+        "en": "Triggers when the target temperature changes.",
+        "de": "Wird ausgelöst, wenn sich die Zielemperatur ändert.",
+        "nl": "Triggert zodra de doeltemperatuur veranderd."
+    },
+    "tokens": [{
+            "name": "target_temperature",
+            "type": "number",
+            "title": {
+                "en": "Target temperature (°C)",
+                "de": "Zieltemperatur (°C)",
+                "nl": "Doeltemperatuur (°C)"
+            },
+            "example": 15
+        }
+    ],
+    "args": [{
+        "name": "device",
+        "type": "device",
+        "filter": "driver_id=heater"
+    }]
+}
