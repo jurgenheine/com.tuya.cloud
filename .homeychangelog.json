@@ -121,5 +121,8 @@
   },
   "1.1.10": {
     "en": "Heater added by Ronny Winkler"
+  },
+  "1.1.11": {
+    "en": "Flows for heater"
   }
 }
