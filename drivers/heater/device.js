@@ -33,7 +33,7 @@ class TuyaHeaterDevice extends TuyaBaseDevice {
         this.log("Heater capabilities changed by Homey: " + JSON.stringify(valueObj));
         try {
             if (valueObj.target_temperature != null) {
-                this.set_target_temperature(Math.round(valueObj.target_temperature));
+                this.set_target_temperature(valueObj.target_temperature);
             }
             if (valueObj.onoff != null) {
                 this.set_on_off(valueObj.onoff === true || valueObj.onoff === 1);
