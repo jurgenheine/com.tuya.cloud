@@ -124,5 +124,8 @@
   },
   "1.1.11": {
     "en": "Flows for heater"
+  },
+  "1.1.12": {
+    "en": "forced re-auth when authentication error received"
   }
 }
