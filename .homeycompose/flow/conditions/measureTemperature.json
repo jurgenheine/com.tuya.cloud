@@ -17,7 +17,7 @@
     "args": [{
             "name": "device",
             "type": "device",
-            "filter": "driver_id=heater"
+            "filter": "driver_id=heater|thermostat"
         },
         {
             "name": "measure_temperature",

@@ -2,10 +2,10 @@
 
 const TuyaBaseDriver = require('../tuyabasedriver');
 
-class TuyaHeaterDriver extends TuyaBaseDriver {
+class TuyaThermostatDriver extends TuyaBaseDriver {
 
     onInit() {
-        this.log('Tuya Heater driver has been initialized');
+        this.log('Tuya Thermostat driver has been initialized');
     }
 
     async onPairListDevices() {
@@ -14,11 +14,11 @@ class TuyaHeaterDriver extends TuyaBaseDriver {
             throw new Error("Please configure the app first.");
         }
         else {
-            let heater = this.get_devices_by_type("heater");
+            let heater = this.get_devices_by_type("thermostat");
             for (let tuyaDevice of Object.values(heater)) {
                 let capabilities = [];
                 let capabilitiesOptions = {};
-                this.log("Add heater, device details:");
+                this.log("Add thermostat, device details:");
                 this.log(tuyaDevice);
                 if (tuyaDevice.status){
                     for (let i=0; i<tuyaDevice.status.length; i++){
@@ -48,14 +48,14 @@ class TuyaHeaterDriver extends TuyaBaseDriver {
                                         "step": values.step
                                     };
                                 break;
-                            case "mode":
-                                values = JSON.parse(tuyaDevice.functions[i].values);
-                                if (values.range != null){
-                                    if (values.range.indexOf("auto") >= 0){
-                                        capabilities.push("thermostat_heater_mode");
-                                    }
-                                }
-                                break;
+                            // case "mode":
+                            //     values = JSON.parse(tuyaDevice.functions[i].values);
+                            //     if (values.range != null){
+                            //         if (values.range.indexOf("auto") >= 0){
+                            //             capabilities.push("thermostat_heater_mode");
+                            //         }
+                            //     }
+                            //     break;
                             default:
                                 break;
                         }
@@ -76,4 +76,4 @@ class TuyaHeaterDriver extends TuyaBaseDriver {
     }
 }
 
-module.exports = TuyaHeaterDriver;
+module.exports = TuyaThermostatDriver;

@@ -1,8 +1,8 @@
 {
   "name": {
-    "en": "Heater",
-    "de": "Heizung",
-    "nl": "Verwarming"
+    "en": "Thermostat",
+    "de": "Thermostat",
+    "nl": "Thermostaat"
   },
   "class": "thermostat",
   "capabilities": [
