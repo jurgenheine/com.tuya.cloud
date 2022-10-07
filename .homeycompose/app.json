@@ -10,7 +10,7 @@
     "nl": "Deze app laat je connectie maken met de Tuya cloud"
   },
   "category": "lights",
-  "version": "1.1.10",
+  "version": "1.1.12",
   "compatibility": ">=5.0.0",
   "author": {
     "name": "Jurgen Heine",
@@ -29,6 +29,9 @@
       },
       {
         "name": "Adrian Rockall"
+      },
+      {
+        "name": "Ronny Winkler"
       }
     ]
   },

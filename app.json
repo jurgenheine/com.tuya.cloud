@@ -11,7 +11,7 @@
     "nl": "Deze app laat je connectie maken met de Tuya cloud"
   },
   "category": "lights",
-  "version": "1.1.10",
+  "version": "1.1.12",
   "compatibility": ">=5.0.0",
   "author": {
     "name": "Jurgen Heine",
@@ -30,6 +30,9 @@
       },
       {
         "name": "Adrian Rockall"
+      },
+      {
+        "name": "Ronny Winkler"
       }
     ]
   },
@@ -155,6 +158,38 @@
           }
         ],
         "id": "socketChanged"
+      },
+      {
+        "title": {
+          "en": "Target temperature has changed",
+          "de": "Zieltemperatur hat sich geändert",
+          "nl": "Doeltemperatuur is veranderd"
+        },
+        "hint": {
+          "en": "Triggers when the target temperature changes.",
+          "de": "Wird ausgelöst, wenn sich die Zielemperatur ändert.",
+          "nl": "Triggert zodra de doeltemperatuur veranderd."
+        },
+        "tokens": [
+          {
+            "name": "target_temperature",
+            "type": "number",
+            "title": {
+              "en": "Target temperature (°C)",
+              "de": "Zieltemperatur (°C)",
+              "nl": "Doeltemperatuur (°C)"
+            },
+            "example": 15
+          }
+        ],
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=heater"
+          }
+        ],
+        "id": "target_temperature_changed"
       },
       {
         "title": {
@@ -294,6 +329,64 @@
           }
         ],
         "id": "isSocketOnOff"
+      },
+      {
+        "title": {
+          "en": "Temperature !{{is|isn't}} higher than",
+          "de": "Temperatur !{{ist|ist nicht}} größer als",
+          "nl": "Temperatuur !{{is|is niet}} hoger dan"
+        },
+        "titleFormatted": {
+          "en": "Temperature !{{is|isn't}} higher than [[measure_temperature]]",
+          "de": "Temperatur !{{ist|ist nicht}} größer als [[measure_temperature]]",
+          "nl": "Temperatuur !{{is|is niet}} hoger dan [[measure_temperature]]"
+        },
+        "hint": {
+          "en": "Temperature in degrees Celsius.",
+          "de": "Temperatur in Grad Celsius",
+          "nl": "Temperatuur in graden Celsius."
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=heater"
+          },
+          {
+            "name": "measure_temperature",
+            "type": "number"
+          }
+        ],
+        "id": "measureTemperature"
+      },
+      {
+        "title": {
+          "en": "Target temperature !{{is|isn't}} higher than",
+          "de": "Zieltemperatur !{{ist|ist nicht}} größer als",
+          "nl": "Doeltemperatuur !{{is|is niet}} hoger dan"
+        },
+        "titleFormatted": {
+          "en": "Target temperature !{{is|isn't}} higher than [[target_temperature]]",
+          "de": "Zieltemperatur !{{ist|ist nicht}} größer als [[target_temperature]]",
+          "nl": "Doeltemperatuur !{{is|is niet}} hoger dan [[target_temperature]]"
+        },
+        "hint": {
+          "en": "Target temperature in degrees Celsius.",
+          "de": "Zieltemperatur in Grad Celsius",
+          "nl": "Doeltemperatuur in graden Celsius."
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=heater"
+          },
+          {
+            "name": "target_temperature",
+            "type": "number"
+          }
+        ],
+        "id": "targetTemperature"
       }
     ],
     "actions": [
@@ -495,6 +588,35 @@
           }
         ],
         "id": "setSocket"
+      },
+      {
+        "title": {
+          "en": "Set target temperature",
+          "de": "Setze die Zieltemperatur",
+          "nl": "Stel de doeltemperatuur in"
+        },
+        "titleFormatted": {
+          "en": "Set target temperature to [[target_temperature]]",
+          "de": "Setze die Zieltemperatur auf [[target_temperature]]",
+          "nl": "Stel de doeltemperatuur in [[target_temperature]]"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=heater"
+          },
+          {
+            "name": "target_temperature",
+            "type": "number",
+            "title": {
+              "en": "Target temperature",
+              "de": "Zieltemperatur",
+              "nl": "Doeltemperatuur"
+            }
+          }
+        ],
+        "id": "setTargetTemperature"
       },
       {
         "title": {
