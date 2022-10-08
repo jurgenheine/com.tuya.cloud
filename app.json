@@ -186,7 +186,7 @@
           {
             "name": "device",
             "type": "device",
-            "filter": "driver_id=heater"
+            "filter": "driver_id=heater|thermostat"
           }
         ],
         "id": "target_temperature_changed"
@@ -350,7 +350,7 @@
           {
             "name": "device",
             "type": "device",
-            "filter": "driver_id=heater"
+            "filter": "driver_id=heater|thermostat"
           },
           {
             "name": "measure_temperature",
@@ -379,7 +379,7 @@
           {
             "name": "device",
             "type": "device",
-            "filter": "driver_id=heater"
+            "filter": "driver_id=heater|thermostat"
           },
           {
             "name": "target_temperature",
@@ -604,7 +604,7 @@
           {
             "name": "device",
             "type": "device",
-            "filter": "driver_id=heater"
+            "filter": "driver_id=heater|thermostat"
           },
           {
             "name": "target_temperature",
@@ -760,7 +760,7 @@
       ],
       "name": {
         "en": "Heater",
-        "pl": "Heizung",
+        "de": "Heizung",
         "nl": "Verwarming"
       },
       "class": "thermostat",
@@ -842,6 +842,40 @@
       ],
       "deprecated": true,
       "id": "switch"
+    },
+    {
+      "images": {
+        "large": "/drivers/thermostat/assets/images/large.png",
+        "small": "/drivers/thermostat/assets/images/small.png"
+      },
+      "icon": "/drivers/thermostat/assets/icon.svg",
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
+      "pair": [
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ],
+      "name": {
+        "en": "Thermostat",
+        "de": "Thermostat",
+        "nl": "Thermostaat"
+      },
+      "class": "thermostat",
+      "capabilities": [],
+      "id": "thermostat"
     },
     {
       "images": {
