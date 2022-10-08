@@ -59,6 +59,10 @@ class TuyaBaseDriver extends Homey.Driver {
         {
             "type": "presenceSensor",
             "category":['hps']
+        },
+        {
+            "type": "thermostat",
+            "category":['wk']
         }
     ];
 
