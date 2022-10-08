@@ -127,5 +127,8 @@
   },
   "1.1.12": {
     "en": "forced re-auth when authentication error received"
+  },
+  "1.1.13": {
+    "en": "Thermostat added by Ronny Winkler"
   }
 }
