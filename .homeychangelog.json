@@ -130,5 +130,8 @@
   },
   "1.1.13": {
     "en": "Thermostat added by Ronny Winkler"
+  },
+  "1.1.14": {
+    "en": "Bugfix temperatures in thermostat"
   }
 }
