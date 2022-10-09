@@ -33,7 +33,7 @@ class TuyaThermostatDevice extends TuyaBaseDevice {
         this.log("Thermostat capabilities changed by Homey: " + JSON.stringify(valueObj));
         try {
             if (valueObj.target_temperature != null) {
-                this.set_target_temperature(valueObj.target_temperature);
+                this.set_target_temperature(valueObj.target_temperature*10);
             }
             if (valueObj.onoff != null) {
                 this.set_on_off(valueObj.onoff === true || valueObj.onoff === 1);
@@ -60,10 +60,10 @@ class TuyaThermostatDevice extends TuyaBaseDevice {
                     // }
                     break;
                 case 'temp_set':
-                    this.normalAsync('target_temperature', status.value);
+                    this.normalAsync('target_temperature', status.value/10);
                     break;
                 case 'temp_current':
-                    this.normalAsync('measure_temperature', status.value);
+                    this.normalAsync('measure_temperature', status.value/10);
                     break;
                 // case 'mode':
                 //     const homeyMode = tuyaToHomeyModeMap.get(status.value);
