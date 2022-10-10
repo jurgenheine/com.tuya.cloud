@@ -22,6 +22,10 @@ const homeyToTuyaModeMap = new Map([
 
 class TuyaHeaterDevice extends TuyaBaseDevice {
     onInit() {
+        this.scale = this.getData().scale;
+        if (this.scale == undefined){
+            this.scale = 1;
+        }
         this.lastKnowHomeyThermostatMode = 'off'
         this.initDevice(this.getData().id);
         this.updateCapabilities(this.get_deviceConfig().status);
@@ -33,7 +37,7 @@ class TuyaHeaterDevice extends TuyaBaseDevice {
         this.log("Heater capabilities changed by Homey: " + JSON.stringify(valueObj));
         try {
             if (valueObj.target_temperature != null) {
-                this.set_target_temperature(valueObj.target_temperature);
+                this.set_target_temperature(valueObj.target_temperature*Math.pow(10,this.scale));
             }
             if (valueObj.onoff != null) {
                 this.set_on_off(valueObj.onoff === true || valueObj.onoff === 1);
@@ -60,10 +64,10 @@ class TuyaHeaterDevice extends TuyaBaseDevice {
                     }
                     break;
                 case 'temp_set':
-                    this.normalAsync('target_temperature', status.value);
+                    this.normalAsync('target_temperature', status.value/Math.pow(10,this.scale));
                     break;
                 case 'temp_current':
-                    this.normalAsync('measure_temperature', status.value);
+                    this.normalAsync('measure_temperature', status.value/Math.pow(10,this.scale));
                     break;
                 case 'mode':
                     const homeyMode = tuyaToHomeyModeMap.get(status.value);
