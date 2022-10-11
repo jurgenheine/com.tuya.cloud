@@ -133,5 +133,8 @@
   },
   "1.1.14": {
     "en": "Bugfix temperatures in thermostat"
+  },
+  "1.1.15": {
+    "en": "Use scaling of Tuya device for number of digits by Ronny Winkler"
   }
 }
