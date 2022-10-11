@@ -10,12 +10,14 @@ class TuyaThermostatDriver extends TuyaBaseDriver {
 
     async onPairListDevices() {
         let devices = [];
+        let scale;
         if (!this.homey.app.isConnected()) {
             throw new Error("Please configure the app first.");
         }
         else {
             let heater = this.get_devices_by_type("thermostat");
             for (let tuyaDevice of Object.values(heater)) {
+                scale = 1;
                 let capabilities = [];
                 let capabilitiesOptions = {};
                 this.log("Add thermostat, device details:");
@@ -43,10 +45,12 @@ class TuyaThermostatDriver extends TuyaBaseDriver {
                                 capabilities.push("target_temperature");
                                 capabilitiesOptions["target_temperature"] = 
                                     {
-                                        "min": values.min/10,
-                                        "max": values.max/10,
-                                        "step": values.step/10
+                                        "min": values.min/Math.pow(10,values.scale),
+                                        "max": values.max/(10,values.scale),
+                                        "step": values.step/Math.pow(10,values.scale),
+                                        "decimals": values.scale
                                     };
+                                scale = values.scale;
                                 break;
                             // case "mode":
                             //     values = JSON.parse(tuyaDevice.functions[i].values);
@@ -63,7 +67,8 @@ class TuyaThermostatDriver extends TuyaBaseDriver {
                 }
                 devices.push({
                     data: {
-                        id: tuyaDevice.id
+                        id: tuyaDevice.id,
+                        scale: scale
                     },
                     capabilities: capabilities,
                     capabilitiesOptions: capabilitiesOptions,

@@ -10,12 +10,14 @@ class TuyaHeaterDriver extends TuyaBaseDriver {
 
     async onPairListDevices() {
         let devices = [];
+        let scale;
         if (!this.homey.app.isConnected()) {
             throw new Error("Please configure the app first.");
         }
         else {
             let heater = this.get_devices_by_type("heater");
             for (let tuyaDevice of Object.values(heater)) {
+                scale = 1;
                 let capabilities = [];
                 let capabilitiesOptions = {};
                 this.log("Add heater, device details:");
@@ -41,11 +43,13 @@ class TuyaHeaterDriver extends TuyaBaseDriver {
                             case "temp_set":
                                 values = JSON.parse(tuyaDevice.functions[i].values);
                                 capabilities.push("target_temperature");
+                                scale = values.scale;
                                 capabilitiesOptions["target_temperature"] = 
                                     {
-                                        "min": values.min,
-                                        "max": values.max,
-                                        "step": values.step
+                                        "min": values.min/Math.pow(10,values.scale),
+                                        "max": values.max/Math.pow(10,values.scale),
+                                        "step": values.step/Math.pow(10,values.scale),
+                                        "decimals": values.scale
                                     };
                                 break;
                             case "mode":
@@ -63,7 +67,8 @@ class TuyaHeaterDriver extends TuyaBaseDriver {
                 }
                 devices.push({
                     data: {
-                        id: tuyaDevice.id
+                        id: tuyaDevice.id,
+                        scale: scale
                     },
                     capabilities: capabilities,
                     capabilitiesOptions: capabilitiesOptions,
