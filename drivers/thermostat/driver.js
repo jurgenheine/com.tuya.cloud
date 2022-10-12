@@ -46,7 +46,7 @@ class TuyaThermostatDriver extends TuyaBaseDriver {
                                 capabilitiesOptions["target_temperature"] = 
                                     {
                                         "min": values.min/Math.pow(10,values.scale),
-                                        "max": values.max/(10,values.scale),
+                                        "max": values.max/Math.pow(10,values.scale),
                                         "step": values.step/Math.pow(10,values.scale),
                                         "decimals": values.scale
                                     };
