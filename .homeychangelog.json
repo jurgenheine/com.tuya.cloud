@@ -136,5 +136,8 @@
   },
   "1.1.15": {
     "en": "Use scaling of Tuya device for number of digits by Ronny Winkler"
+  },
+  "1.1.16": {
+    "en": "Fix max in thermostat"
   }
 }
