@@ -139,5 +139,8 @@
   },
   "1.1.16": {
     "en": "Fix max in thermostat"
+  },
+  "1.1.17": {
+    "en": "Fix min/max of thermostat"
   }
 }
