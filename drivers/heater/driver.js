@@ -67,7 +67,9 @@ class TuyaHeaterDriver extends TuyaBaseDriver {
                 }
                 devices.push({
                     data: {
-                        id: tuyaDevice.id,
+                        id: tuyaDevice.id
+                    },
+                    store: {
                         scale: scale
                     },
                     capabilities: capabilities,
