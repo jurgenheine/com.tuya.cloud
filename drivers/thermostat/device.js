@@ -23,7 +23,7 @@ const CAPABILITIES_SET_DEBOUNCE = 1000;
 class TuyaThermostatDevice extends TuyaBaseDevice {
     onInit() {
         // this.lastKnowHomeyThermostatMode = 'off'
-        this.scale = this.getData().scale;
+        this.scale = this.getStoreValue('scale');
         if (this.scale == undefined){
             this.scale = 1;
         }

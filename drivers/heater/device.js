@@ -22,7 +22,7 @@ const homeyToTuyaModeMap = new Map([
 
 class TuyaHeaterDevice extends TuyaBaseDevice {
     onInit() {
-        this.scale = this.getData().scale;
+        this.scale = this.getStoreValue('scale');
         if (this.scale == undefined){
             this.scale = 1;
         }
