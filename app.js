@@ -155,7 +155,7 @@ class TuyaCloudApp extends Homey.App {
             } else if (message.bizCode === 'bindUser') {
                 let deviceInfo = await this.tuyaOpenApi.getDeviceInfo(message.bizData.devId);
                 let functions = await this.tuyaOpenApi.getDeviceFunctions(message.bizData.devId);
-                if (deviceInfo != null) {
+                if (deviceInfo != null &&functions !=null) {
                     let device = Object.assign(deviceInfo, functions);
                     this.devices.push(device);
                 }
@@ -376,6 +376,7 @@ class TuyaCloudApp extends Homey.App {
             };
             this.tuyaOpenApi.sendCommand(args.tuyaDeviceId, param).catch((error) => {
                 this.error('[SET][%s] capabilities Error: %s', args.tuyaDeviceId, error);
+                throw new Error(`Error sending command: ${error}`);
             });
         } catch (ex) {
             this.error(ex);
@@ -393,7 +394,8 @@ class TuyaCloudApp extends Homey.App {
                 ]
             };
             this.tuyaOpenApi.sendCommand(args.tuyaDeviceId, param).catch((error) => {
-                this.log.error('[SET][%s] capabilities Error: %s', args.tuyaDeviceId, error);
+                this.error('[SET][%s] capabilities Error: %s', args.tuyaDeviceId, error);
+                throw new Error(`Error sending command: ${error}`);
             });
         } catch (ex) {
             this.error(ex);
@@ -411,7 +413,8 @@ class TuyaCloudApp extends Homey.App {
                 ]
             };
             this.tuyaOpenApi.sendCommand(args.tuyaDeviceId, param).catch((error) => {
-                this.log.error('[SET][%s] capabilities Error: %s', args.tuyaDeviceId, error);
+                this.error('[SET][%s] capabilities Error: %s', args.tuyaDeviceId, error);
+                throw new Error(`Error sending command: ${error}`);
             });
         } catch (ex) {
             this.error(ex);

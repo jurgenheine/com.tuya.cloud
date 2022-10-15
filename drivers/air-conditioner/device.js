@@ -81,7 +81,9 @@ class TuyaAirConditionerDevice extends TuyaBaseDevice {
     normalAsync(name, hbValue) {
         this.log("Set air conditioner Capability " + name + " with " + hbValue);
         this.setCapabilityValue(name, hbValue)
-            .catch(error => console.error(error));
+            .catch((error) => {
+                this.error(error);
+            });
     }
 
     sendCommand(code, value) {
@@ -95,6 +97,7 @@ class TuyaAirConditionerDevice extends TuyaBaseDevice {
         }
         this.homey.app.tuyaOpenApi.sendCommand(this.id, param).catch((error) => {
             this.error('[SET][%s] capabilities Error: %s', this.id, error);
+            throw new Error(`Error sending command: ${error}`);
         });
     }
 
