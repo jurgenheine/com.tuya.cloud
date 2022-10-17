@@ -1,7 +1,7 @@
 'use strict';
 
 if (process.env.DEBUG === '1') {
-    require('inspector').open(9223, '0.0.0.0', true);
+    require('inspector').open(9222, '0.0.0.0', true);
 }
 
 const Homey = require('homey');
@@ -212,9 +212,10 @@ class TuyaCloudApp extends Homey.App {
                 break;
             case 'smokeSensor':
                 return this.homey.drivers.getDriver('tuyasmoke');
-                break;
             case 'heater':
                 return this.homey.drivers.getDriver('heater');
+            case 'thermostat':
+                return this.homey.drivers.getDriver('thermostat');
             case 'garageDoorOpener':
                 break;
             case 'contactSensor':
