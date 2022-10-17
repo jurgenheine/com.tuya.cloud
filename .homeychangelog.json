@@ -142,5 +142,8 @@
   },
   "1.1.17": {
     "en": "Fix min/max of thermostat"
+  },
+  "1.1.18": {
+    "en": "Change error handling flow and thermosat fix"
   }
 }
