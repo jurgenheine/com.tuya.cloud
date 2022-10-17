@@ -1,7 +1,7 @@
 'use strict';
 
 if (process.env.DEBUG === '1') {
-    require('inspector').open(9222, '0.0.0.0', true);
+    require('inspector').open(9223, '0.0.0.0', true);
 }
 
 const Homey = require('homey');
