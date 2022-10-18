@@ -19,20 +19,21 @@ class TuyaThermostatDriver extends TuyaBaseDriver {
             for (let tuyaDevice of Object.values(heater)) {
                 scale = 1;
                 let capabilities = [];
+                capabilities = capabilities.concat(this.manifest.capabilities);
                 let capabilitiesOptions = {};
                 this.log("Add thermostat, device details:");
                 this.log(tuyaDevice);
-                if (tuyaDevice.status){
-                    for (let i=0; i<tuyaDevice.status.length; i++){
-                        switch (tuyaDevice.status[i].code){
-                            case "temp_current":
-                                capabilities.push("measure_temperature");
-                                break;
-                            default:
-                                break;
-                        }
-                    }
-                }
+                // if (tuyaDevice.status){
+                //     for (let i=0; i<tuyaDevice.status.length; i++){
+                //         switch (tuyaDevice.status[i].code){
+                //             case "temp_current":
+                //                 capabilities.push("measure_temperature");
+                //                 break;
+                //             default:
+                //                 break;
+                //         }
+                //     }
+                // }
                 if (tuyaDevice.functions){
                     for (let i=0; i<tuyaDevice.functions.length; i++){
                         let values;
@@ -42,7 +43,7 @@ class TuyaThermostatDriver extends TuyaBaseDriver {
                                 break;
                             case "temp_set":
                                 values = JSON.parse(tuyaDevice.functions[i].values);
-                                capabilities.push("target_temperature");
+                                // capabilities.push("target_temperature");
                                 capabilitiesOptions["target_temperature"] = 
                                     {
                                         "min": values.min/Math.pow(10,values.scale),

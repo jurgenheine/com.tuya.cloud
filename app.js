@@ -70,9 +70,8 @@ class TuyaCloudApp extends Homey.App {
         this.tuyaTextMessagetrigger = this.homey.flow.getTriggerCard("tuyaTextMesage");
         this.tuyaNumberMessagetrigger = this.homey.flow.getTriggerCard("tuyaNumberMesage");
         this.tuyaBoolMessagetrigger = this.homey.flow.getTriggerCard("tuyaBoolMesage");
-        // heater:
-        this.homey.flow.getActionCard('setTargetTemperature')
-            .registerRunListener(async (args) => args.device.set_target_temperature(args.target_temperature));
+        // this.homey.flow.getActionCard('setTargetTemperature')
+        //     .registerRunListener(async (args) => args.device.set_target_temperature(args.target_temperature));
         this.targetTempCondition = this.homey.flow.getConditionCard("targetTemperature")
             .registerRunListener(async (args, state) => {
                 return (args.device.getCapabilityValue('target_temperature') > args.target_temperature);
