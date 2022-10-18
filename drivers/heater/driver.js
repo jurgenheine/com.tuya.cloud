@@ -19,21 +19,21 @@ class TuyaHeaterDriver extends TuyaBaseDriver {
             for (let tuyaDevice of Object.values(heater)) {
                 scale = 1;
                 let capabilities = [];
-                capabilities = capabilities.concat(this.manifest.capabilities);
+                // capabilities = capabilities.concat(this.manifest.capabilities);
                 let capabilitiesOptions = {};
                 this.log("Add heater, device details:");
                 this.log(tuyaDevice);
-                // if (tuyaDevice.status){
-                //     for (let i=0; i<tuyaDevice.status.length; i++){
-                //         switch (tuyaDevice.status[i].code){
-                //             case "temp_current":
-                //                 capabilities.push("measure_temperature");
-                //                 break;
-                //             default:
-                //                 break;
-                //         }
-                //     }
-                // }
+                if (tuyaDevice.status){
+                    for (let i=0; i<tuyaDevice.status.length; i++){
+                        switch (tuyaDevice.status[i].code){
+                            case "temp_current":
+                                capabilities.push("measure_temperature");
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                }
                 if (tuyaDevice.functions){
                     for (let i=0; i<tuyaDevice.functions.length; i++){
                         let values;
@@ -43,7 +43,7 @@ class TuyaHeaterDriver extends TuyaBaseDriver {
                                 break;
                             case "temp_set":
                                 values = JSON.parse(tuyaDevice.functions[i].values);
-                                // capabilities.push("target_temperature");
+                                capabilities.push("target_temperature");
                                 scale = values.scale;
                                 capabilitiesOptions["target_temperature"] = 
                                     {

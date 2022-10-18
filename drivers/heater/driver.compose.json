@@ -7,7 +7,9 @@
   "class": "thermostat",
   "capabilities": [
     "measure_temperature",
-    "target_temperature"
+    "target_temperature",
+    "onoff",
+    "thermostat_heater_mode"
   ],
   "$extends": [ "defaults" ]
 }
