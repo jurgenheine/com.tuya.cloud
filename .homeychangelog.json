@@ -145,5 +145,8 @@
   },
   "1.1.18": {
     "en": "Change error handling flow and thermosat fix"
+  },
+  "1.1.19": {
+    "en": "Thermostat set temperature fix in flow"
   }
 }
