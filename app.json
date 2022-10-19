@@ -161,35 +161,37 @@
       },
       {
         "title": {
-          "en": "Target temperature has changed",
-          "de": "Zieltemperatur hat sich geändert",
-          "nl": "Doeltemperatuur is veranderd"
+          "en": "Mode has changed",
+          "de": "Modus hat sich geändert",
+          "nl": "Modus is veranderd"
         },
         "hint": {
-          "en": "Triggers when the target temperature changes.",
-          "de": "Wird ausgelöst, wenn sich die Zielemperatur ändert.",
-          "nl": "Triggert zodra de doeltemperatuur veranderd."
+          "en": "Triggers when the mode changes.",
+          "de": "Wird ausgelöst, wenn sich der Modus ändert.",
+          "nl": "Wordt geactiveerd wanneer de modus verandert."
         },
         "tokens": [
           {
-            "name": "target_temperature",
-            "type": "number",
+            "name": "thermostat_heater_mode",
+            "type": "string",
             "title": {
-              "en": "Target temperature (°C)",
-              "de": "Zieltemperatur (°C)",
-              "nl": "Doeltemperatuur (°C)"
+              "en": "Mode",
+              "de": "Modus",
+              "nl": "Modus"
             },
-            "example": 15
+            "example": {
+              "en": "off"
+            }
           }
         ],
         "args": [
           {
             "name": "device",
             "type": "device",
-            "filter": "driver_id=heater|thermostat"
+            "filter": "driver_id=heater"
           }
         ],
-        "id": "target_temperature_changed"
+        "id": "thermostat_heater_mode_changed"
       },
       {
         "title": {
@@ -387,6 +389,64 @@
           }
         ],
         "id": "targetTemperature"
+      },
+      {
+        "title": {
+          "en": "Mode !{{is|isn't}}",
+          "de": "Modus !{{ist|ist nicht}}",
+          "nl": "Modus !{{is|is niet}}"
+        },
+        "titleFormatted": {
+          "en": "Mode !{{is|isn't}} [[mode]]",
+          "de": "Modus !{{ist|ist nicht}} [[mode]]",
+          "nl": "Modus !{{is|is niet}} [[mode]]"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=heater"
+          },
+          {
+            "name": "mode",
+            "type": "dropdown",
+            "values": [
+              {
+                "id": "auto",
+                "title": {
+                  "en": "Automatic",
+                  "nl": "Automatisch",
+                  "de": "Automatisch",
+                  "fr": "Automatique",
+                  "it": "Automatica",
+                  "sv": "Automatiskt",
+                  "no": "Automatisk",
+                  "es": "Automático",
+                  "da": "Automatisk",
+                  "ru": "Автоматически",
+                  "pl": "Automatyczny"
+                }
+              },
+              {
+                "id": "off",
+                "title": {
+                  "en": "Off",
+                  "nl": "Uit",
+                  "de": "Aus",
+                  "fr": "Désactivé",
+                  "it": "Disattivata",
+                  "sv": "Av",
+                  "no": "Av",
+                  "es": "Desactivado",
+                  "da": "Deaktiveret",
+                  "ru": "Выкл",
+                  "pl": "Wył"
+                }
+              }
+            ]
+          }
+        ],
+        "id": "thermostatHeaterMode"
       }
     ],
     "actions": [
@@ -591,32 +651,66 @@
       },
       {
         "title": {
-          "en": "Set target temperature",
-          "de": "Setze die Zieltemperatur",
-          "nl": "Stel de doeltemperatuur in"
+          "en": "Set mode",
+          "de": "Setze den Modus",
+          "nl": "Modus instellen"
         },
         "titleFormatted": {
-          "en": "Set target temperature to [[target_temperature]]",
-          "de": "Setze die Zieltemperatur auf [[target_temperature]]",
-          "nl": "Stel de doeltemperatuur in [[target_temperature]]"
+          "en": "Set mode on [[mode]]",
+          "de": "Setze den Modus auf [[mode]]",
+          "nl": "zet de modus aan [[mode]]"
         },
         "args": [
           {
             "name": "device",
             "type": "device",
-            "filter": "driver_id=heater|thermostat"
+            "filter": "driver_id=heater"
           },
           {
-            "name": "target_temperature",
-            "type": "number",
+            "name": "mode",
+            "type": "dropdown",
             "title": {
-              "en": "Target temperature",
-              "de": "Zieltemperatur",
-              "nl": "Doeltemperatuur"
-            }
+              "en": "Mode",
+              "de": "Modus",
+              "nl": "Modus"
+            },
+            "values": [
+              {
+                "id": "auto",
+                "title": {
+                  "en": "Automatic",
+                  "nl": "Automatisch",
+                  "de": "Automatisch",
+                  "fr": "Automatique",
+                  "it": "Automatica",
+                  "sv": "Automatiskt",
+                  "no": "Automatisk",
+                  "es": "Automático",
+                  "da": "Automatisk",
+                  "ru": "Автоматически",
+                  "pl": "Automatyczny"
+                }
+              },
+              {
+                "id": "off",
+                "title": {
+                  "en": "Off",
+                  "nl": "Uit",
+                  "de": "Aus",
+                  "fr": "Désactivé",
+                  "it": "Disattivata",
+                  "sv": "Av",
+                  "no": "Av",
+                  "es": "Desactivado",
+                  "da": "Deaktiveret",
+                  "ru": "Выкл",
+                  "pl": "Wył"
+                }
+              }
+            ]
           }
         ],
-        "id": "setTargetTemperature"
+        "id": "setThermostatHeaterMode"
       },
       {
         "title": {
@@ -764,7 +858,12 @@
         "nl": "Verwarming"
       },
       "class": "thermostat",
-      "capabilities": [],
+      "capabilities": [
+        "measure_temperature",
+        "target_temperature",
+        "onoff",
+        "thermostat_heater_mode"
+      ],
       "id": "heater"
     },
     {
@@ -874,7 +973,10 @@
         "nl": "Thermostaat"
       },
       "class": "thermostat",
-      "capabilities": [],
+      "capabilities": [
+        "measure_temperature",
+        "target_temperature"
+      ],
       "id": "thermostat"
     },
     {
@@ -1200,26 +1302,6 @@
     }
   ],
   "capabilities": {
-    "target_temperature": {
-      "type": "number",
-      "min": 16,
-      "max": 31,
-      "title": {
-        "en": "Target temperature",
-        "nl": "Ingestelde temperatuur",
-        "pl": "Temperatura docelowa"
-      },
-      "units": {
-        "en": "°C",
-        "pl": "°C"
-      },
-      "chartType": "stepLine",
-      "decimals": 1,
-      "insights": true,
-      "getable": true,
-      "setable": true,
-      "uiComponent": "thermostat"
-    },
     "thermostat_heater_mode": {
       "type": "enum",
       "title": {
