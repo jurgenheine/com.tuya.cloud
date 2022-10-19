@@ -19,6 +19,7 @@ class TuyaHeaterDriver extends TuyaBaseDriver {
             for (let tuyaDevice of Object.values(heater)) {
                 scale = 1;
                 let capabilities = [];
+                // capabilities = capabilities.concat(this.manifest.capabilities);
                 let capabilitiesOptions = {};
                 this.log("Add heater, device details:");
                 this.log(tuyaDevice);

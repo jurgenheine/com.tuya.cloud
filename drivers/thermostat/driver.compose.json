@@ -6,6 +6,8 @@
   },
   "class": "thermostat",
   "capabilities": [
+    "measure_temperature",
+    "target_temperature"
   ],
   "$extends": [ "defaults" ]
 }
