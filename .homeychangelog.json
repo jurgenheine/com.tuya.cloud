@@ -148,5 +148,8 @@
   },
   "1.1.19": {
     "en": "Thermostat set temperature fix in flow"
+  },
+  "1.1.20": {
+    "en": "redesign thermostat and heater"
   }
 }
