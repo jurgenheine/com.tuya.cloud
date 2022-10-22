@@ -1,6 +1,12 @@
+
+
+# Look first at [Homey community forum](https://community.homey.app/t/app-pro-tuya-cloud/21313) for answeres and support. 
+On the community forum you can get answeres and support for your issues by me or other users. This site is only for sourcecode, contribution, development bugs and new device requests. Configuration problems are not development bugs!!! Problems with configuration are mostly not following the Tuya manual correctly, copy-paste errors or expired subscription. This app is only sending the values requested by Tuya top operate your device. Me and other contributors are not working for Tuya or Athom and are not responsible for changes on their platform.
+
+
+
 # Tuya cloud
 ![image](https://user-images.githubusercontent.com/17513366/194271163-0155abe3-9cfd-4fc8-8cdf-290aac7af2e9.png)
-
 https://homey.app/nl-nl/app/com.tuya.cloud/Tuya-cloud/
 
 Homey App for the Tuya cloud.
@@ -8,9 +14,14 @@ Homey App for the Tuya cloud.
 The official API is supported now. It requires an extra development account and keys. The API is also returning keys for local control, so maybe it's in the future also possible to local control devices. But commands are not yet available.
 This app was based on the Home Assistant implementation. Tuya has an undocumented API for Home Assistant that differs from the official API. This old depricated API supports login with credentials only. 
 
-## If you are already used this app, the existing devices will still use the old API!!!!!!
+
+
+### If you are already used this app, and you did not switch already to new API, the existing devices will still use the old API!!!!!!
 **You have to add the devices again to use the functionality of new API.** 
 If You don't need the legacy devices anymore, you can delete the legacy devices. When you don't have legacy devices anymore, set the API dropdown to official only.
+
+### If yor device stops working with new API, your subscription is ended and has to be renewed. 
+Again, go to forum for latest info on this issue
 
 ### Supported devices
 
