@@ -1,0 +1,28 @@
+{
+  "name": {
+    "en": "CO sensor",
+    "de": "CO-Sensor",
+    "nl": "CO sensor"
+  },
+  "class": "sensor",
+  "capabilities": [
+    "alarm_co",
+    "measure_co",
+    "alarm_generic",
+    "measure_battery"
+  ],
+  "energy": {
+    "batteries": [ "OTHER" ]
+  },
+  "capabilitiesOptions":{
+    "alarm_generic":{
+      "title":{
+        "en": "Test",
+        "de": "Test",
+        "nl": "testen"
+      },
+      "zoneActivity": false
+    }
+  },
+  "$extends": [ "defaults" ]
+}
