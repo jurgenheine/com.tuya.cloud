@@ -37,6 +37,10 @@ class TuyaBaseDriver extends Homey.Driver {
             "category": ['ywbj']
         },
         {
+            "type": "coSensor",
+            "category": ['cobj']
+        },
+        {
             "type": "heater",
             "category": ['qn']
         },
