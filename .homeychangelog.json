@@ -154,5 +154,8 @@
   },
   "1.1.21": {
     "en": "fix device functions error"
+  },
+  "1.1.22": {
+    "en": "Added CO sensor by Ronny Winkler"
   }
 }
