@@ -981,6 +981,60 @@
     },
     {
       "images": {
+        "large": "/drivers/tuyaco/assets/images/large.png",
+        "small": "/drivers/tuyaco/assets/images/small.png"
+      },
+      "icon": "/drivers/tuyaco/assets/icon.svg",
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
+      "pair": [
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ],
+      "name": {
+        "en": "CO sensor",
+        "de": "CO-Sensor",
+        "nl": "CO sensor"
+      },
+      "class": "sensor",
+      "capabilities": [
+        "alarm_co",
+        "measure_co",
+        "alarm_generic",
+        "measure_battery"
+      ],
+      "energy": {
+        "batteries": [
+          "OTHER"
+        ]
+      },
+      "capabilitiesOptions": {
+        "alarm_generic": {
+          "title": {
+            "en": "Test",
+            "de": "Test",
+            "nl": "testen"
+          },
+          "zoneActivity": false
+        }
+      },
+      "id": "tuyaco"
+    },
+    {
+      "images": {
         "large": "/drivers/tuyacontact/assets/images/large.png",
         "small": "/drivers/tuyacontact/assets/images/small.png"
       },
