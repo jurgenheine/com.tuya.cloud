@@ -1,4 +1,5 @@
-
+# ${{\color{red}I\ am\ stopped\ with\ developping\ this\ app.\ I\ moved\ to\ Home\ Assistant.\}}$
+There is currently no new app developer yet. If somebody is making a PR, I will merge and publish it to the appstore.
 
 # Look first at [Homey community forum](https://community.homey.app/t/app-pro-tuya-cloud/21313) for answeres and support. 
 On the community forum you can get answeres and support for your issues by me or other users. This site is only for sourcecode, contribution, development bugs and new device requests. Configuration problems are not development bugs!!! Problems with configuration are mostly not following the Tuya manual correctly, copy-paste errors or expired subscription. This app is only sending the values requested by Tuya top operate your device. Me and other contributors are not working for Tuya or Athom and are not responsible for changes on their platform.
