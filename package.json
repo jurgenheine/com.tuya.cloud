@@ -19,7 +19,7 @@
     "uuid": "^8.3.2"
   },
   "scripts": {
-    "run": "homeyConfig compose && athom project --run",
+    "start": "homey app run",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
