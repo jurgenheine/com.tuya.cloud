@@ -18,9 +18,17 @@
     "utf-8-validate": "5.0.2",
     "uuid": "^8.3.2"
   },
+  "devDependencies": {
+    "@tsconfig/node16": "16.1.0",
+    "@types/homey": "npm:homey-apps-sdk-v3-types@0.3.4",
+    "@types/node": "20.3.3",
+    "eslint": "7.32.0",
+    "eslint-config-athom": "3.1.1"
+  },
   "scripts": {
     "start": "homey app run",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "lint": "eslint --ext .js,.ts --ignore-path .gitignore .",
+    "lint-fix": "eslint --fix --ext .js,.ts --ignore-path .gitignore ."
   },
   "author": "",
   "license": "MIT"
