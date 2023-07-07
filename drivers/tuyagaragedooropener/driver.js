@@ -18,6 +18,7 @@ class TuyaGarageDoorOpenerDriver extends TuyaBaseDriver {
         for (const tuyaDevice of Object.values(covers)) {
             const capabilities = [];
             capabilities.push("alarm_contact");
+            capabilities.push("garagedoor_closed");
             devices.push({
                 data: {
                     id: tuyaDevice.id
