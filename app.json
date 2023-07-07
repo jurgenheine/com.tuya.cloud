@@ -33,9 +33,6 @@
       },
       {
         "name": "Ronny Winkler"
-      },
-      {
-        "name": "Jonas Enge"
       }
     ]
   },
@@ -800,7 +797,8 @@
       },
       "class": "sensor",
       "capabilities": [
-        "alarm_contact"
+        "alarm_contact",
+        "garagedoor_closed"
       ],
       "id": "tuyagaragedooropener"
     },
