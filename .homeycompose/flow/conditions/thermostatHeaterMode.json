@@ -1,0 +1,56 @@
+{
+  "title": {
+      "en": "Mode !{{is|isn't}}",
+      "de": "Modus !{{ist|ist nicht}}",
+      "nl": "Modus !{{is|is niet}}"
+  },
+  "titleFormatted": {
+      "en": "Mode !{{is|isn't}} [[mode]]",
+      "de": "Modus !{{ist|ist nicht}} [[mode]]",
+      "nl": "Modus !{{is|is niet}} [[mode]]"
+  },
+  "args": [{
+          "name": "device",
+          "type": "device",
+          "filter": "driver_id=heater"
+      },
+      {
+          "name": "mode",
+          "type": "dropdown",
+          "values": [
+            {
+                "id": "auto",
+                "title": {
+                    "en": "Automatic",
+                    "nl": "Automatisch",
+                    "de": "Automatisch",
+                    "fr": "Automatique",
+                    "it": "Automatica",
+                    "sv": "Automatiskt",
+                    "no": "Automatisk",
+                    "es": "Automático",
+                    "da": "Automatisk",
+                    "ru": "Автоматически",
+                    "pl": "Automatyczny"
+                }
+                },
+                {
+                "id": "off",
+                "title": {
+                    "en": "Off",
+                    "nl": "Uit",
+                    "de": "Aus",
+                    "fr": "Désactivé",
+                    "it": "Disattivata",
+                    "sv": "Av",
+                    "no": "Av",
+                    "es": "Desactivado",
+                    "da": "Deaktiveret",
+                    "ru": "Выкл",
+                    "pl": "Wył"
+                }
+            }
+        ]
+      }
+  ]
+}

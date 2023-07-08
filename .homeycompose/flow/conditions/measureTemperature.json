@@ -1,0 +1,27 @@
+{
+    "title": {
+        "en": "Temperature !{{is|isn't}} higher than",
+        "de": "Temperatur !{{ist|ist nicht}} größer als",
+        "nl": "Temperatuur !{{is|is niet}} hoger dan"
+    },
+    "titleFormatted": {
+        "en": "Temperature !{{is|isn't}} higher than [[measure_temperature]]",
+        "de": "Temperatur !{{ist|ist nicht}} größer als [[measure_temperature]]",
+        "nl": "Temperatuur !{{is|is niet}} hoger dan [[measure_temperature]]"
+    },
+    "hint": {
+        "en": "Temperature in degrees Celsius.",
+        "de": "Temperatur in Grad Celsius",
+        "nl": "Temperatuur in graden Celsius."
+    },
+    "args": [{
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=heater|thermostat"
+        },
+        {
+            "name": "measure_temperature",
+            "type": "number"
+        }
+    ]
+}

@@ -114,6 +114,48 @@
     "en": "fix errors and added deprecated messages"
   },
   "1.1.8": {
-    "en": "added garagedoor opener by Jonas Enge"
+    "en": "Fix naming and titles flows, fixed battery status"
+  },
+  "1.1.9": {
+    "en": "language errors corrected"
+  },
+  "1.1.10": {
+    "en": "Heater added by Ronny Winkler"
+  },
+  "1.1.11": {
+    "en": "Flows for heater"
+  },
+  "1.1.12": {
+    "en": "forced re-auth when authentication error received"
+  },
+  "1.1.13": {
+    "en": "Thermostat added by Ronny Winkler"
+  },
+  "1.1.14": {
+    "en": "Bugfix temperatures in thermostat"
+  },
+  "1.1.15": {
+    "en": "Use scaling of Tuya device for number of digits by Ronny Winkler"
+  },
+  "1.1.16": {
+    "en": "Fix max in thermostat"
+  },
+  "1.1.17": {
+    "en": "Fix min/max of thermostat"
+  },
+  "1.1.18": {
+    "en": "Change error handling flow and thermosat fix"
+  },
+  "1.1.19": {
+    "en": "Thermostat set temperature fix in flow"
+  },
+  "1.1.20": {
+    "en": "redesign thermostat and heater"
+  },
+  "1.1.21": {
+    "en": "fix device functions error"
+  },
+  "1.1.22": {
+    "en": "Added CO sensor by Ronny Winkler"
   }
 }

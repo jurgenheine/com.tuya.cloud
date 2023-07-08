@@ -1,0 +1,30 @@
+{
+    "title": {
+        "en": "Mode has changed",
+        "de": "Modus hat sich geändert",
+        "nl": "Modus is veranderd"
+    },
+    "hint": {
+        "en": "Triggers when the mode changes.",
+        "de": "Wird ausgelöst, wenn sich der Modus ändert.",
+        "nl": "Wordt geactiveerd wanneer de modus verandert."
+    },
+    "tokens": [{
+            "name": "thermostat_heater_mode",
+            "type": "string",
+            "title": {
+                "en": "Mode",
+                "de": "Modus",
+                "nl": "Modus"
+            },
+            "example": {
+                "en": "off"
+            }
+        }
+    ],
+    "args": [{
+        "name": "device",
+        "type": "device",
+        "filter": "driver_id=heater"
+    }]
+}

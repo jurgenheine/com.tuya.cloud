@@ -37,6 +37,10 @@ class TuyaBaseDriver extends Homey.Driver {
             "category": ['ywbj']
         },
         {
+            "type": "coSensor",
+            "category": ['cobj']
+        },
+        {
             "type": "heater",
             "category": ['qn']
         },
@@ -46,7 +50,7 @@ class TuyaBaseDriver extends Homey.Driver {
         },
         {
             "type": "contactSensor",
-            "category": ['mc','mcs']
+            "category": ['mcs']
         },
         {
             "type": "leakSensor",
@@ -59,6 +63,10 @@ class TuyaBaseDriver extends Homey.Driver {
         {
             "type": "presenceSensor",
             "category":['hps']
+        },
+        {
+            "type": "thermostat",
+            "category":['wk']
         }
     ];
 

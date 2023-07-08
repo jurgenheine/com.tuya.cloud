@@ -80,6 +80,7 @@ class TuyaCoverDevice extends TuyaBaseDevice {
         var param = this.getSendParam(name, value);
         this.homey.app.tuyaOpenApi.sendCommand(this.id, param).catch((error) => {
             this.error('[SET][%s] capabilities Error: %s', this.id, error);
+            throw new Error(`Error sending command: ${error}`);
         });
     }
 

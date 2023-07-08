@@ -66,6 +66,21 @@ class TuyaCloudApp extends Homey.App {
         this.tuyaTextMessagetrigger = this.homey.flow.getTriggerCard("tuyaTextMesage");
         this.tuyaNumberMessagetrigger = this.homey.flow.getTriggerCard("tuyaNumberMesage");
         this.tuyaBoolMessagetrigger = this.homey.flow.getTriggerCard("tuyaBoolMesage");
+        this.targetTempCondition = this.homey.flow.getConditionCard("targetTemperature")
+            .registerRunListener(async (args, state) => {
+                return (args.device.getCapabilityValue('target_temperature') > args.target_temperature);
+        })
+        this.measureTempCondition = this.homey.flow.getConditionCard("measureTemperature")
+            .registerRunListener(async (args, state) => {
+                return (args.device.getCapabilityValue('measure_temperature') > args.measure_temperature);
+        })
+        this.measureTempCondition = this.homey.flow.getConditionCard("thermostatHeaterMode")
+            .registerRunListener(async (args, state) => {
+                return (args.device.getCapabilityValue('thermostat_heater_mode') == args.mode);
+        })
+        this.homey.flow.getActionCard('setThermostatHeaterMode')
+            .registerRunListener(async (args) => args.device.set_thermostat_mode(args.mode));
+      
     }
 
     async initTuyaSDK() {
@@ -139,7 +154,7 @@ class TuyaCloudApp extends Homey.App {
             } else if (message.bizCode === 'bindUser') {
                 let deviceInfo = await this.tuyaOpenApi.getDeviceInfo(message.bizData.devId);
                 let functions = await this.tuyaOpenApi.getDeviceFunctions(message.bizData.devId);
-                if (deviceInfo != null) {
+                if (deviceInfo != null &&functions !=null) {
                     let device = Object.assign(deviceInfo, functions);
                     this.devices.push(device);
                 }
@@ -196,8 +211,12 @@ class TuyaCloudApp extends Homey.App {
                 break;
             case 'smokeSensor':
                 return this.homey.drivers.getDriver('tuyasmoke');
+            case 'coSensor':
+                return this.homey.drivers.getDriver('tuyaco');
             case 'heater':
-                break;
+                return this.homey.drivers.getDriver('heater');
+            case 'thermostat':
+                return this.homey.drivers.getDriver('thermostat');
             case 'garageDoorOpener':
                 return this.homey.drivers.getDriver('tuyagaragedooropener');
             case 'contactSensor':
@@ -356,6 +375,7 @@ class TuyaCloudApp extends Homey.App {
             };
             this.tuyaOpenApi.sendCommand(args.tuyaDeviceId, param).catch((error) => {
                 this.error('[SET][%s] capabilities Error: %s', args.tuyaDeviceId, error);
+                throw new Error(`Error sending command: ${error}`);
             });
         } catch (ex) {
             this.error(ex);
@@ -373,7 +393,8 @@ class TuyaCloudApp extends Homey.App {
                 ]
             };
             this.tuyaOpenApi.sendCommand(args.tuyaDeviceId, param).catch((error) => {
-                this.log.error('[SET][%s] capabilities Error: %s', args.tuyaDeviceId, error);
+                this.error('[SET][%s] capabilities Error: %s', args.tuyaDeviceId, error);
+                throw new Error(`Error sending command: ${error}`);
             });
         } catch (ex) {
             this.error(ex);
@@ -391,7 +412,8 @@ class TuyaCloudApp extends Homey.App {
                 ]
             };
             this.tuyaOpenApi.sendCommand(args.tuyaDeviceId, param).catch((error) => {
-                this.log.error('[SET][%s] capabilities Error: %s', args.tuyaDeviceId, error);
+                this.error('[SET][%s] capabilities Error: %s', args.tuyaDeviceId, error);
+                throw new Error(`Error sending command: ${error}`);
             });
         } catch (ex) {
             this.error(ex);

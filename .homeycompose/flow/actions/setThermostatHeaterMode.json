@@ -1,0 +1,62 @@
+{
+    "title": {
+        "en": "Set mode",
+        "de": "Setze den Modus",
+        "nl": "Modus instellen"
+},
+    "titleFormatted": {
+        "en": "Set mode on [[mode]]",
+        "de": "Setze den Modus auf [[mode]]",
+        "nl": "zet de modus aan [[mode]]"
+    },
+    "args": [
+        {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=heater"
+        },
+        {
+            "name": "mode",
+            "type": "dropdown",
+            "title": {
+                "en": "Mode",
+                "de": "Modus",
+                "nl": "Modus"
+                },
+            "values": [
+                {
+                    "id": "auto",
+                    "title": {
+                        "en": "Automatic",
+                        "nl": "Automatisch",
+                        "de": "Automatisch",
+                        "fr": "Automatique",
+                        "it": "Automatica",
+                        "sv": "Automatiskt",
+                        "no": "Automatisk",
+                        "es": "Automático",
+                        "da": "Automatisk",
+                        "ru": "Автоматически",
+                        "pl": "Automatyczny"
+                    }
+                    },
+                    {
+                    "id": "off",
+                    "title": {
+                        "en": "Off",
+                        "nl": "Uit",
+                        "de": "Aus",
+                        "fr": "Désactivé",
+                        "it": "Disattivata",
+                        "sv": "Av",
+                        "no": "Av",
+                        "es": "Desactivado",
+                        "da": "Deaktiveret",
+                        "ru": "Выкл",
+                        "pl": "Wył"
+                    }
+                }
+            ]
+        }
+    ]
+}

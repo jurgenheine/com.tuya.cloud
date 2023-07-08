@@ -11,7 +11,7 @@
     "nl": "Deze app laat je connectie maken met de Tuya cloud"
   },
   "category": "lights",
-  "version": "1.1.8",
+  "version": "1.1.22",
   "compatibility": ">=5.0.0",
   "author": {
     "name": "Jurgen Heine",
@@ -161,6 +161,40 @@
       },
       {
         "title": {
+          "en": "Mode has changed",
+          "de": "Modus hat sich geändert",
+          "nl": "Modus is veranderd"
+        },
+        "hint": {
+          "en": "Triggers when the mode changes.",
+          "de": "Wird ausgelöst, wenn sich der Modus ändert.",
+          "nl": "Wordt geactiveerd wanneer de modus verandert."
+        },
+        "tokens": [
+          {
+            "name": "thermostat_heater_mode",
+            "type": "string",
+            "title": {
+              "en": "Mode",
+              "de": "Modus",
+              "nl": "Modus"
+            },
+            "example": {
+              "en": "off"
+            }
+          }
+        ],
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=heater"
+          }
+        ],
+        "id": "thermostat_heater_mode_changed"
+      },
+      {
+        "title": {
           "en": "Boolean event received",
           "nl": "Boolean bericht ontvangen"
         },
@@ -297,17 +331,133 @@
           }
         ],
         "id": "isSocketOnOff"
+      },
+      {
+        "title": {
+          "en": "Temperature !{{is|isn't}} higher than",
+          "de": "Temperatur !{{ist|ist nicht}} größer als",
+          "nl": "Temperatuur !{{is|is niet}} hoger dan"
+        },
+        "titleFormatted": {
+          "en": "Temperature !{{is|isn't}} higher than [[measure_temperature]]",
+          "de": "Temperatur !{{ist|ist nicht}} größer als [[measure_temperature]]",
+          "nl": "Temperatuur !{{is|is niet}} hoger dan [[measure_temperature]]"
+        },
+        "hint": {
+          "en": "Temperature in degrees Celsius.",
+          "de": "Temperatur in Grad Celsius",
+          "nl": "Temperatuur in graden Celsius."
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=heater|thermostat"
+          },
+          {
+            "name": "measure_temperature",
+            "type": "number"
+          }
+        ],
+        "id": "measureTemperature"
+      },
+      {
+        "title": {
+          "en": "Target temperature !{{is|isn't}} higher than",
+          "de": "Zieltemperatur !{{ist|ist nicht}} größer als",
+          "nl": "Doeltemperatuur !{{is|is niet}} hoger dan"
+        },
+        "titleFormatted": {
+          "en": "Target temperature !{{is|isn't}} higher than [[target_temperature]]",
+          "de": "Zieltemperatur !{{ist|ist nicht}} größer als [[target_temperature]]",
+          "nl": "Doeltemperatuur !{{is|is niet}} hoger dan [[target_temperature]]"
+        },
+        "hint": {
+          "en": "Target temperature in degrees Celsius.",
+          "de": "Zieltemperatur in Grad Celsius",
+          "nl": "Doeltemperatuur in graden Celsius."
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=heater|thermostat"
+          },
+          {
+            "name": "target_temperature",
+            "type": "number"
+          }
+        ],
+        "id": "targetTemperature"
+      },
+      {
+        "title": {
+          "en": "Mode !{{is|isn't}}",
+          "de": "Modus !{{ist|ist nicht}}",
+          "nl": "Modus !{{is|is niet}}"
+        },
+        "titleFormatted": {
+          "en": "Mode !{{is|isn't}} [[mode]]",
+          "de": "Modus !{{ist|ist nicht}} [[mode]]",
+          "nl": "Modus !{{is|is niet}} [[mode]]"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=heater"
+          },
+          {
+            "name": "mode",
+            "type": "dropdown",
+            "values": [
+              {
+                "id": "auto",
+                "title": {
+                  "en": "Automatic",
+                  "nl": "Automatisch",
+                  "de": "Automatisch",
+                  "fr": "Automatique",
+                  "it": "Automatica",
+                  "sv": "Automatiskt",
+                  "no": "Automatisk",
+                  "es": "Automático",
+                  "da": "Automatisk",
+                  "ru": "Автоматически",
+                  "pl": "Automatyczny"
+                }
+              },
+              {
+                "id": "off",
+                "title": {
+                  "en": "Off",
+                  "nl": "Uit",
+                  "de": "Aus",
+                  "fr": "Désactivé",
+                  "it": "Disattivata",
+                  "sv": "Av",
+                  "no": "Av",
+                  "es": "Desactivado",
+                  "da": "Deaktiveret",
+                  "ru": "Выкл",
+                  "pl": "Wył"
+                }
+              }
+            ]
+          }
+        ],
+        "id": "thermostatHeaterMode"
       }
     ],
     "actions": [
       {
         "title": {
           "en": "Send false command",
-          "nl": "Vertuur niet waar commando"
+          "nl": "Verstuur niet waar commando"
         },
         "titleFormatted": {
           "en": "Send [[functionname]] command with value \"false\" to device [[tuyaDeviceId]]",
-          "nl": "Vertuur [[functionname]] commando met waarde \"niet\" waar naar apparaat [[tuyaDeviceId]]"
+          "nl": "Verstuur [[functionname]] commando met waarde \"niet\" waar naar apparaat [[tuyaDeviceId]]"
         },
         "args": [
           {
@@ -332,11 +482,11 @@
       {
         "title": {
           "en": "Send number command",
-          "nl": "Vertuur numerieke commando"
+          "nl": "Verstuur numerieke commando"
         },
         "titleFormatted": {
           "en": "Send [[functionname]] command with number value [[functionValue]] to device [[tuyaDeviceId]]",
-          "nl": "Vertuur [[functionname]] commando met numerieke waarde [[functionValue]] naar apparaat [[tuyaDeviceId]]"
+          "nl": "Verstuur [[functionname]] commando met numerieke waarde [[functionValue]] naar apparaat [[tuyaDeviceId]]"
         },
         "args": [
           {
@@ -369,11 +519,11 @@
       {
         "title": {
           "en": "Send text command",
-          "nl": "Vertuur tekst commando"
+          "nl": "Verstuur tekst commando"
         },
         "titleFormatted": {
           "en": "Send [[functionname]] command with text value [[functionValue]] to device [[tuyaDeviceId]]",
-          "nl": "Vertuur [[functionname]] commando met tekst waarde [[functionValue]] naar apparaat [[tuyaDeviceId]]"
+          "nl": "Verstuur [[functionname]] commando met tekst waarde [[functionValue]] naar apparaat [[tuyaDeviceId]]"
         },
         "args": [
           {
@@ -406,11 +556,11 @@
       {
         "title": {
           "en": "Send true command",
-          "nl": "Vertuur waafr commando naar Tuya"
+          "nl": "Verstuur waar commando naar Tuya"
         },
         "titleFormatted": {
           "en": "Send [[functionname]] command with \"true\" to device [[tuyaDeviceId]]",
-          "nl": "Vertuur [[functionname]] commando met waarde \"waar\" naar apparaat [[tuyaDeviceId]]"
+          "nl": "Verstuur [[functionname]] commando met waarde \"waar\" naar apparaat [[tuyaDeviceId]]"
         },
         "args": [
           {
@@ -498,6 +648,69 @@
           }
         ],
         "id": "setSocket"
+      },
+      {
+        "title": {
+          "en": "Set mode",
+          "de": "Setze den Modus",
+          "nl": "Modus instellen"
+        },
+        "titleFormatted": {
+          "en": "Set mode on [[mode]]",
+          "de": "Setze den Modus auf [[mode]]",
+          "nl": "zet de modus aan [[mode]]"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=heater"
+          },
+          {
+            "name": "mode",
+            "type": "dropdown",
+            "title": {
+              "en": "Mode",
+              "de": "Modus",
+              "nl": "Modus"
+            },
+            "values": [
+              {
+                "id": "auto",
+                "title": {
+                  "en": "Automatic",
+                  "nl": "Automatisch",
+                  "de": "Automatisch",
+                  "fr": "Automatique",
+                  "it": "Automatica",
+                  "sv": "Automatiskt",
+                  "no": "Automatisk",
+                  "es": "Automático",
+                  "da": "Automatisk",
+                  "ru": "Автоматически",
+                  "pl": "Automatyczny"
+                }
+              },
+              {
+                "id": "off",
+                "title": {
+                  "en": "Off",
+                  "nl": "Uit",
+                  "de": "Aus",
+                  "fr": "Désactivé",
+                  "it": "Disattivata",
+                  "sv": "Av",
+                  "no": "Av",
+                  "es": "Desactivado",
+                  "da": "Deaktiveret",
+                  "ru": "Выкл",
+                  "pl": "Wył"
+                }
+              }
+            ]
+          }
+        ],
+        "id": "setThermostatHeaterMode"
       },
       {
         "title": {
@@ -616,6 +829,45 @@
     },
     {
       "images": {
+        "large": "/drivers/heater/assets/images/large.png",
+        "small": "/drivers/heater/assets/images/small.png"
+      },
+      "icon": "/drivers/heater/assets/icon.svg",
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
+      "pair": [
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ],
+      "name": {
+        "en": "Heater",
+        "de": "Heizung",
+        "nl": "Verwarming"
+      },
+      "class": "thermostat",
+      "capabilities": [
+        "measure_temperature",
+        "target_temperature",
+        "onoff",
+        "thermostat_heater_mode"
+      ],
+      "id": "heater"
+    },
+    {
+      "images": {
         "large": "/drivers/light/assets/images/large.png",
         "small": "/drivers/light/assets/images/small.png"
       },
@@ -689,6 +941,97 @@
       ],
       "deprecated": true,
       "id": "switch"
+    },
+    {
+      "images": {
+        "large": "/drivers/thermostat/assets/images/large.png",
+        "small": "/drivers/thermostat/assets/images/small.png"
+      },
+      "icon": "/drivers/thermostat/assets/icon.svg",
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
+      "pair": [
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ],
+      "name": {
+        "en": "Thermostat",
+        "de": "Thermostat",
+        "nl": "Thermostaat"
+      },
+      "class": "thermostat",
+      "capabilities": [
+        "measure_temperature",
+        "target_temperature"
+      ],
+      "id": "thermostat"
+    },
+    {
+      "images": {
+        "large": "/drivers/tuyaco/assets/images/large.png",
+        "small": "/drivers/tuyaco/assets/images/small.png"
+      },
+      "icon": "/drivers/tuyaco/assets/icon.svg",
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
+      "pair": [
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ],
+      "name": {
+        "en": "CO sensor",
+        "de": "CO-Sensor",
+        "nl": "CO sensor"
+      },
+      "class": "sensor",
+      "capabilities": [
+        "alarm_co",
+        "measure_co",
+        "alarm_generic",
+        "measure_battery"
+      ],
+      "energy": {
+        "batteries": [
+          "OTHER"
+        ]
+      },
+      "capabilitiesOptions": {
+        "alarm_generic": {
+          "title": {
+            "en": "Test",
+            "de": "Test",
+            "nl": "testen"
+          },
+          "zoneActivity": false
+        }
+      },
+      "id": "tuyaco"
     },
     {
       "images": {
@@ -1048,25 +1391,71 @@
     }
   ],
   "capabilities": {
-    "target_temperature": {
-      "type": "number",
-      "min": 16,
-      "max": 31,
+    "thermostat_heater_mode": {
+      "type": "enum",
       "title": {
-        "en": "Target temperature",
-        "nl": "Ingestelde temperatuur",
-        "pl": "Temperatura docelowa"
+        "en": "Thermostat mode",
+        "nl": "Thermostaat modus",
+        "de": "Thermostat-Modus",
+        "fr": "Mode thermostat",
+        "it": "Modalità termostato",
+        "sv": "Termostatläge",
+        "no": "Termostatmodus",
+        "es": "Modo del termostato",
+        "da": "Termostattilstand",
+        "ru": "Режим термостата",
+        "pl": "Tryb pracy"
       },
-      "units": {
-        "en": "°C",
-        "pl": "°C"
+      "desc": {
+        "en": "Mode of the thermostat",
+        "nl": "Modus van de thermostaat",
+        "de": "Modus des Thermostates",
+        "fr": "Mode du thermostat",
+        "it": "Modalità del termostato",
+        "sv": "Läge för termostaten",
+        "no": "Modus for termostaten",
+        "es": "Modo del termostato",
+        "da": "Tilstand for termostat",
+        "ru": "Режим термостата",
+        "pl": "Tryb termostatu"
       },
-      "chartType": "stepLine",
-      "decimals": 1,
-      "insights": true,
       "getable": true,
       "setable": true,
-      "uiComponent": "thermostat"
+      "uiComponent": "picker",
+      "values": [
+        {
+          "id": "auto",
+          "title": {
+            "en": "Automatic",
+            "nl": "Automatisch",
+            "de": "Automatisch",
+            "fr": "Automatique",
+            "it": "Automatica",
+            "sv": "Automatiskt",
+            "no": "Automatisk",
+            "es": "Automático",
+            "da": "Automatisk",
+            "ru": "Автоматически",
+            "pl": "Automatyczny"
+          }
+        },
+        {
+          "id": "off",
+          "title": {
+            "en": "Off",
+            "nl": "Uit",
+            "de": "Aus",
+            "fr": "Désactivé",
+            "it": "Disattivata",
+            "sv": "Av",
+            "no": "Av",
+            "es": "Desactivado",
+            "da": "Deaktiveret",
+            "ru": "Выкл",
+            "pl": "Wył"
+          }
+        }
+      ]
     },
     "thermostat_mode": {
       "type": "enum",

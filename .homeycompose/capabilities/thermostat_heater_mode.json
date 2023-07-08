@@ -1,0 +1,66 @@
+{
+  "type": "enum",
+  "title": {
+    "en": "Thermostat mode",
+    "nl": "Thermostaat modus",
+    "de": "Thermostat-Modus",
+    "fr": "Mode thermostat",
+    "it": "Modalità termostato",
+    "sv": "Termostatläge",
+    "no": "Termostatmodus",
+    "es": "Modo del termostato",
+    "da": "Termostattilstand",
+    "ru": "Режим термостата",
+    "pl": "Tryb pracy"
+  },
+  "desc": {
+    "en": "Mode of the thermostat",
+    "nl": "Modus van de thermostaat",
+    "de": "Modus des Thermostates",
+    "fr": "Mode du thermostat",
+    "it": "Modalità del termostato",
+    "sv": "Läge för termostaten",
+    "no": "Modus for termostaten",
+    "es": "Modo del termostato",
+    "da": "Tilstand for termostat",
+    "ru": "Режим термостата",
+    "pl": "Tryb termostatu"
+  },
+  "getable": true,
+  "setable": true,
+  "uiComponent": "picker",
+  "values": [
+    {
+      "id": "auto",
+      "title": {
+        "en": "Automatic",
+        "nl": "Automatisch",
+        "de": "Automatisch",
+        "fr": "Automatique",
+        "it": "Automatica",
+        "sv": "Automatiskt",
+        "no": "Automatisk",
+        "es": "Automático",
+        "da": "Automatisk",
+        "ru": "Автоматически",
+        "pl": "Automatyczny"
+      }
+    },
+    {
+      "id": "off",
+      "title": {
+        "en": "Off",
+        "nl": "Uit",
+        "de": "Aus",
+        "fr": "Désactivé",
+        "it": "Disattivata",
+        "sv": "Av",
+        "no": "Av",
+        "es": "Desactivado",
+        "da": "Deaktiveret",
+        "ru": "Выкл",
+        "pl": "Wył"
+      }
+    }
+  ]
+}
