@@ -199,7 +199,7 @@ class TuyaCloudApp extends Homey.App {
             case 'heater':
                 break;
             case 'garageDoorOpener':
-                break;
+                return this.homey.drivers.getDriver('tuyagaragedooropener');
             case 'contactSensor':
                 return this.homey.drivers.getDriver('tuyacontact');
                 //contact sensor
@@ -209,7 +209,6 @@ class TuyaCloudApp extends Homey.App {
             case 'presenceSensor':
                 return this.homey.drivers.getDriver('tuyapresence');
                 //contact sensor
-
             default:
                 break;
         }

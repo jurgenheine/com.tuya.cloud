@@ -1,0 +1,11 @@
+{
+  "name": {
+    "en": "GarageDoorOpener"
+  },
+  "class": "sensor",
+  "capabilities": [
+    "alarm_contact",
+    "garagedoor_closed"
+  ],
+  "$extends": [ "defaults" ]
+}

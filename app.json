@@ -33,6 +33,9 @@
       },
       {
         "name": "Ronny Winkler"
+      },
+      {
+        "name": "Jonas Enge"
       }
     ]
   },
@@ -766,6 +769,41 @@
         "windowcoverings_set"
       ],
       "id": "tuyacover"
+    },
+    {
+      "images": {
+        "large": "/drivers/tuyagaragedooropener/assets/images/large.png",
+        "small": "/drivers/tuyagaragedooropener/assets/images/small.png"
+      },
+      "icon": "/drivers/tuyagaragedooropener/assets/icon.svg",
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
+      "pair": [
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ],
+      "name": {
+        "en": "GarageDoorOpener"
+      },
+      "class": "sensor",
+      "capabilities": [
+        "alarm_contact",
+        "garagedoor_closed"
+      ],
+      "id": "tuyagaragedooropener"
     },
     {
       "images": {
