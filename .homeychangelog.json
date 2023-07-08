@@ -157,5 +157,8 @@
   },
   "1.1.22": {
     "en": "Added CO sensor by Ronny Winkler"
+  },
+  "1.1.23": {
+    "en": "added garagedoor opener by Jonas Enge"
   }
 }
