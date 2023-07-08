@@ -399,3 +399,6 @@ FodyWeavers.xsd
 
 # Added by Homey CLI
 /.homeybuild/
+
+# node_modules
+node_modules
