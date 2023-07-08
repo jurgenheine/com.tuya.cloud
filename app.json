@@ -11,7 +11,7 @@
     "nl": "Deze app laat je connectie maken met de Tuya cloud"
   },
   "category": "lights",
-  "version": "1.1.7",
+  "version": "1.1.8",
   "compatibility": ">=5.0.0",
   "author": {
     "name": "Jurgen Heine",
@@ -33,9 +33,6 @@
       },
       {
         "name": "Ronny Winkler"
-      },
-      {
-        "name": "Jonas Enge"
       }
     ]
   },
@@ -164,8 +161,8 @@
       },
       {
         "title": {
-          "en": "Tyua boolean event received",
-          "nl": "Tyua boolean bericht ontvangen"
+          "en": "Boolean event received",
+          "nl": "Boolean bericht ontvangen"
         },
         "titleFormatted": {
           "en": "Boolean event received",
@@ -176,8 +173,8 @@
             "name": "tuyaDeviceId",
             "type": "string",
             "title": {
-              "en": "Tuya Device id",
-              "nl": "Tuya apparaat id"
+              "en": "Device id",
+              "nl": "Apparaat id"
             }
           },
           {
@@ -201,8 +198,8 @@
       },
       {
         "title": {
-          "en": "Tyua number event received",
-          "nl": "Tyua numeriek bericht ontvangen"
+          "en": "Number event received",
+          "nl": "Numeriek bericht ontvangen"
         },
         "titleFormatted": {
           "en": "Number event received",
@@ -213,8 +210,8 @@
             "name": "tuyaDeviceId",
             "type": "string",
             "title": {
-              "en": "Tuya Device id",
-              "nl": "Tuya apparaat id"
+              "en": "Device id",
+              "nl": "Apparaat id"
             }
           },
           {
@@ -238,8 +235,8 @@
       },
       {
         "title": {
-          "en": "Tyua text event received",
-          "nl": "Tyua tekst bericht ontvangen"
+          "en": "Text event received",
+          "nl": "Tekst bericht ontvangen"
         },
         "titleFormatted": {
           "en": "Text event received",
@@ -250,8 +247,8 @@
             "name": "tuyaDeviceId",
             "type": "string",
             "title": {
-              "en": "Tuya Device id",
-              "nl": "Tuya apparaat id"
+              "en": "Device id",
+              "nl": "Apparaat id"
             }
           },
           {
@@ -305,12 +302,12 @@
     "actions": [
       {
         "title": {
-          "en": "Send false command to Tuya",
-          "nl": "Vertuur niet waar commando naar Tuya"
+          "en": "Send false command",
+          "nl": "Vertuur niet waar commando"
         },
         "titleFormatted": {
-          "en": "Send [[functionname]] command with value \"false\" to Tuya device [[tuyaDeviceId]]",
-          "nl": "Vertuur [[functionname]] commando met waarde \"niet\" waar naar Tuya apparaat [[tuyaDeviceId]]"
+          "en": "Send [[functionname]] command with value \"false\" to device [[tuyaDeviceId]]",
+          "nl": "Vertuur [[functionname]] commando met waarde \"niet\" waar naar apparaat [[tuyaDeviceId]]"
         },
         "args": [
           {
@@ -334,20 +331,20 @@
       },
       {
         "title": {
-          "en": "Send number command to Tuya",
-          "nl": "Vertuur numerieke commando naar Tuya"
+          "en": "Send number command",
+          "nl": "Vertuur numerieke commando"
         },
         "titleFormatted": {
-          "en": "Send [[functionname]] command with number value [[functionValue]] to Tuya device [[tuyaDeviceId]]",
-          "nl": "Vertuur [[functionname]] commando met numerieke waarde [[functionValue]] naar Tuya apparaat [[tuyaDeviceId]]"
+          "en": "Send [[functionname]] command with number value [[functionValue]] to device [[tuyaDeviceId]]",
+          "nl": "Vertuur [[functionname]] commando met numerieke waarde [[functionValue]] naar apparaat [[tuyaDeviceId]]"
         },
         "args": [
           {
             "name": "tuyaDeviceId",
             "type": "text",
             "title": {
-              "en": "Tuya Device id",
-              "nl": "Tuya apparaat id"
+              "en": "Device id",
+              "nl": "Apparaat id"
             }
           },
           {
@@ -371,20 +368,20 @@
       },
       {
         "title": {
-          "en": "Send text command to Tuya",
-          "nl": "Vertuur tekst commando naar Tuya"
+          "en": "Send text command",
+          "nl": "Vertuur tekst commando"
         },
         "titleFormatted": {
-          "en": "Send [[functionname]] command with text value [[functionValue]] to Tuya device [[tuyaDeviceId]]",
-          "nl": "Vertuur [[functionname]] commando met tekst waarde [[functionValue]] naar Tuya apparaat [[tuyaDeviceId]]"
+          "en": "Send [[functionname]] command with text value [[functionValue]] to device [[tuyaDeviceId]]",
+          "nl": "Vertuur [[functionname]] commando met tekst waarde [[functionValue]] naar apparaat [[tuyaDeviceId]]"
         },
         "args": [
           {
             "name": "tuyaDeviceId",
             "type": "text",
             "title": {
-              "en": "Tuya Device id",
-              "nl": "Tuya apparaat id"
+              "en": "Device id",
+              "nl": "Apparaat id"
             }
           },
           {
@@ -408,20 +405,20 @@
       },
       {
         "title": {
-          "en": "Send true command to Tuya",
+          "en": "Send true command",
           "nl": "Vertuur waafr commando naar Tuya"
         },
         "titleFormatted": {
-          "en": "Send [[functionname]] command with \"true\" to Tuya device [[tuyaDeviceId]]",
-          "nl": "Vertuur [[functionname]] commando met waarde \"waar\" naar Tuya apparaat [[tuyaDeviceId]]"
+          "en": "Send [[functionname]] command with \"true\" to device [[tuyaDeviceId]]",
+          "nl": "Vertuur [[functionname]] commando met waarde \"waar\" naar apparaat [[tuyaDeviceId]]"
         },
         "args": [
           {
             "name": "tuyaDeviceId",
             "type": "text",
             "title": {
-              "en": "Tuya Device id",
-              "nl": "Tuya apparaat id"
+              "en": "Device id",
+              "nl": "Apparaat id"
             }
           },
           {
@@ -725,8 +722,7 @@
       "class": "sensor",
       "capabilities": [
         "alarm_contact",
-        "measure_battery",
-        "alarm_battery"
+        "measure_battery"
       ],
       "energy": {
         "batteries": [
@@ -877,8 +873,7 @@
       "class": "sensor",
       "capabilities": [
         "alarm_motion",
-        "measure_battery",
-        "alarm_battery"
+        "measure_battery"
       ],
       "energy": {
         "batteries": [
@@ -970,8 +965,7 @@
       "class": "sensor",
       "capabilities": [
         "alarm_smoke",
-        "measure_battery",
-        "alarm_battery"
+        "measure_battery"
       ],
       "energy": {
         "batteries": [
