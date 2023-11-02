@@ -26,7 +26,7 @@ class TuyaBaseDriver extends Homey.Driver {
         },
         {
             "type": "airPurifier",
-            "category": ['kj']
+            "category": ['kj', 'cs']
         },
         {
             "type": "fan",
@@ -54,7 +54,7 @@ class TuyaBaseDriver extends Homey.Driver {
         },
         {
             "type": "leakSensor",
-            "category": ['rqbj', 'jwbj']
+            "category": ['rqbj', 'jwbj', 'sj']
         },
         {
             "type": "pir",
