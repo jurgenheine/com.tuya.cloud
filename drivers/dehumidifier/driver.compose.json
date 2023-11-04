@@ -7,8 +7,8 @@
     "measure_humidity",
     "measure_temperature",
     "onoff",
-    "target_humidity",
-    "fan_speed"
+    "dehumidifier_target_humidity",
+    "dehumidifier_fan_speed"
   ],
   "$extends": [ "defaults" ]
 }

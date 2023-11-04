@@ -44,11 +44,11 @@ class TuyaDehumidifierDriver extends TuyaBaseDriver {
                                 break;
                             case "dehumidify_set_enum":
                                 values = JSON.parse(tuyaDevice.functions[i].values);
-                                capabilities.push("target_humidity");
+                                capabilities.push("dehumidifier_target_humidity");
                                 break;
                             case "fan_speed_enum":
                                 values = JSON.parse(tuyaDevice.functions[i].values);
-                                capabilities.push("fan_speed");
+                                capabilities.push("dehumidifier_fan_speed");
                                 break;
                             // case "mode":
                             //     values = JSON.parse(tuyaDevice.functions[i].values);

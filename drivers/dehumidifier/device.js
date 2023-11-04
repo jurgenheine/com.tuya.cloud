@@ -39,11 +39,11 @@ class TuyaDehumidifierDevice extends TuyaBaseDevice {
             if (valueObj.onoff != null) {
                 this.set_on_off(valueObj.onoff === true || valueObj.onoff === 1);
             }
-            if (valueObj.target_humidity != null) {
-              this.set_target_humidity(valueObj.target_humidity);
+            if (valueObj.dehumidifier_target_humidity != null) {
+              this.set_dehumidifier_target_humidity(valueObj.dehumidifier_target_humidity);
             }
-            if (valueObj.fan_speed != null) {
-              this.set_fan_speed(valueObj.fan_speed);
+            if (valueObj.dehumidifier_fan_speed != null) {
+              this.set_dehumidifier_fan_speed(valueObj.dehumidifier_fan_speed);
             }
             // if (valueObj.thermostat_heater_mode != null) {
             //     this.set_thermostat_mode(valueObj.thermostat_heater_mode);
@@ -62,14 +62,17 @@ class TuyaDehumidifierDevice extends TuyaBaseDevice {
                     this.normalAsync('onoff', status.value);
                     break;
                 case 'dehumidify_set_enum':
-                    this.normalAsync('target_humidity', status.value);
+                    this.normalAsync('dehumidifier_target_humidity', status.value);
                     break;
                 case 'fan_speed_enum':
-                    this.normalAsync('fan_speed', status.value);
+                    this.normalAsync('dehumidifier_fan_speed', status.value);
                     break;
-                //case 'humidity_indoor':
-                //    this.normalAsync('measure_humidity', status.value/Math.pow(10,this.scale));
-                //    break;
+                case 'humidity_indoor':
+                    this.normalAsync('measure_humidity', status.value);
+                    break;
+                case 'temp_indoor':
+                    this.normalAsync('measure_temperature', status.value);
+                    break;
                 // case 'mode':
                 //     const homeyMode = tuyaToHomeyModeMap.get(status.value);
                 //     if(homeyMode!=='off') {
@@ -127,10 +130,10 @@ class TuyaDehumidifierDevice extends TuyaBaseDevice {
 
     // }
 
-    set_target_humidity(targetHumidity) {
+    set_dehumidifier_target_humidity(targetHumidity) {
         this.sendCommand("dehumidify_set_enum", targetHumidity);
     }
-    set_fan_speed(fanSpeed) {
+    set_dehumidifier_fan_speed(fanSpeed) {
         this.sendCommand("fan_speed_enum", fanSpeed);
     }
 }
