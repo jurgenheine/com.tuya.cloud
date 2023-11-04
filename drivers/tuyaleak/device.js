@@ -8,7 +8,23 @@ class TuyaLeakDevice extends TuyaBaseDevice {
         this.initDevice(this.getData().id);
         this.fixCapabilities();
         this.setDeviceConfig(this.get_deviceConfig());
+        this.registerCapabilityListener("watersensor_state", this.onCapabilityWaterSensorState.bind(this));
         this.log(`Tuya leaksensor ${this.getName()} has been initialized`);
+    }
+
+    async onCapabilityWaterSensorState(value, _) {
+        const command = {
+            commands: [
+                {
+                    code: "watersensor_state",
+                    value: value
+                }
+            ]
+        };
+        this.log("Leak sensor is triggered");
+        this.homey.app.tuyaOpenApi.sendCommand(this.id, command).catch((error) => {
+            this.error(`[SET][${this.id}] capabilities Error: ${error}`);
+        });
     }
 
     fixCapabilities() {
@@ -35,7 +51,15 @@ class TuyaLeakDevice extends TuyaBaseDevice {
         for (const statusMap of statusArr) {
             if (statusMap.code === "watersensor_state") {
                 this.sensorStatus = statusMap;
-                this.setCapabilityValue("alarm_water", this.sensorStatus.value).catch(this.error);
+                var rawStatus = this.sensorStatus.value;
+                switch (rawStatus) {
+                    case "alarm":
+                        this.setCapabilityValue("alarm_water", true).catch(this.error);
+                        break;
+                    default:
+                        this.setCapabilityValue("alarm_water", false).catch(this.error);
+                        break;
+                }
             }
 
             if (statusMap.code === "battery_percentage") {
@@ -61,3 +85,4 @@ class TuyaLeakDevice extends TuyaBaseDevice {
         }
     }
 }
+module.exports = TuyaLeakDevice;
