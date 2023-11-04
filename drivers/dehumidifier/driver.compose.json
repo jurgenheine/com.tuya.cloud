@@ -1,0 +1,13 @@
+{
+  "name": {
+    "en": "Dehumidifier"
+  },
+  "class": "other",
+  "capabilities": [
+    "measure_humidity",
+    "measure_temperature",
+    "onoff",
+    "target_humidity"
+  ],
+  "$extends": [ "defaults" ]
+}

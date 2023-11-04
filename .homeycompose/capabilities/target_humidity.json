@@ -1,0 +1,74 @@
+{
+  "type": "enum",
+  "title": {
+    "en": "Target Humidity"
+  },
+  "desc": {
+    "en": "Target Humidity"
+  },
+  "getable": true,
+  "setable": true,
+  "uiComponent": "picker",
+  "values": [
+    {
+      "id": "35",
+      "title": {
+        "en": "35 %"
+      }
+    },
+    {
+      "id": "40",
+      "title": {
+        "en": "40 %"
+      }
+    },
+    {
+      "id": "45",
+      "title": {
+        "en": "45 %"
+      }
+    },
+    {
+      "id": "50",
+      "title": {
+        "en": "50 %"
+      }
+    },
+    {
+      "id": "55",
+      "title": {
+        "en": "55 %"
+      }
+    },
+    {
+      "id": "60",
+      "title": {
+        "en": "60 %"
+      }
+    },
+    {
+      "id": "65",
+      "title": {
+        "en": "65 %"
+      }
+    },
+    {
+      "id": "70",
+      "title": {
+        "en": "70 %"
+      }
+    },
+    {
+      "id": "75",
+      "title": {
+        "en": "75 %"
+      }
+    },
+    {
+      "id": "80",
+      "title": {
+        "en": "80 %"
+      }
+    }
+  ]
+}
