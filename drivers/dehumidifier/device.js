@@ -36,11 +36,14 @@ class TuyaDehumidifierDevice extends TuyaBaseDevice {
     _onMultipleCapabilityListener(valueObj, optsObj) {
         this.log("Dehumidifier capabilities changed by Homey: " + JSON.stringify(valueObj));
         try {
-            if (valueObj.target_humidity != null) {
-                this.set_target_humidity(valueObj.target_humidity);
-            }
             if (valueObj.onoff != null) {
                 this.set_on_off(valueObj.onoff === true || valueObj.onoff === 1);
+            }
+            if (valueObj.target_humidity != null) {
+              this.set_target_humidity(valueObj.target_humidity);
+            }
+            if (valueObj.fan_speed != null) {
+              this.set_fan_speed(valueObj.fan_speed);
             }
             // if (valueObj.thermostat_heater_mode != null) {
             //     this.set_thermostat_mode(valueObj.thermostat_heater_mode);
@@ -57,14 +60,12 @@ class TuyaDehumidifierDevice extends TuyaBaseDevice {
             switch (status.code) {
                 case 'switch':
                     this.normalAsync('onoff', status.value);
-                    // if(status.value) {
-                    //     this.normalAsync('thermostat_heater_mode', this.lastKnowHomeyThermostatMode);
-                    // }else{
-                    //     this.normalAsync('thermostat_heater_mode', 'off');
-                    // }
                     break;
                 case 'dehumidify_set_enum':
                     this.normalAsync('target_humidity', status.value);
+                    break;
+                case 'fan_speed_enum':
+                    this.normalAsync('fan_speed', status.value);
                     break;
                 //case 'humidity_indoor':
                 //    this.normalAsync('measure_humidity', status.value/Math.pow(10,this.scale));
@@ -128,6 +129,9 @@ class TuyaDehumidifierDevice extends TuyaBaseDevice {
 
     set_target_humidity(targetHumidity) {
         this.sendCommand("dehumidify_set_enum", targetHumidity);
+    }
+    set_fan_speed(fanSpeed) {
+        this.sendCommand("fan_speed_enum", fanSpeed);
     }
 }
 

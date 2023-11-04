@@ -860,7 +860,8 @@
         "measure_humidity",
         "measure_temperature",
         "onoff",
-        "target_humidity"
+        "target_humidity",
+        "fan_speed"
       ],
       "id": "dehumidifier"
     },
@@ -1428,6 +1429,44 @@
     }
   ],
   "capabilities": {
+    "fan_speed": {
+      "type": "enum",
+      "title": {
+        "en": "Fan speed"
+      },
+      "desc": {
+        "en": "Fan speed"
+      },
+      "getable": true,
+      "setable": true,
+      "uiComponent": "picker",
+      "values": [
+        {
+          "id": "low",
+          "title": {
+            "en": "Low"
+          }
+        },
+        {
+          "id": "mid",
+          "title": {
+            "en": "Mid"
+          }
+        },
+        {
+          "id": "high",
+          "title": {
+            "en": "High"
+          }
+        },
+        {
+          "id": "auto",
+          "title": {
+            "en": "Auto"
+          }
+        }
+      ]
+    },
     "target_humidity": {
       "type": "enum",
       "title": {
