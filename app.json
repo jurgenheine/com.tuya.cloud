@@ -880,7 +880,7 @@
       "name": {
         "en": "Dehumidifier"
       },
-      "class": "other",
+      "class": "thermostat",
       "capabilities": [
         "measure_humidity",
         "measure_temperature",
@@ -1756,6 +1756,7 @@
       },
       "getable": true,
       "setable": true,
+      "units": "%",
       "uiComponent": "picker",
       "values": [
         {

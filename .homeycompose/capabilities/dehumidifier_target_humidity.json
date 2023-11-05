@@ -8,6 +8,7 @@
   },
   "getable": true,
   "setable": true,
+  "units": "%",
   "uiComponent": "picker",
   "values": [
     {
