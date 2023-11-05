@@ -67,6 +67,23 @@ class TuyaDehumidifierDevice extends TuyaBaseDevice {
                 case 'mode':
                     this.normalAsync('dehumidifier_mode', status.value);
                     break;
+                case 'fault':
+                    switch (status.value) {
+                        case 0:
+                            this.normalAsync('dehumidifier_fault', "OK");
+                            break;
+                        case 8:
+                            this.normalAsync('dehumidifier_fault', "P1");
+                            break;
+                        case 16:
+                            this.normalAsync('dehumidifier_fault', "P2");
+                            break;
+                        default:
+                            // Unknown how tuya is mapping these but not according to their documentation, the above are know through testing.
+                            this.log("Dehumidifier fault: " + status.value);
+                            this.normalAsync('dehumidifier_fault', "Unknown");
+                            break;
+                    }
             }
         });
     }

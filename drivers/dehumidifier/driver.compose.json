@@ -9,7 +9,8 @@
     "onoff",
     "dehumidifier_target_humidity",
     "dehumidifier_fan_speed",
-    "dehumidifier_mode"
+    "dehumidifier_mode",
+    "dehumidifier_fault"
   ],
   "$extends": [ "defaults" ]
 }

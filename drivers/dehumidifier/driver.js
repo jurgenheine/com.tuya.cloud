@@ -29,6 +29,9 @@ class TuyaDehumidifierDriver extends TuyaBaseDriver {
                             case "humidity_indoor":
                                 capabilities.push("measure_humidity");
                                 break;
+                            case "fault":
+                                capabilities.push("dehumidifier_fault");
+                                break;
                             default:
                                 break;
                         }
