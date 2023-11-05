@@ -46,7 +46,7 @@ class TuyaDehumidifierDevice extends TuyaBaseDevice {
     }
     //init Or refresh AccessoryService
     updateCapabilities(statusArr) {
-                this.log("Update dehumidifier capabilities from Tuya: " + JSON.stringify(statusArr));
+        this.log("Update dehumidifier capabilities from Tuya: " + JSON.stringify(statusArr));
         statusArr.forEach(status => {
             switch (status.code) {
                 case 'switch':

@@ -1,0 +1,16 @@
+{
+	"triggers": [
+	  {
+		"id": "dehumidifier_fault_changed",
+		"title": { "en": "Fault state changed" },
+		"tokens": [
+			{
+			  "name": "dehumidifier_fault",
+			  "type": "string",
+			  "title": { "en": "fault" },
+			  "example": { "en": "Fault" }
+			}
+		]
+	  }
+	]
+}

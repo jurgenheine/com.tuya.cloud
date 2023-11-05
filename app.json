@@ -303,6 +303,31 @@
           }
         ],
         "id": "tuyaTextMesage"
+      },
+      {
+        "id": "dehumidifier_fault_changed",
+        "title": {
+          "en": "Fault state changed"
+        },
+        "tokens": [
+          {
+            "name": "dehumidifier_fault",
+            "type": "string",
+            "title": {
+              "en": "fault"
+            },
+            "example": {
+              "en": "Fault"
+            }
+          }
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=dehumidifier"
+          }
+        ]
       }
     ],
     "conditions": [
@@ -1629,7 +1654,7 @@
     "dehumidifier_fault": {
       "type": "enum",
       "title": {
-        "en": "Dehumidifier fault"
+        "en": "Fault"
       },
       "desc": {
         "en": "Dehumidifier fault"
