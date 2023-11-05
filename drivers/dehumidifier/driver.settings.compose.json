@@ -12,6 +12,12 @@
     "value": false
   },
   {
+    "id": "Innerdry_appointment",
+    "type": "checkbox",
+    "label": { "en": "Inner dry" },
+    "value": false
+  },
+  {
     "id": "Light_adjust",
     "type": "dropdown",
     "label": { "en": "Light modes" },
@@ -31,9 +37,75 @@
     ]
   },
   {
+    "id": "Airpurify_switch",
+    "type": "dropdown",
+    "label": { "en": "Function modes" },
+    "values": [
+      {
+        "id": "dehum_air",
+        "label": { "en": "Dehumidifier"}
+      },
+      {
+        "id": "airpurify",
+        "label": { "en": "Air purifier"}
+      },
+      {
+        "id": "dehum30_air",
+        "label": { "en": "Dehumidifier & Air purifier"}
+      }
+    ]
+  },
+  {
+    "id": "countdown_set",
+    "type": "dropdown",
+    "label": { "en": "Timer" },
+    "values": [
+      {
+        "id": "cancel",
+        "label": { "en": "No timer"}
+      },
+      {
+        "id": "1h",
+        "label": { "en": "1 hour timer"}
+      },
+      {
+        "id": "2h",
+        "label": { "en": "2 hour timer"}
+      },
+      {
+        "id": "3h",
+        "label": { "en": "3 hour timer"}
+      },
+      {
+        "id": "4h",
+        "label": { "en": "4 hour timer"}
+      },
+      {
+        "id": "5h",
+        "label": { "en": "5 hour timer"}
+      },
+      {
+        "id": "6h",
+        "label": { "en": "6 hour timer"}
+      },
+      {
+        "id": "7h",
+        "label": { "en": "7 hour timer"}
+      },
+      {
+        "id": "8h",
+        "label": { "en": "8 hour timer"}
+      },
+      {
+        "id": "9h",
+        "label": { "en": "9 hour timer"}
+      }
+    ]
+  },
+  {
     "id": "Beeper",
     "type": "checkbox",
-    "label": { "en": "Beep" },
+    "label": { "en": "Mute device sounds" },
     "value": false
   }
 ]

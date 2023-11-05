@@ -52,7 +52,14 @@ class TuyaDehumidifierDevice extends TuyaBaseDevice {
             this.homey.app.logToHomey(ex);
         }
     }
-
+    async onSettings({ oldSettings, newSettings, changedKeys }) {
+        let changedSettings = Object.fromEntries(Object.entries(newSettings).filter(([key, value]) => changedKeys.includes(key)));
+        this.log("Update dehumidifier device settings: " + JSON.stringify(changedSettings));
+        Object.entries(changedSettings).forEach(entry => {
+            const [key, value] = entry;
+            this.sendCommand(key, value);
+        })
+    }
     //init Or refresh AccessoryService
     updateCapabilities(statusArr) {
                 this.log("Update dehumidifier capabilities from Tuya: " + JSON.stringify(statusArr));
