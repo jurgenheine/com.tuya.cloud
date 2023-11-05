@@ -17,7 +17,6 @@ class TuyaDehumidifierDriver extends TuyaBaseDriver {
             let dehumidifier = this.get_devices_by_type("dehumidifier");
             for (let tuyaDevice of Object.values(dehumidifier)) {
                 let capabilities = [];
-                // capabilities = capabilities.concat(this.manifest.capabilities);
                 let capabilitiesOptions = {};
                 this.log("Add dehumidifier, device details:");
                 this.log(tuyaDevice);
@@ -50,14 +49,10 @@ class TuyaDehumidifierDriver extends TuyaBaseDriver {
                                 values = JSON.parse(tuyaDevice.functions[i].values);
                                 capabilities.push("dehumidifier_fan_speed");
                                 break;
-                            // case "mode":
-                            //     values = JSON.parse(tuyaDevice.functions[i].values);
-                            //     if (values.range != null){
-                            //         if (values.range.indexOf("auto") >= 0){
-                            //             capabilities.push("thermostat_heater_mode");
-                            //         }
-                            //     }
-                            //     break;
+                            case "mode":
+                                values = JSON.parse(tuyaDevice.functions[i].values);
+                                capabilities.push("dehumidifier_mode");
+                                break;
                             default:
                                 break;
                         }

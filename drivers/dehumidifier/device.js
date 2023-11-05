@@ -4,25 +4,9 @@ const TuyaBaseDevice = require('../tuyabasedevice');
 const DataUtil = require("../../util/datautil");
 
 const CAPABILITIES_SET_DEBOUNCE = 1000;
-// const tuyaToHomeyModeMap =  new Map([
-//     ['low','low'],
-//     ['middle','middle'],
-//     ['high','high'],
-//     ['auto','auto'],
-//     ['off','off']
-// ]);
-// const homeyToTuyaModeMap = new Map([
-//     ['low','low'],
-//     ['middle','middle'],
-//     ['high','high'],
-//     ['auto','auto'],
-//     ['off','off']
-// ]);
-
 
 class TuyaDehumidifierDevice extends TuyaBaseDevice {
     onInit() {
-        // this.lastKnowHomeyThermostatMode = 'off'
         this.scale = this.getStoreValue('scale');
         if (this.scale == undefined){
             this.scale = 5;
@@ -45,9 +29,9 @@ class TuyaDehumidifierDevice extends TuyaBaseDevice {
             if (valueObj.dehumidifier_fan_speed != null) {
               this.set_dehumidifier_fan_speed(valueObj.dehumidifier_fan_speed);
             }
-            // if (valueObj.thermostat_heater_mode != null) {
-            //     this.set_thermostat_mode(valueObj.thermostat_heater_mode);
-            // }
+            if (valueObj.dehumidifier_mode != null) {
+              this.set_dehumidifier_mode(valueObj.dehumidifier_mode);
+            }
         } catch (ex) {
             this.homey.app.logToHomey(ex);
         }
@@ -80,16 +64,12 @@ class TuyaDehumidifierDevice extends TuyaBaseDevice {
                 case 'temp_indoor':
                     this.normalAsync('measure_temperature', status.value);
                     break;
-                // case 'mode':
-                //     const homeyMode = tuyaToHomeyModeMap.get(status.value);
-                //     if(homeyMode!=='off') {
-                //         this.lastKnowHomeyThermostatMode = homeyMode
-                //     }
-                //     this.normalAsync('thermostat_heater_mode', homeyMode);
+                case 'mode':
+                    this.normalAsync('dehumidifier_mode', status.value);
+                    break;
             }
-
         });
-        }
+    }
 
     normalAsync(name, hbValue) {
         this.log("Set dehumidifier Capability " + name + " with " + hbValue);
@@ -114,34 +94,15 @@ class TuyaDehumidifierDevice extends TuyaBaseDevice {
 
     set_on_off(onoff) {
         this.sendCommand("switch", onoff);
-        // if(!onoff) {
-        //     this.normalAsync('thermostat_heater_mode', 'off');
-        // }else{
-        //     this.normalAsync('thermostat_heater_mode', this.lastKnowHomeyThermostatMode);
-        // }
-
     }
-
-    // set_thermostat_mode(mode) {
-    //     const tuyaMode = homeyToTuyaModeMap.get(mode);
-    //     if(tuyaMode==='off') {
-    //         this.sendCommand("switch", false);
-    //         this.normalAsync('onoff', false);
-    //     }
-    //     else{
-    //         this.lastKnowHomeyThermostatMode = mode;
-    //         this.sendCommand("switch", true);
-    //         this.sendCommand("mode", tuyaMode);
-    //         this.normalAsync('onoff', true);
-    //     }
-
-    // }
-
     set_dehumidifier_target_humidity(targetHumidity) {
         this.sendCommand("dehumidify_set_enum", targetHumidity);
     }
     set_dehumidifier_fan_speed(fanSpeed) {
         this.sendCommand("fan_speed_enum", fanSpeed);
+    }
+    set_dehumidifier_mode(mode) {
+        this.sendCommand("mode", mode);
     }
 }
 

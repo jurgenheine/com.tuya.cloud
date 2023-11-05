@@ -861,7 +861,8 @@
         "measure_temperature",
         "onoff",
         "dehumidifier_target_humidity",
-        "dehumidifier_fan_speed"
+        "dehumidifier_fan_speed",
+        "dehumidifier_mode"
       ],
       "id": "dehumidifier",
       "settings": [
@@ -1614,6 +1615,44 @@
           "id": "high",
           "title": {
             "en": "High"
+          }
+        },
+        {
+          "id": "auto",
+          "title": {
+            "en": "Auto"
+          }
+        }
+      ]
+    },
+    "dehumidifier_mode": {
+      "type": "enum",
+      "title": {
+        "en": "Dehumidifier mode"
+      },
+      "desc": {
+        "en": "Dehumidifier mode"
+      },
+      "getable": true,
+      "setable": true,
+      "uiComponent": "picker",
+      "values": [
+        {
+          "id": "dry_clothes",
+          "title": {
+            "en": "Clothes dry"
+          }
+        },
+        {
+          "id": "sleep_mode",
+          "title": {
+            "en": "Night mode"
+          }
+        },
+        {
+          "id": "manual_dehumidify",
+          "title": {
+            "en": "Manual"
           }
         },
         {
