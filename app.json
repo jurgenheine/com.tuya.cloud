@@ -1368,6 +1368,48 @@
     },
     {
       "images": {
+        "small": "/drivers/tuyaleak/assets/images/small.png",
+        "large": "/drivers/tuyaleak/assets/images/large.png",
+        "xlarge": "/drivers/tuyaleak/assets/images/xlarge.png"
+      },
+      "icon": "/drivers/tuyaleak/assets/icon.svg",
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
+      "pair": [
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ],
+      "name": {
+        "en": "Water Leak Sensor"
+      },
+      "class": "sensor",
+      "capabilities": [
+        "measure_battery",
+        "alarm_water"
+      ],
+      "energy": {
+        "batteries": [
+          "AAA",
+          "AAA"
+        ]
+      },
+      "id": "tuyaleak"
+    },
+    {
+      "images": {
         "large": "/drivers/tuyalight/assets/images/large.png",
         "small": "/drivers/tuyalight/assets/images/small.png"
       },

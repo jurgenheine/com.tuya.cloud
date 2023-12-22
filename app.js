@@ -225,8 +225,7 @@ class TuyaCloudApp extends Homey.App {
                 return this.homey.drivers.getDriver('tuyacontact');
                 //contact sensor
             case 'leakSensor':
-                //leak sensor
-                break;
+                return this.homey.drivers.getDriver('tuyaleak');
             case 'presenceSensor':
                 return this.homey.drivers.getDriver('tuyapresence');
                 //contact sensor

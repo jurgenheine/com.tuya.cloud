@@ -26,7 +26,7 @@ class TuyaBaseDriver extends Homey.Driver {
         },
         {
             "type": "airPurifier",
-            "category": ['kj']
+            "category": ['kj', 'cs']
         },
         {
             "type": "dehumidifier",
@@ -58,7 +58,7 @@ class TuyaBaseDriver extends Homey.Driver {
         },
         {
             "type": "leakSensor",
-            "category": ['rqbj', 'jwbj']
+            "category": ['rqbj', 'jwbj', 'sj']
         },
         {
             "type": "pir",
@@ -186,12 +186,14 @@ class TuyaBaseDriver extends Homey.Driver {
                         capabilitiesOptions["windowcoverings_set.percent_control_2"] = {'title': {'en': 'Control 2'}};
                     }
                     break;
-                    
                 case "position":
                     if(deviceType ==='cover'){
                         capabilities.push("windowcoverings_set");
                     }
                     break;                    
+                case "watersensor_state":
+                    capabilities.push("alarm_water");
+                    break;
                 default:
                     break;
             }
