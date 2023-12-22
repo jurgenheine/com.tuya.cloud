@@ -303,6 +303,31 @@
           }
         ],
         "id": "tuyaTextMesage"
+      },
+      {
+        "id": "dehumidifier_fault_changed",
+        "title": {
+          "en": "Fault state changed"
+        },
+        "tokens": [
+          {
+            "name": "dehumidifier_fault",
+            "type": "string",
+            "title": {
+              "en": "fault"
+            },
+            "example": {
+              "en": "Fault"
+            }
+          }
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=dehumidifier"
+          }
+        ]
       }
     ],
     "conditions": [
@@ -824,6 +849,203 @@
               }
             }
           ]
+        }
+      ]
+    },
+    {
+      "images": {
+        "large": "/drivers/dehumidifier/assets/images/large.png",
+        "small": "/drivers/dehumidifier/assets/images/small.png"
+      },
+      "icon": "/drivers/dehumidifier/assets/icon.svg",
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
+      "pair": [
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ],
+      "name": {
+        "en": "Dehumidifier"
+      },
+      "class": "thermostat",
+      "capabilities": [
+        "measure_humidity",
+        "measure_temperature",
+        "onoff",
+        "dehumidifier_target_humidity",
+        "dehumidifier_fan_speed",
+        "dehumidifier_mode",
+        "dehumidifier_fault"
+      ],
+      "id": "dehumidifier",
+      "settings": [
+        {
+          "id": "child_lock",
+          "type": "checkbox",
+          "label": {
+            "en": "Child lock"
+          },
+          "value": false
+        },
+        {
+          "id": "swing",
+          "type": "checkbox",
+          "label": {
+            "en": "Swing"
+          },
+          "value": false
+        },
+        {
+          "id": "Innerdry_appointment",
+          "type": "checkbox",
+          "label": {
+            "en": "Inner dry"
+          },
+          "value": false
+        },
+        {
+          "id": "Light_adjust",
+          "type": "dropdown",
+          "label": {
+            "en": "Light modes"
+          },
+          "values": [
+            {
+              "id": "1",
+              "label": {
+                "en": "Air humidity indication off"
+              }
+            },
+            {
+              "id": "2",
+              "label": {
+                "en": "All indications off"
+              }
+            },
+            {
+              "id": "3",
+              "label": {
+                "en": "All indications on"
+              }
+            }
+          ]
+        },
+        {
+          "id": "Airpurify_switch",
+          "type": "dropdown",
+          "label": {
+            "en": "Function modes"
+          },
+          "values": [
+            {
+              "id": "dehum_air",
+              "label": {
+                "en": "Dehumidifier"
+              }
+            },
+            {
+              "id": "airpurify",
+              "label": {
+                "en": "Air purifier"
+              }
+            },
+            {
+              "id": "dehum30_air",
+              "label": {
+                "en": "Dehumidifier & Air purifier"
+              }
+            }
+          ]
+        },
+        {
+          "id": "countdown_set",
+          "type": "dropdown",
+          "label": {
+            "en": "Timer"
+          },
+          "values": [
+            {
+              "id": "cancel",
+              "label": {
+                "en": "No timer"
+              }
+            },
+            {
+              "id": "1h",
+              "label": {
+                "en": "1 hour timer"
+              }
+            },
+            {
+              "id": "2h",
+              "label": {
+                "en": "2 hour timer"
+              }
+            },
+            {
+              "id": "3h",
+              "label": {
+                "en": "3 hour timer"
+              }
+            },
+            {
+              "id": "4h",
+              "label": {
+                "en": "4 hour timer"
+              }
+            },
+            {
+              "id": "5h",
+              "label": {
+                "en": "5 hour timer"
+              }
+            },
+            {
+              "id": "6h",
+              "label": {
+                "en": "6 hour timer"
+              }
+            },
+            {
+              "id": "7h",
+              "label": {
+                "en": "7 hour timer"
+              }
+            },
+            {
+              "id": "8h",
+              "label": {
+                "en": "8 hour timer"
+              }
+            },
+            {
+              "id": "9h",
+              "label": {
+                "en": "9 hour timer"
+              }
+            }
+          ]
+        },
+        {
+          "id": "Beeper",
+          "type": "checkbox",
+          "label": {
+            "en": "Mute device sounds"
+          },
+          "value": false
         }
       ]
     },
@@ -1391,6 +1613,214 @@
     }
   ],
   "capabilities": {
+    "dehumidifier_fan_speed": {
+      "type": "enum",
+      "title": {
+        "en": "Fan speed"
+      },
+      "desc": {
+        "en": "Fan speed"
+      },
+      "getable": true,
+      "setable": true,
+      "uiComponent": "picker",
+      "values": [
+        {
+          "id": "low",
+          "title": {
+            "en": "Low"
+          }
+        },
+        {
+          "id": "mid",
+          "title": {
+            "en": "Mid"
+          }
+        },
+        {
+          "id": "high",
+          "title": {
+            "en": "High"
+          }
+        },
+        {
+          "id": "auto",
+          "title": {
+            "en": "Auto"
+          }
+        }
+      ]
+    },
+    "dehumidifier_fault": {
+      "type": "enum",
+      "title": {
+        "en": "Fault"
+      },
+      "desc": {
+        "en": "Dehumidifier fault"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "icon": "/assets/error.svg",
+      "values": [
+        {
+          "id": "OK",
+          "title": {
+            "en": "OK"
+          }
+        },
+        {
+          "id": "C1",
+          "title": {
+            "en": "NTC thermistor fault"
+          }
+        },
+        {
+          "id": "C2",
+          "title": {
+            "en": "Temp/Hum sensor fault"
+          }
+        },
+        {
+          "id": "C8",
+          "title": {
+            "en": "Refrigerant leak"
+          }
+        },
+        {
+          "id": "P1",
+          "title": {
+            "en": "Auto defrost"
+          }
+        },
+        {
+          "id": "P2",
+          "title": {
+            "en": "Water tank full"
+          }
+        },
+        {
+          "id": "Unkown",
+          "title": {
+            "en": "Unknown fault"
+          }
+        }
+      ]
+    },
+    "dehumidifier_mode": {
+      "type": "enum",
+      "title": {
+        "en": "Dehumidifier mode"
+      },
+      "desc": {
+        "en": "Dehumidifier mode"
+      },
+      "getable": true,
+      "setable": true,
+      "uiComponent": "picker",
+      "values": [
+        {
+          "id": "dry_clothes",
+          "title": {
+            "en": "Clothes dry"
+          }
+        },
+        {
+          "id": "sleep_mode",
+          "title": {
+            "en": "Night mode"
+          }
+        },
+        {
+          "id": "manual_dehumidify",
+          "title": {
+            "en": "Manual"
+          }
+        },
+        {
+          "id": "auto",
+          "title": {
+            "en": "Auto"
+          }
+        }
+      ]
+    },
+    "dehumidifier_target_humidity": {
+      "type": "enum",
+      "title": {
+        "en": "Target Humidity"
+      },
+      "desc": {
+        "en": "Target Humidity"
+      },
+      "getable": true,
+      "setable": true,
+      "units": "%",
+      "uiComponent": "picker",
+      "values": [
+        {
+          "id": "35",
+          "title": {
+            "en": "35 %"
+          }
+        },
+        {
+          "id": "40",
+          "title": {
+            "en": "40 %"
+          }
+        },
+        {
+          "id": "45",
+          "title": {
+            "en": "45 %"
+          }
+        },
+        {
+          "id": "50",
+          "title": {
+            "en": "50 %"
+          }
+        },
+        {
+          "id": "55",
+          "title": {
+            "en": "55 %"
+          }
+        },
+        {
+          "id": "60",
+          "title": {
+            "en": "60 %"
+          }
+        },
+        {
+          "id": "65",
+          "title": {
+            "en": "65 %"
+          }
+        },
+        {
+          "id": "70",
+          "title": {
+            "en": "70 %"
+          }
+        },
+        {
+          "id": "75",
+          "title": {
+            "en": "75 %"
+          }
+        },
+        {
+          "id": "80",
+          "title": {
+            "en": "80 %"
+          }
+        }
+      ]
+    },
     "thermostat_heater_mode": {
       "type": "enum",
       "title": {

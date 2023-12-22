@@ -1,0 +1,57 @@
+{
+  "type": "enum",
+  "title": {
+    "en": "Fault"
+  },
+  "desc": {
+    "en": "Dehumidifier fault"
+  },
+  "getable": true,
+  "setable": false,
+  "uiComponent": "sensor",
+  "icon": "/assets/error.svg",
+  "values": [
+    {
+      "id": "OK",
+      "title": {
+        "en": "OK"
+      }
+    },
+    {
+      "id": "C1",
+      "title": {
+        "en": "NTC thermistor fault"
+      }
+    },
+    {
+      "id": "C2",
+      "title": {
+        "en": "Temp/Hum sensor fault"
+      }
+    },
+    {
+      "id": "C8",
+      "title": {
+        "en": "Refrigerant leak"
+      }
+    },
+    {
+      "id": "P1",
+      "title": {
+        "en": "Auto defrost"
+      }
+    },
+    {
+      "id": "P2",
+      "title": {
+        "en": "Water tank full"
+      }
+    },
+    {
+      "id": "Unkown",
+      "title": {
+        "en": "Unknown fault"
+      }
+    }
+  ]
+}

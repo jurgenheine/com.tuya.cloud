@@ -1,0 +1,16 @@
+{
+  "name": {
+    "en": "Dehumidifier"
+  },
+  "class": "thermostat",
+  "capabilities": [
+    "measure_humidity",
+    "measure_temperature",
+    "onoff",
+    "dehumidifier_target_humidity",
+    "dehumidifier_fan_speed",
+    "dehumidifier_mode",
+    "dehumidifier_fault"
+  ],
+  "$extends": [ "defaults" ]
+}

@@ -5,7 +5,7 @@
 	},
 	"icon": "{{driverAssetsPath}}/icon.svg",
 	"platforms": ["local"],
-  "connectivity": ["cloud"],
+    "connectivity": ["cloud"],
 	"pair": [
 		{
 			"id": "list_devices",
