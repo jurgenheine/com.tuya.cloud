@@ -10,7 +10,7 @@
     "nl": "Deze app laat je connectie maken met de Tuya cloud"
   },
   "category": "lights",
-  "version": "1.1.23",
+  "version": "1.1.24",
   "compatibility": ">=5.0.0",
   "author": {
     "name": "Jurgen Heine",
