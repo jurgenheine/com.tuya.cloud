@@ -2,8 +2,8 @@
   {
     "id": "motionTimeoutInSeconds",
     "type": "number",
-    "value": 300,
-    "min": 60,
+    "value": 30,
+    "min": 10,
     "label": {
       "en": "Motion reset after",
       "nl": "Beweging reset na"

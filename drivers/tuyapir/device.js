@@ -33,10 +33,13 @@ class TuyaPirDevice extends TuyaBaseDevice {
     updateCapabilities(statusArr) {
         this.log("Update pir capabilities from Tuya: " + JSON.stringify(statusArr));
         for (const statusMap of statusArr) {
-            if (statusMap.code === "pir") {
+            if (statusMap.code === "pir" || statusMap.code === "pir_state") {
                 this.sensorStatus = statusMap;
                 var rawStatus = this.sensorStatus.value;
                 switch (rawStatus) {
+                    case "none":
+                        this.setCapabilityValue("alarm_motion", false).catch(this.error);
+                        break;
                     case "pir":
                         this.setCapabilityValue("alarm_motion", true).catch(this.error);
                         // reset timeout when new trigger
@@ -52,6 +55,9 @@ class TuyaPirDevice extends TuyaBaseDevice {
                         break;
                 }
             }
+            if (statusMap.code === "illuminance_value") {
+                this.setCapabilityValue("measure_luminance", statusMap.value).catch(this.error);
+            }    
             if (statusMap.code === "battery_percentage") {
                 this.batteryStatus = statusMap;
                 this.setCapabilityValue("measure_battery", this.batteryStatus.value).catch(this.error);

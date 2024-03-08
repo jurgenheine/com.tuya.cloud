@@ -20,6 +20,11 @@ class TuyaPirDriver extends TuyaBaseDriver {
                 capabilities.push("alarm_motion");
                 capabilities.push("measure_battery");
                 capabilities.push("alarm_battery");
+                for (let func of tuyaDevice.status) {
+                    if (func.code === "illuminance_value") {
+                        capabilities.push("measure_luminance");
+                    }
+                }
                 devices.push({
                     data: {
                         id: tuyaDevice.id
