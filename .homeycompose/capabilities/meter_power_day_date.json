@@ -1,0 +1,12 @@
+{
+  "type": "string",
+  "title": {
+    "en": "Energy Day Date"
+  },
+  "desc": {
+    "en": "Energy Day Date"
+  },
+  "getable": true,
+  "setable": true,
+  "icon": "/assets/calendar.svg"
+}

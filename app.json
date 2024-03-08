@@ -11,7 +11,7 @@
     "nl": "Deze app laat je connectie maken met de Tuya cloud"
   },
   "category": "lights",
-  "version": "1.1.24",
+  "version": "1.1.25",
   "compatibility": ">=5.0.0",
   "author": {
     "name": "Jurgen Heine",
@@ -1333,6 +1333,57 @@
     },
     {
       "images": {
+        "large": "/drivers/tuyadinrail/assets/images/large.png",
+        "small": "/drivers/tuyadinrail/assets/images/small.png"
+      },
+      "icon": "/drivers/tuyadinrail/assets/icon.svg",
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
+      "pair": [
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ],
+      "name": {
+        "en": "DinRail",
+        "nl": "DinRail"
+      },
+      "class": "socket",
+      "capabilities": [
+        "onoff",
+        "meter_power",
+        "meter_power.day",
+        "meter_power_day_date",
+        "meter_power.month",
+        "measure_current.l1",
+        "measure_current.l2",
+        "measure_current.l3",
+        "measure_voltage.l1",
+        "measure_voltage.l2",
+        "measure_voltage.l3",
+        "measure_power.l1",
+        "measure_power.l2",
+        "measure_power.l3",
+        "measure_current",
+        "measure_power",
+        "measure_voltage"
+      ],
+      "id": "tuyadinrail"
+    },
+    {
+      "images": {
         "large": "/drivers/tuyagaragedooropener/assets/images/large.png",
         "small": "/drivers/tuyagaragedooropener/assets/images/small.png"
       },
@@ -1492,8 +1543,8 @@
         {
           "id": "motionTimeoutInSeconds",
           "type": "number",
-          "value": 300,
-          "min": 60,
+          "value": 30,
+          "min": 10,
           "label": {
             "en": "Motion reset after",
             "nl": "Beweging reset na"
@@ -1613,7 +1664,10 @@
       "class": "socket",
       "capabilities": [
         "onoff",
-        "measure_power"
+        "measure_power",
+        "measure_voltage",
+        "measure_current",
+        "meter_power"
       ],
       "id": "tuyasocket"
     },
@@ -1862,6 +1916,18 @@
           }
         }
       ]
+    },
+    "meter_power_day_date": {
+      "type": "string",
+      "title": {
+        "en": "Energy Day Date"
+      },
+      "desc": {
+        "en": "Energy Day Date"
+      },
+      "getable": true,
+      "setable": true,
+      "icon": "/assets/calendar.svg"
     },
     "thermostat_heater_mode": {
       "type": "enum",

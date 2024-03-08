@@ -194,7 +194,7 @@ class TuyaCloudApp extends Homey.App {
     getTypeDriver(type) {
         switch (type) {
             case 'light':
-                return this.homey.drivers.getDriver('tuyalight');
+				return this.homey.drivers.getDriver('tuyalight');
             case 'socket':
                 return this.homey.drivers.getDriver('tuyasocket');
             case 'switch':
@@ -227,8 +227,10 @@ class TuyaCloudApp extends Homey.App {
             case 'leakSensor':
                 return this.homey.drivers.getDriver('tuyaleak');
             case 'presenceSensor':
-                return this.homey.drivers.getDriver('tuyapresence');
+				return this.homey.drivers.getDriver('tuyapresence');
                 //contact sensor
+			case 'dinRail':
+				return this.homey.drivers.getDriver('tuyadinrail');
             default:
                 break;
         }

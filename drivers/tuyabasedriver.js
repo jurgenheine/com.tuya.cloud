@@ -71,6 +71,10 @@ class TuyaBaseDriver extends Homey.Driver {
         {
             "type": "thermostat",
             "category":['wk']
+        },
+        {
+            "type": "dinRail",
+            "category": ['zndb', 'dlq']
         }
     ];
 
@@ -172,8 +176,33 @@ class TuyaBaseDriver extends Homey.Driver {
                     capabilities.push("measure_battery");
                     capabilities.push("alarm_battery");
                     break;
+                case "phase_a":
+                    capabilities.push("measure_current.l1");
+                    capabilities.push("measure_voltage.l1")
+                    capabilities.push("measure_power.l1");
+                    break;
+                case "phase_b":
+                        capabilities.push("measure_current.l2");
+                        capabilities.push("measure_voltage.l2")
+                        capabilities.push("measure_power.l2");
+                    break;
+                case "phase_c":
+                        capabilities.push("measure_current.l3");
+                        capabilities.push("measure_voltage.l3")
+                        capabilities.push("measure_power.l3");
+                    break;
+                case "cur_voltage":
+                    capabilities.push("measure_voltage");
+                    break;
+                case "cur_current":
+                    capabilities.push("measure_current");
+                    break;
                 case "cur_power":
                     capabilities.push("measure_power");
+                    break;
+                case "add_ele":
+                case "forward_energy_total":
+                    capabilities.push("meter_power");
                     break;
                 case "percent_control":
                     if(deviceType ==='cover'){

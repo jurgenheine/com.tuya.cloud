@@ -1,0 +1,27 @@
+{
+  "name": {
+    "en": "DinRail",
+    "nl": "DinRail"
+  },
+  "class": "socket",
+  "capabilities": [
+    "onoff",
+    "meter_power",
+    "meter_power.day",
+    "meter_power_day_date",
+    "meter_power.month",
+    "measure_current.l1",
+    "measure_current.l2",
+    "measure_current.l3",
+    "measure_voltage.l1",
+    "measure_voltage.l2",
+    "measure_voltage.l3",
+    "measure_power.l1",
+    "measure_power.l2",
+    "measure_power.l3",
+    "measure_current",
+    "measure_power",
+    "measure_voltage"
+  ],
+  "$extends": [ "defaults" ]
+}
