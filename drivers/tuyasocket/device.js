@@ -33,6 +33,24 @@ class TuyaSocketDevice extends TuyaBaseDevice {
                         this.addCapability("measure_power");
                     }
                     break;
+                case "cur_voltage":
+                    if (!this.hasCapability("measure_voltage")) {
+                        this.homey.log("addCapability measure_voltage");
+                        this.addCapability("measure_voltage");
+                    }
+                    break;
+                case "cur_current":
+                    if (!this.hasCapability("measure_current")) {
+                        this.homey.log("addCapability measure_current");
+                        this.addCapability("measure_current");
+                    }
+                    break;
+                case "add_ele":
+                    if (!this.hasCapability("meter_power")) {
+                        this.homey.log("addCapability meter_power");
+                        this.addCapability("meter_power");
+                    }
+                    break;
             }
         }
     }
@@ -93,6 +111,15 @@ class TuyaSocketDevice extends TuyaBaseDevice {
         for (var statusMap of statusArr) {
             if (statusMap.code === 'cur_power') {
                 this.setCapabilityValue("measure_power", statusMap.value/10).catch(this.error);
+            }
+            if (statusMap.code === 'cur_voltage') {
+                this.setCapabilityValue("measure_voltage", statusMap.value/10).catch(this.error);
+            }
+            if (statusMap.code === 'cur_current') {
+                this.setCapabilityValue("measure_current", statusMap.value/1000).catch(this.error);
+            }
+            if (statusMap.code === 'add_ele') {
+                this.setCapabilityValue("meter_power", statusMap.value/1000).catch(this.error);
             }
         }
     }

@@ -84,6 +84,15 @@ class TuyaSocketDriver extends TuyaBaseDriver {
                     if (func.code === "cur_power") {
                         capabilities.push("measure_power");
                     }
+                    if (func.code === "cur_voltage") {
+                        capabilities.push("measure_voltage");
+                    }
+                    if (func.code === "cur_current") {
+                        capabilities.push("measure_current");
+                    }
+                    if (func.code === "add_ele") {
+                        capabilities.push("meter_power");
+                    }
                 }
 
                 devices.push({
