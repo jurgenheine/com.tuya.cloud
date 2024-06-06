@@ -35,7 +35,7 @@ class TuyaAirConditionerDevice extends TuyaBaseDevice {
         this.log("Air conditioner capabilities changed by Homey: " + JSON.stringify(valueObj));
         try {
             if (valueObj.target_temperature != null) {
-                this.set_target_temperature(valueObj.target_temperature*10);
+                this.set_target_temperature(valueObj.target_temperature);
             }
             if (valueObj.onoff != null) {
                 this.set_on_off(valueObj.onoff === true || valueObj.onoff === 1);
@@ -62,7 +62,7 @@ class TuyaAirConditionerDevice extends TuyaBaseDevice {
                     }
                     break;
                 case 'temp_set':
-                    this.normalAsync('target_temperature', status.value/10);
+                    this.normalAsync('target_temperature', status.value);
                     break;
                 case 'temp_current':
                     this.normalAsync('measure_temperature', status.value);
