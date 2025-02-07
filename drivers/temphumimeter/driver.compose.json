@@ -1,0 +1,21 @@
+{
+  "name": {
+    "en": "Temperature and Humidity sensor",
+    "nl": "Temperatuur en luchtvochtigheid sensor"
+  },
+  "class": "sensor",
+  "capabilities": [
+    "measure_humidity",
+    "measure_temperature",
+    "measure_battery"
+  ],
+  "$extends": [ "defaults" ],
+  "energy": {
+    "batteries": ["AA"]
+  },
+  "images": {
+    "small": "{{driverAssetsPath}}/images/small.png",
+    "large": "{{driverAssetsPath}}/images/large.png",
+    "xlarge": "{{driverAssetsPath}}/images/xlarge.png"
+  }
+}

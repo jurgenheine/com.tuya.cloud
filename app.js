@@ -193,6 +193,8 @@ class TuyaCloudApp extends Homey.App {
 
     getTypeDriver(type) {
         switch (type) {
+            case 'temphumimeter':
+                return this.homey.drivers.getDriver('temphumimeter');
             case 'light':
                 return this.homey.drivers.getDriver('tuyalight');
             case 'socket':
