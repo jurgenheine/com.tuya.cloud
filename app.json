@@ -1166,6 +1166,49 @@
     },
     {
       "images": {
+        "small": "/drivers/temphumimeter/assets/images/small.png",
+        "large": "/drivers/temphumimeter/assets/images/large.png",
+        "xlarge": "/drivers/temphumimeter/assets/images/xlarge.png"
+      },
+      "icon": "/drivers/temphumimeter/assets/icon.svg",
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
+      "pair": [
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ],
+      "name": {
+        "en": "Temperature and Humidity sensor",
+        "nl": "Temperatuur en luchtvochtigheid sensor"
+      },
+      "class": "sensor",
+      "capabilities": [
+        "measure_humidity",
+        "measure_temperature",
+        "measure_battery"
+      ],
+      "energy": {
+        "batteries": [
+          "AA"
+        ]
+      },
+      "id": "temphumimeter"
+    },
+    {
+      "images": {
         "large": "/drivers/thermostat/assets/images/large.png",
         "small": "/drivers/thermostat/assets/images/small.png"
       },
