@@ -163,5 +163,8 @@
   },
   "1.1.24": {
     "en": "New devices"
+  },
+  "1.1.25": {
+    "en": "Added Temperature and Humidity Sensor & RGB Light type"
   }
 }
