@@ -1,26 +1,25 @@
 'use strict';
 
 const TuyaBaseDevice = require('../tuyabasedevice');
-const Utils = require('./utils');
 
-class PowerMeterDevice extends TuyaBaseDevice {
+class TuyaEnergyMeterDevice extends TuyaBaseDevice {
 
     onInit() {
         this.initDevice(this.getData().id);
         this.setDeviceConfig(this.get_deviceConfig());
-        this.log(`Power meter ${this.getName()} has been initialized`);
+        this.log(`Tuya energy meter ${this.getName()} has been initialized`);
     }
 
     setDeviceConfig(deviceConfig) {
         if (deviceConfig != null) {
-            this.log("set power meter device config: " + JSON.stringify(deviceConfig));
+            this.log("set energy meter device config: " + JSON.stringify(deviceConfig));
             let statusArr = deviceConfig.status ? deviceConfig.status : [];
             this.updateCapabilities(statusArr);
         }
     }
 
     updateCapabilities(statusArr) {
-        this.log("Update power meter capabilities from Tuya: " + JSON.stringify(statusArr));
+        this.log("Update energy meter capabilities from Tuya: " + JSON.stringify(statusArr));
         if (!statusArr) {
             return;
         }
@@ -53,7 +52,7 @@ class PowerMeterDevice extends TuyaBaseDevice {
             }
         }
         
-        // Multi-phase power meter, so calculate the total from the individual phases.
+        // Multi-phase energy meter, so calculate the total from the individual phases.
         if (this.hasCapability("measure_power.l1"))
         {
             let totalPower = Number(this.getCapabilityValue("measure_power.l1")) ?? 0.0;
@@ -84,4 +83,4 @@ class PowerMeterDevice extends TuyaBaseDevice {
     }
 }
 
-module.exports = PowerMeterDevice;
+module.exports = TuyaEnergyMeterDevice;

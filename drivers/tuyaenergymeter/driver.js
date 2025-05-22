@@ -2,10 +2,10 @@
 
 const TuyaBaseDriver = require('../tuyabasedriver');
 
-class PowerMeterDriver extends TuyaBaseDriver {
+class TuyaEnergyMeterDriver extends TuyaBaseDriver {
 
     onInit() {
-        this.log('Power meter driver has been initialized');
+        this.log('Tuya energy meter driver has been initialized');
     }
 
     async onPairListDevices() {
@@ -14,8 +14,8 @@ class PowerMeterDriver extends TuyaBaseDriver {
             throw new Error("Please configure the app first.");
         }
         else {
-            let powerMeters = this.get_devices_by_type("powerMeter");
-            for (let tuyaDevice of Object.values(powerMeters)) {
+            let energyMeters = this.get_devices_by_type("energyMeter");
+            for (let tuyaDevice of Object.values(energyMeters)) {
                 let capabilities = [];
                 let capabilitiesOptions = {};
 
@@ -69,4 +69,4 @@ class PowerMeterDriver extends TuyaBaseDriver {
     }
 }
 
-module.exports = PowerMeterDriver;
+module.exports = TuyaEnergyMeterDriver;

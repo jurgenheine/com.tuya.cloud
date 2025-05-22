@@ -81,7 +81,7 @@ class TuyaBaseDriver extends Homey.Driver {
             "category":['wk']
         },
         {
-            "type": "powerMeter",
+            "type": "energyMeter",
             "category":['dlq']
         }
     ];

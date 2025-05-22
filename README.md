@@ -31,6 +31,7 @@ Again, go to forum for latest info on this issue
 * Presense sensor
 * Air conditioner
 * (W'eau/Fairland) Pool heat pump → make sure the device is in DP Instruction mode!
+* Electrical energy meter
 
 ### Not supported devices or functions
 

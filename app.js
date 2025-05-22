@@ -233,9 +233,9 @@ class TuyaCloudApp extends Homey.App {
                 //contact sensor
             case 'poolheatpump':
                 return this.homey.drivers.getDriver('poolheatpump');
-            case 'powerMeter':
-                return this.homey.drivers.getDriver('powermeter');
-                //power meter
+            case 'energyMeter':
+                return this.homey.drivers.getDriver('tuyaenergymeter');
+                //energy meter
             default:
                 break;
         }
