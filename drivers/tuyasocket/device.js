@@ -33,6 +33,12 @@ class TuyaSocketDevice extends TuyaBaseDevice {
                         this.addCapability("measure_power");
                     }
                     break;
+                case "add_ele":
+                    if (!this.hasCapability("meter_power")) {
+                        this.homey.log("addCapability meter_power");
+                        this.addCapability("meter_power");
+                    }
+                    break;
             }
         }
     }
@@ -94,6 +100,9 @@ class TuyaSocketDevice extends TuyaBaseDevice {
             if (statusMap.code === 'cur_power') {
                 this.setCapabilityValue("measure_power", statusMap.value/10).catch(this.error);
             }
+            if (statusMap.code === 'add_ele') {
+                this.addMeterPower(statusMap.value);
+            }
         }
     }
 
@@ -133,6 +142,16 @@ class TuyaSocketDevice extends TuyaBaseDevice {
                 }
             ]
         };
+    }
+
+    addMeterPower(delta_value) {
+        this.getCapabilityValue("meter_power").then((value) => {
+            if (value == null || value === undefined) {
+                value = 0.0;
+            }
+            value += Number(delta_value) / 1000.0; // Convert to kWh
+            this.setCapabilityValue("meter_power", value).catch(this.error);
+        });
     }
 }
 
