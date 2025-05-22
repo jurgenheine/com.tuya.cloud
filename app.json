@@ -1500,6 +1500,122 @@
     },
     {
       "images": {
+        "large": "/drivers/tuyaenergymeter/assets/images/large.png",
+        "small": "/drivers/tuyaenergymeter/assets/images/small.png"
+      },
+      "icon": "/drivers/tuyaenergymeter/assets/icon.svg",
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
+      "pair": [
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ],
+      "name": {
+        "en": "Power Meter"
+      },
+      "class": "sensor",
+      "capabilities": [
+        "meter_power",
+        "measure_power",
+        "measure_power.l1",
+        "measure_power.l2",
+        "measure_power.l3",
+        "measure_current.l1",
+        "measure_current.l2",
+        "measure_current.l3",
+        "measure_voltage.l1",
+        "measure_voltage.l2",
+        "measure_voltage.l3"
+      ],
+      "capabilitiesOptions": {
+        "measure_power": {
+          "title": {
+            "en": "Power total",
+            "nl": "Vermogen totaal"
+          },
+          "decimals": 2
+        },
+        "measure_power.l1": {
+          "title": {
+            "en": "Power L1",
+            "nl": "Vermogen L1"
+          },
+          "decimals": 2
+        },
+        "measure_power.l2": {
+          "title": {
+            "en": "Power L2",
+            "nl": "Vermogen L2"
+          },
+          "decimals": 2
+        },
+        "measure_power.l3": {
+          "title": {
+            "en": "Power L3",
+            "nl": "Vermogen L3"
+          },
+          "decimals": 2
+        },
+        "measure_current.l1": {
+          "title": {
+            "en": "Current L1",
+            "nl": "Stroom L1"
+          },
+          "decimals": 2
+        },
+        "measure_current.l2": {
+          "title": {
+            "en": "Current L2",
+            "nl": "Stroom L2"
+          },
+          "decimals": 2
+        },
+        "measure_current.l3": {
+          "title": {
+            "en": "Current L3",
+            "nl": "Stroom L3"
+          },
+          "decimals": 2
+        },
+        "measure_voltage.l1": {
+          "title": {
+            "en": "Voltage L1",
+            "nl": "Spanning L1"
+          },
+          "decimals": 2
+        },
+        "measure_voltage.l2": {
+          "title": {
+            "en": "Voltage L2",
+            "nl": "Spanning L2"
+          },
+          "decimals": 2
+        },
+        "measure_voltage.l3": {
+          "title": {
+            "en": "Voltage L3",
+            "nl": "Spanning L3"
+          },
+          "decimals": 2
+        }
+      },
+      "id": "tuyaenergymeter"
+    },
+    {
+      "images": {
         "large": "/drivers/tuyagaragedooropener/assets/images/large.png",
         "small": "/drivers/tuyagaragedooropener/assets/images/small.png"
       },

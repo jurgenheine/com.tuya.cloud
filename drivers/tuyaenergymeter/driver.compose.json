@@ -2,8 +2,10 @@
   "name": {
     "en": "Power Meter"
   },
-  "class": "other",
+  "class": "sensor",
   "capabilities": [
+    "meter_power",
+    
 		"measure_power",
 
 		"measure_power.l1",

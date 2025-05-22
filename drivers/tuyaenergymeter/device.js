@@ -19,36 +19,43 @@ class TuyaEnergyMeterDevice extends TuyaBaseDevice {
     }
 
     updateCapabilities(statusArr) {
-        this.log("Update energy meter capabilities from Tuya: " + JSON.stringify(statusArr));
         if (!statusArr) {
             return;
         }
+        this.log("Update energy meter capabilities from Tuya: " + JSON.stringify(statusArr));
+        let phaseValue = null;
         for (var statusMap of statusArr) {
-            if (statusMap.code === 'phase_a') {
-                const phaseValue = this.decodeMeterReading(statusMap.value);
+            switch (statusMap.code) {
+                case "forward_energy_total":
+                case "total_forward_energy":
+                    this.setCapabilityValue("meter_power", (Number(statusMap.value) / 100.0)).catch(this.error);
+                    break;
+                case 'phase_a':
+                    phaseValue = this.decodeMeterReading(statusMap.value);
 
-                if (this.hasCapability("measure_power.l1")) this.setCapabilityValue("measure_power.l1", phaseValue.power).catch(this.error);
-                else this.setCapabilityValue("measure_power", phaseValue.power).catch(this.error);
+                    if (this.hasCapability("measure_power.l1")) this.setCapabilityValue("measure_power.l1", phaseValue.power).catch(this.error);
+                    else this.setCapabilityValue("measure_power", phaseValue.power).catch(this.error);
 
-                if (this.hasCapability("measure_current")) this.setCapabilityValue("measure_current", phaseValue.current).catch(this.error);
-                else this.setCapabilityValue("measure_current.l1", phaseValue.current).catch(this.error);
+                    if (this.hasCapability("measure_current")) this.setCapabilityValue("measure_current", phaseValue.current).catch(this.error);
+                    else this.setCapabilityValue("measure_current.l1", phaseValue.current).catch(this.error);
 
-                if (this.hasCapability("measure_voltage")) this.setCapabilityValue("measure_voltage", phaseValue.voltage).catch(this.error);
-                else this.setCapabilityValue("measure_voltage.l1", phaseValue.voltage).catch(this.error);
-            }
-            if (statusMap.code === 'phase_b') {
-                const phaseValue = this.decodeMeterReading(statusMap.value);
+                    if (this.hasCapability("measure_voltage")) this.setCapabilityValue("measure_voltage", phaseValue.voltage).catch(this.error);
+                    else this.setCapabilityValue("measure_voltage.l1", phaseValue.voltage).catch(this.error);
+                    break;
+                case 'phase_b':
+                    phaseValue = this.decodeMeterReading(statusMap.value);
 
-                this.setCapabilityValue("measure_power.l2", phaseValue.power).catch(this.error);
-                this.setCapabilityValue("measure_current.l2", phaseValue.current).catch(this.error);
-                this.setCapabilityValue("measure_voltage.l2", phaseValue.voltage).catch(this.error);
-            }
-            if (statusMap.code === 'phase_c') {
-                const phaseValue = this.decodeMeterReading(statusMap.value);
+                    this.setCapabilityValue("measure_power.l2", phaseValue.power).catch(this.error);
+                    this.setCapabilityValue("measure_current.l2", phaseValue.current).catch(this.error);
+                    this.setCapabilityValue("measure_voltage.l2", phaseValue.voltage).catch(this.error);
+                    break;
+                case 'phase_c':
+                    phaseValue = this.decodeMeterReading(statusMap.value);
 
-                this.setCapabilityValue("measure_power.l3", phaseValue.power).catch(this.error);
-                this.setCapabilityValue("measure_current.l3", phaseValue.current).catch(this.error);
-                this.setCapabilityValue("measure_voltage.l3", phaseValue.voltage).catch(this.error);
+                    this.setCapabilityValue("measure_power.l3", phaseValue.power).catch(this.error);
+                    this.setCapabilityValue("measure_current.l3", phaseValue.current).catch(this.error);
+                    this.setCapabilityValue("measure_voltage.l3", phaseValue.voltage).catch(this.error);
+                    break;
             }
         }
         

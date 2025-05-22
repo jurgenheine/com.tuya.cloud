@@ -45,6 +45,9 @@ class TuyaEnergyMeterDriver extends TuyaBaseDriver {
                         }
                     }
                 }
+                if (this.supportsEnergyMeter(tuyaDevice.status)) {
+                    capabilities.push("meter_power");
+                }
                 devices.push({
                     data: {
                         id: tuyaDevice.id
@@ -56,6 +59,15 @@ class TuyaEnergyMeterDriver extends TuyaBaseDriver {
             }
         }
         return devices.sort(TuyaBaseDriver._compareHomeyDevice);
+    }
+
+    supportsEnergyMeter(statusArr) {
+        for (var statusMap of statusArr) {
+            if (statusMap.code === 'forward_energy_total' || statusMap.code === 'total_forward_energy') {
+                return true;
+            }
+        }
+        return false;
     }
 
     isMultiPhaseDevice(statusArr) {
