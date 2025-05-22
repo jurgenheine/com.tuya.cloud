@@ -17,14 +17,14 @@ class TuyaSocketDevice extends TuyaBaseDevice {
         if (deviceConfig != null) {
             console.log("set socket device config: " + JSON.stringify(deviceConfig));
             let statusArr = deviceConfig.status ? deviceConfig.status : [];
-            this.correctMeasurePowerCapability(statusArr);
+            this.correctCapabilities(statusArr);
             let capabilities = this.getCustomCapabilities(DataUtil.getSubService(statusArr));
             this.updateCapabilities(statusArr);
             this.registerMultipleCapabilityListener(capabilities, async (values, options) => { return this._onMultipleCapabilityListener(values, options); }, CAPABILITIES_SET_DEBOUNCE);
         }
     }
 
-    correctMeasurePowerCapability(statusArr) {
+    correctCapabilities(statusArr) {
         for (var statusMap of statusArr) {
             switch (statusMap.code) {
                 case "cur_power":
@@ -145,13 +145,12 @@ class TuyaSocketDevice extends TuyaBaseDevice {
     }
 
     addMeterPower(delta_value) {
-        this.getCapabilityValue("meter_power").then((value) => {
-            if (value == null || value === undefined) {
-                value = 0.0;
-            }
-            value += Number(delta_value) / 1000.0; // Convert to kWh
-            this.setCapabilityValue("meter_power", value).catch(this.error);
-        });
+        let value = this.getCapabilityValue("meter_power");
+        if (value === null || value === undefined) {
+            value = 0.0;
+        }
+        value += Number(delta_value) / 1000.0; // Convert to kWh
+        this.setCapabilityValue("meter_power", value).catch(this.error);
     }
 }
 
