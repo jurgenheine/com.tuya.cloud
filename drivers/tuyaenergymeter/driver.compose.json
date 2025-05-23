@@ -1,6 +1,6 @@
 {
   "name": {
-    "en": "Power Meter"
+    "en": "Energy Meter (1P/3P)"
   },
   "class": "sensor",
   "capabilities": [
