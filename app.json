@@ -1526,7 +1526,7 @@
       "name": {
         "en": "Energy Meter (1P/3P)"
       },
-      "class": "sensor",
+      "class": "socket",
       "capabilities": [
         "meter_power",
         "measure_power",
