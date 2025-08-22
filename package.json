@@ -6,7 +6,7 @@
   "dependencies": {
     "@clubedaentrega/cipher": "^1.0.0",
     "aes-decrypter": "^3.1.3",
-    "axios": "^0.21.1",
+    "axios": "^0.30.0",
     "chai": "^4.3.6",
     "crypto-js": "^4.0.0",
     "everpolate": "0.0.3",
