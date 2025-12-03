@@ -14,7 +14,7 @@ class TuyaBaseDriver extends Homey.Driver {
         },
         {
             "type": "light",
-            "category": ['dj', 'dd', 'fwd', 'tgq', 'xdd', 'dc', 'tgkg','sxd','tyndj','mbd','gyd']
+            "category": ['dj', 'dd', 'fwd', 'tgq', 'xdd', 'dc', 'tgkg','sxd','tyndj','mbd','gyd', 'xktyd']
         },
         {
             "type": "temphumimeter",
