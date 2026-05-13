@@ -79,6 +79,10 @@ class TuyaBaseDriver extends Homey.Driver {
         {
             "type": "thermostat",
             "category":['wk']
+        },
+        {
+            "type": "petFeeder",
+            "category": ['cwwsq']
         }
     ];
 

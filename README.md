@@ -1,5 +1,8 @@
-# ${{\color{red}I\ am\ stopped\ with\ developping\ this\ app.\ I\ moved\ to\ Home\ Assistant.\}}$
-There is currently no new app developer yet. If somebody is making a PR, I will merge and publish it to the appstore.
+# Tuya Cloud — continued by Marlon Kerstens
+
+This project was originally developed by [Jurgen Heine](https://github.com/jurgenheine), who has stopped development and moved to Home Assistant. Development is now continued by **Marlon Kerstens** (marlon_kerstens@live.nl).
+
+The original repository remains at [jurgenheine/com.tuya.cloud](https://github.com/jurgenheine/com.tuya.cloud). This fork is the actively maintained version.
 
 # Look first at [Homey community forum](https://community.homey.app/t/app-pro-tuya-cloud/21313) for answeres and support. 
 On the community forum you can get answeres and support for your issues by me or other users. This site is only for sourcecode, contribution, development bugs and new device requests. Configuration problems are not development bugs!!! Problems with configuration are mostly not following the Tuya manual correctly, copy-paste errors or expired subscription. This app is only sending the values requested by Tuya top operate your device. Me and other contributors are not working for Tuya or Athom and are not responsible for changes on their platform.
@@ -31,6 +34,7 @@ Again, go to forum for latest info on this issue
 * Presense sensor
 * Air conditioner
 * (W'eau/Fairland) Pool heat pump → make sure the device is in DP Instruction mode!
+* Pet Feeder
 
 ### Not supported devices or functions
 

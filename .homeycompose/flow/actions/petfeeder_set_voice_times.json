@@ -1,0 +1,24 @@
+{
+  "title": {
+    "en": "Pet feeder: set voice prompts",
+    "nl": "Voerautomaat: stel stemoproepen in"
+  },
+  "args": [
+    {
+      "name": "device",
+      "type": "device",
+      "filter": "driver_id=tuyapetfeeder"
+    },
+    {
+      "name": "voice_times",
+      "type": "number",
+      "title": {
+        "en": "Voice prompts (0-5)",
+        "nl": "Stemoproepen (0-5)"
+      },
+      "min": 0,
+      "max": 5,
+      "step": 1
+    }
+  ]
+}

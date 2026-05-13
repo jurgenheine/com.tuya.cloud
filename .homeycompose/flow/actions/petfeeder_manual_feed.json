@@ -1,0 +1,24 @@
+{
+  "title": {
+    "en": "Pet feeder: manual feed",
+    "nl": "Voerautomaat: handmatig voeren"
+  },
+  "args": [
+    {
+      "name": "device",
+      "type": "device",
+      "filter": "driver_id=tuyapetfeeder"
+    },
+    {
+      "name": "portions",
+      "type": "number",
+      "title": {
+        "en": "Portions (1-50)",
+        "nl": "Porties (1-50)"
+      },
+      "min": 1,
+      "max": 50,
+      "step": 1
+    }
+  ]
+}

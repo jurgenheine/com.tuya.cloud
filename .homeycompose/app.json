@@ -10,14 +10,17 @@
     "nl": "Deze app laat je connectie maken met de Tuya cloud"
   },
   "category": "lights",
-  "version": "1.1.26",
+  "version": "1.1.27",
   "compatibility": ">=12.0.0",
   "author": {
-    "name": "Jurgen Heine",
-    "email": "jurgen2.heine@gmail.com"
+    "name": "Marlon Kerstens",
+    "email": "marlon_kerstens@live.nl"
   },
   "contributors": {
     "developers": [
+      {
+        "name": "Marlon Kerstens"
+      },
       {
         "name": "Jurgen Heine"
       },
@@ -39,10 +42,10 @@
     ]
   },
   "bugs": {
-    "url": "https://github.com/jurgenheine/com.tuya.cloud/issues"
+    "url": "https://github.com/marlonkerstens/com.tuya.cloud/issues"
   },
-  "source": "https://github.com/jurgenheine/com.tuya.cloud",
-  "homepage": "https://github.com/jurgenheine/com.tuya.cloud/blob/master/README.md",
+  "source": "https://github.com/marlonkerstens/com.tuya.cloud",
+  "homepage": "https://github.com/marlonkerstens/com.tuya.cloud/blob/master/README.md",
   "homeyCommunityTopicId": 21313,
   "permissions": [],
   "images": {

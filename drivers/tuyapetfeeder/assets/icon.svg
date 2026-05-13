@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <!-- Hopper (food reservoir) -->
+  <path d="M38,5 L62,5 L62,8 Q62,10 60,10 L40,10 Q38,10 38,8 Z" fill="#000"/>
+  <path d="M40,10 L60,10 L66,32 L34,32 Z" fill="#000" opacity="0.85"/>
+
+  <!-- Main body -->
+  <rect x="30" y="32" width="40" height="36" rx="6" ry="6" fill="#000"/>
+
+  <!-- Screen / display panel -->
+  <rect x="36" y="38" width="28" height="14" rx="3" ry="3" fill="#fff" fill-opacity="0.15"/>
+
+  <!-- Dispenser chute -->
+  <path d="M44,68 L44,74 L56,74 L56,68 Z" fill="#000" opacity="0.7"/>
+
+  <!-- Bowl -->
+  <path d="M22,82 Q22,95 50,95 Q78,95 78,82 L72,76 Q65,80 50,80 Q35,80 28,76 Z" fill="#000" opacity="0.5"/>
+  <path d="M28,76 Q35,72 50,72 Q65,72 72,76 L56,74 L44,74 Z" fill="#000" opacity="0.8"/>
+
+  <!-- Paw print on body -->
+  <circle cx="50" cy="50" r="4" fill="#fff" fill-opacity="0.25"/>
+  <circle cx="43" cy="44" r="2.2" fill="#fff" fill-opacity="0.25"/>
+  <circle cx="50" cy="42" r="2.2" fill="#fff" fill-opacity="0.25"/>
+  <circle cx="57" cy="44" r="2.2" fill="#fff" fill-opacity="0.25"/>
+</svg>

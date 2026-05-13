@@ -1,0 +1,13 @@
+{
+  "type": "enum",
+  "title": { "en": "Feeding state", "nl": "Voederstatus" },
+  "desc": { "en": "Current feeding state of the pet feeder", "nl": "Huidige voederstatus van de voerautomaat" },
+  "values": [
+    { "id": "standby", "title": { "en": "Standby", "nl": "Stand-by" } },
+    { "id": "feeding", "title": { "en": "Feeding", "nl": "Voeren" } },
+    { "id": "done",    "title": { "en": "Done",    "nl": "Klaar" } }
+  ],
+  "getable": true,
+  "setable": false,
+  "uiComponent": "sensor"
+}

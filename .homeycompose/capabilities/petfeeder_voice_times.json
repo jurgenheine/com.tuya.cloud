@@ -1,0 +1,12 @@
+{
+  "type": "number",
+  "title": { "en": "Voice prompts", "nl": "Stemoproepen" },
+  "desc": { "en": "Number of voice prompts played when feeding", "nl": "Aantal stemoproepen bij het voeren" },
+  "getable": true,
+  "setable": true,
+  "uiComponent": "slider",
+  "min": 0,
+  "max": 5,
+  "step": 1,
+  "decimals": 0
+}

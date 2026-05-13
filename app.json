@@ -11,7 +11,7 @@
     "nl": "Deze app laat je connectie maken met de Tuya cloud"
   },
   "category": "lights",
-  "version": "1.1.26",
+  "version": "1.1.27",
   "compatibility": ">=12.0.0",
   "author": {
     "name": "Jurgen Heine",
@@ -111,6 +111,49 @@
           }
         ],
         "id": "buttonPressed"
+      },
+      {
+        "title": {
+          "en": "Pet feeder: feeding state changed",
+          "nl": "Voerautomaat: voederstatus gewijzigd"
+        },
+        "titleFormatted": {
+          "en": "Pet feeder feeding state changed to [[feed_state]]",
+          "nl": "Voerautomaat voederstatus gewijzigd naar [[feed_state]]"
+        },
+        "tokens": [
+          {
+            "name": "feed_state",
+            "type": "string",
+            "title": {
+              "en": "State",
+              "nl": "Status"
+            },
+            "example": "done"
+          }
+        ],
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=tuyapetfeeder"
+          }
+        ],
+        "id": "petfeeder_feed_state_changed"
+      },
+      {
+        "title": {
+          "en": "Pet feeder: feeding completed",
+          "nl": "Voerautomaat: voeren voltooid"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=tuyapetfeeder"
+          }
+        ],
+        "id": "petfeeder_feeding_done"
       },
       {
         "title": {
@@ -478,6 +521,92 @@
       }
     ],
     "actions": [
+      {
+        "title": {
+          "en": "Pet feeder: manual feed",
+          "nl": "Voerautomaat: handmatig voeren"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=tuyapetfeeder"
+          },
+          {
+            "name": "portions",
+            "type": "number",
+            "title": {
+              "en": "Portions (1-50)",
+              "nl": "Porties (1-50)"
+            },
+            "min": 1,
+            "max": 50,
+            "step": 1
+          }
+        ],
+        "id": "petfeeder_manual_feed"
+      },
+      {
+        "title": {
+          "en": "Pet feeder: quick feed",
+          "nl": "Voerautomaat: snel voeren"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=tuyapetfeeder"
+          }
+        ],
+        "id": "petfeeder_quick_feed"
+      },
+      {
+        "title": {
+          "en": "Pet feeder: set meal plan (JSON)",
+          "nl": "Voerautomaat: stel voederschema in (JSON)"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=tuyapetfeeder"
+          },
+          {
+            "name": "meal_plan_json",
+            "type": "text",
+            "title": {
+              "en": "Meal plan JSON",
+              "nl": "Voederschema JSON"
+            }
+          }
+        ],
+        "id": "petfeeder_set_meal_plan"
+      },
+      {
+        "title": {
+          "en": "Pet feeder: set voice prompts",
+          "nl": "Voerautomaat: stel stemoproepen in"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=tuyapetfeeder"
+          },
+          {
+            "name": "voice_times",
+            "type": "number",
+            "title": {
+              "en": "Voice prompts (0-5)",
+              "nl": "Stemoproepen (0-5)"
+            },
+            "min": 0,
+            "max": 5,
+            "step": 1
+          }
+        ],
+        "id": "petfeeder_set_voice_times"
+      },
       {
         "title": {
           "en": "Send false command",
@@ -1617,6 +1746,50 @@
     },
     {
       "images": {
+        "large": "/drivers/tuyapetfeeder/assets/images/large.png",
+        "small": "/drivers/tuyapetfeeder/assets/images/small.png"
+      },
+      "icon": "/drivers/tuyapetfeeder/assets/icon.svg",
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
+      "pair": [
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ],
+      "name": {
+        "en": "Pet Feeder",
+        "nl": "Huisdier Voerautomaat"
+      },
+      "class": "other",
+      "capabilities": [
+        "quick_feed",
+        "petfeeder_feed_state",
+        "measure_feed_report",
+        "measure_battery",
+        "alarm_battery"
+      ],
+      "energy": {
+        "batteries": [
+          "OTHER"
+        ]
+      },
+      "id": "tuyapetfeeder"
+    },
+    {
+      "images": {
         "large": "/drivers/tuyapir/assets/images/large.png",
         "small": "/drivers/tuyapir/assets/images/small.png"
       },
@@ -2030,6 +2203,84 @@
         }
       ]
     },
+    "measure_feed_report": {
+      "type": "number",
+      "title": {
+        "en": "Daily portions dispensed",
+        "nl": "Dagelijks uitgedeelde porties"
+      },
+      "units": {
+        "en": "portions",
+        "nl": "porties"
+      },
+      "desc": {
+        "en": "Total number of portions dispensed today",
+        "nl": "Totaal aantal uitgedeelde porties vandaag"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "decimals": 0,
+      "insights": true
+    },
+    "petfeeder_feed_state": {
+      "type": "enum",
+      "title": {
+        "en": "Feeding state",
+        "nl": "Voederstatus"
+      },
+      "desc": {
+        "en": "Current feeding state of the pet feeder",
+        "nl": "Huidige voederstatus van de voerautomaat"
+      },
+      "values": [
+        {
+          "id": "standby",
+          "title": {
+            "en": "Standby",
+            "nl": "Stand-by"
+          }
+        },
+        {
+          "id": "feeding",
+          "title": {
+            "en": "Feeding",
+            "nl": "Voeren"
+          }
+        },
+        {
+          "id": "done",
+          "title": {
+            "en": "Done",
+            "nl": "Klaar"
+          }
+        }
+      ],
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor"
+    },
+    "petfeeder_voice_times": {
+      "type": "number",
+      "title": {
+        "en": "Voice prompts",
+        "nl": "Stemoproepen"
+      },
+      "desc": {
+        "en": "Number of voice prompts played when feeding",
+        "nl": "Aantal stemoproepen bij het voeren"
+      },
+      "getable": true,
+      "setable": true,
+      "uiComponent": "slider",
+      "min": 0,
+      "max": 5,
+      "step": 1,
+      "decimals": 0
+    },
     "poolheatpump_mode": {
       "type": "enum",
       "title": {
@@ -2101,6 +2352,16 @@
       "step": 1,
       "decimals": 0,
       "insights": true
+    },
+    "quick_feed": {
+      "type": "boolean",
+      "title": {
+        "en": "Quick Feed",
+        "nl": "Snel voeren"
+      },
+      "getable": false,
+      "setable": true,
+      "uiComponent": "button"
     },
     "thermostat_heater_mode": {
       "type": "enum",

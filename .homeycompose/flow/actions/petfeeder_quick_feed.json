@@ -1,0 +1,13 @@
+{
+  "title": {
+    "en": "Pet feeder: quick feed",
+    "nl": "Voerautomaat: snel voeren"
+  },
+  "args": [
+    {
+      "name": "device",
+      "type": "device",
+      "filter": "driver_id=tuyapetfeeder"
+    }
+  ]
+}
