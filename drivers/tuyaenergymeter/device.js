@@ -36,11 +36,11 @@ class TuyaEnergyMeterDevice extends TuyaBaseDevice {
                     if (this.hasCapability("measure_power.l1")) this.setCapabilityValue("measure_power.l1", phaseValue.power).catch(this.error);
                     else this.setCapabilityValue("measure_power", phaseValue.power).catch(this.error);
 
-                    if (this.hasCapability("measure_current")) this.setCapabilityValue("measure_current", phaseValue.current).catch(this.error);
-                    else this.setCapabilityValue("measure_current.l1", phaseValue.current).catch(this.error);
+                    if (this.hasCapability("measure_current.l1")) this.setCapabilityValue("measure_current.l1", phaseValue.current).catch(this.error);
+                    else this.setCapabilityValue("measure_current", phaseValue.current).catch(this.error);
 
-                    if (this.hasCapability("measure_voltage")) this.setCapabilityValue("measure_voltage", phaseValue.voltage).catch(this.error);
-                    else this.setCapabilityValue("measure_voltage.l1", phaseValue.voltage).catch(this.error);
+                    if (this.hasCapability("measure_voltage.l1")) this.setCapabilityValue("measure_voltage.l1", phaseValue.voltage).catch(this.error);
+                    else this.setCapabilityValue("measure_voltage", phaseValue.voltage).catch(this.error);
                     break;
                 case 'phase_b':
                     phaseValue = this.decodeMeterReading(statusMap.value);
@@ -62,15 +62,19 @@ class TuyaEnergyMeterDevice extends TuyaBaseDevice {
         // Multi-phase energy meter, so calculate the total from the individual phases.
         if (this.hasCapability("measure_power.l1"))
         {
-            let totalPower = Number(this.getCapabilityValue("measure_power.l1")) ?? 0.0;
-            if (this.hasCapability("measure_power.l2")) totalPower += this.getCapabilityValue("measure_power.l2");
-            if (this.hasCapability("measure_power.l3")) totalPower += this.getCapabilityValue("measure_power.l3");
+            let totalPower = Number(this.getCapabilityValue("measure_power.l1")) || 0.0;
+            if (this.hasCapability("measure_power.l2")) totalPower += Number(this.getCapabilityValue("measure_power.l2")) || 0.0;
+            if (this.hasCapability("measure_power.l3")) totalPower += Number(this.getCapabilityValue("measure_power.l3")) || 0.0;
             this.setCapabilityValue("measure_power", totalPower).catch(this.error);
         }
     }
 
     decodeMeterReading(value) {
         // Decoding value from datapoint 6 which is base64-based (manually activated)
+        // NOTE: current/power are read as 16-bit values at fixed offsets (bytes 3-4 and
+        // 6-7). Tuya may encode these as 3-byte fields, so extreme readings (>~65A / ~65kW)
+        // could be truncated. Verified correct against the actual device readings; revisit
+        // this decode if a device ever reports out-of-range or clearly wrong values.
         const valueDecoded = Buffer.from(value, 'base64');
       
         // Calculating Voltage from base64-decoded value

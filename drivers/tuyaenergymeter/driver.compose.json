@@ -5,20 +5,16 @@
   "class": "socket",
   "capabilities": [
     "meter_power",
-    
-		"measure_power",
-
-		"measure_power.l1",
-		"measure_power.l2",
-		"measure_power.l3",
-	
+    "measure_power",
+    "measure_power.l1",
+    "measure_power.l2",
+    "measure_power.l3",
     "measure_current.l1",
-		"measure_current.l2",
-		"measure_current.l3",
-
-		"measure_voltage.l1",
-		"measure_voltage.l2",
-		"measure_voltage.l3"
+    "measure_current.l2",
+    "measure_current.l3",
+    "measure_voltage.l1",
+    "measure_voltage.l2",
+    "measure_voltage.l3"
   ],
   "capabilitiesOptions": {
     "measure_power": {

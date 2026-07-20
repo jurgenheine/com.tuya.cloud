@@ -20,6 +20,10 @@ class TuyaSocketDevice extends TuyaBaseDevice {
             this.correctCapabilities(statusArr);
             let capabilities = this.getCustomCapabilities(DataUtil.getSubService(statusArr));
             this.updateCapabilities(statusArr);
+            // Mark init complete: the call above processes the full status snapshot, and
+            // add_ele must not be accumulated from it (see updateCapabilities). Only live
+            // MQTT delta updates that arrive after this point should add to meter_power.
+            this._energyInitialized = true;
             this.registerMultipleCapabilityListener(capabilities, async (values, options) => { return this._onMultipleCapabilityListener(values, options); }, CAPABILITIES_SET_DEBOUNCE);
         }
     }
@@ -101,7 +105,12 @@ class TuyaSocketDevice extends TuyaBaseDevice {
                 this.setCapabilityValue("measure_power", statusMap.value/10).catch(this.error);
             }
             if (statusMap.code === 'add_ele') {
-                this.addMeterPower(statusMap.value);
+                // add_ele is an incremental (delta) datapoint. Only accumulate it on live
+                // updates — skip the initial config snapshot, otherwise the last reported
+                // increment would be re-added (drifting upward) on every app restart.
+                if (this._energyInitialized) {
+                    this.addMeterPower(statusMap.value);
+                }
             }
         }
     }
