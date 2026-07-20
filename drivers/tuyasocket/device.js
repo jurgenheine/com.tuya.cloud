@@ -17,20 +17,30 @@ class TuyaSocketDevice extends TuyaBaseDevice {
         if (deviceConfig != null) {
             console.log("set socket device config: " + JSON.stringify(deviceConfig));
             let statusArr = deviceConfig.status ? deviceConfig.status : [];
-            this.correctMeasurePowerCapability(statusArr);
+            this.correctCapabilities(statusArr);
             let capabilities = this.getCustomCapabilities(DataUtil.getSubService(statusArr));
             this.updateCapabilities(statusArr);
+            // Mark init complete: the call above processes the full status snapshot, and
+            // add_ele must not be accumulated from it (see updateCapabilities). Only live
+            // MQTT delta updates that arrive after this point should add to meter_power.
+            this._energyInitialized = true;
             this.registerMultipleCapabilityListener(capabilities, async (values, options) => { return this._onMultipleCapabilityListener(values, options); }, CAPABILITIES_SET_DEBOUNCE);
         }
     }
 
-    correctMeasurePowerCapability(statusArr) {
+    correctCapabilities(statusArr) {
         for (var statusMap of statusArr) {
             switch (statusMap.code) {
                 case "cur_power":
                     if (!this.hasCapability("measure_power")) {
                         this.homey.log("addCapability measure_power");
                         this.addCapability("measure_power");
+                    }
+                    break;
+                case "add_ele":
+                    if (!this.hasCapability("meter_power")) {
+                        this.homey.log("addCapability meter_power");
+                        this.addCapability("meter_power");
                     }
                     break;
             }
@@ -94,6 +104,14 @@ class TuyaSocketDevice extends TuyaBaseDevice {
             if (statusMap.code === 'cur_power') {
                 this.setCapabilityValue("measure_power", statusMap.value/10).catch(this.error);
             }
+            if (statusMap.code === 'add_ele') {
+                // add_ele is an incremental (delta) datapoint. Only accumulate it on live
+                // updates — skip the initial config snapshot, otherwise the last reported
+                // increment would be re-added (drifting upward) on every app restart.
+                if (this._energyInitialized) {
+                    this.addMeterPower(statusMap.value);
+                }
+            }
         }
     }
 
@@ -133,6 +151,15 @@ class TuyaSocketDevice extends TuyaBaseDevice {
                 }
             ]
         };
+    }
+
+    addMeterPower(delta_value) {
+        let value = this.getCapabilityValue("meter_power");
+        if (value === null || value === undefined) {
+            value = 0.0;
+        }
+        value += Number(delta_value) / 1000.0; // Convert to kWh
+        this.setCapabilityValue("meter_power", value).catch(this.error);
     }
 }
 

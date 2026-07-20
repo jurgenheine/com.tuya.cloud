@@ -6,7 +6,8 @@
   "class": "socket",
   "capabilities": [
     "onoff",
-    "measure_power"
+    "measure_power",
+    "meter_power"
   ],
   "$extends": [ "defaults" ]
 }
